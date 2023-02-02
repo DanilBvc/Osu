@@ -1,3 +1,4 @@
+import Footer from '../../components/footer/Footer';
 import InfoPanel from '../../components/infoPanel/InfoPanel';
 import MainButton from '../../components/mainButton/MainButton';
 import MainMenu from '../../components/mainMenu/MainMenu';
@@ -12,7 +13,7 @@ function MainPage(): JSX.Element {
         <MainButton />
         <MainMenu />
       </div>
-
+      <Footer />
     </main>
 
   );
