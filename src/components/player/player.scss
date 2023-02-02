@@ -1,0 +1,74 @@
+.player {
+
+  padding: 5px 15px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  border-radius: 7px;
+  flex-basis: 50%;
+
+  &-trackname {
+    align-self: end;
+  }
+
+  &-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-self: end;
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+
+
+    button {
+      cursor: pointer;
+      border: 0;
+      padding: 0;
+      background-color: transparent;
+    }
+  }
+}
+
+
+.progress-bar {
+  background-color: #d5907d(255, 255, 255, 0.39);
+  width: 100%;
+  cursor: pointer;
+}
+
+.progress-track {
+  width: 0px;
+  height: 5px;
+  margin: 0;
+}
+
+
+
+
+
+
+
+
+
+
+input[type='range'] {
+  overflow: hidden;
+
+  -webkit-appearance: none;
+  background-color: #fff;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  width: 10px;
+  -webkit-appearance: none;
+  height: 5px;
+  cursor: pointer;
+  background: #28b09e;
+  box-shadow: -1000px 0 0 1000px #28b09e;
+}
