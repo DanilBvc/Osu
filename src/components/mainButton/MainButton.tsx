@@ -1,6 +1,6 @@
 import './mainButton.scss';
 
-export default function MainButton() {
+export default function MainButton(): JSX.Element {
   return (
     <div className="button_container">
       <div className="bg" />

@@ -10,7 +10,7 @@ import {
   pauseIcon
 } from '../../assets/playersIcons/icons';
 
-export default function Player() {
+export default function Player(): JSX.Element {
   const [progress, setProgress] = useState<string>('0');
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);

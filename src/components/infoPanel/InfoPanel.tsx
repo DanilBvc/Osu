@@ -1,4 +1,3 @@
-import React from 'react';
 import Player from '../player/Player';
 import PlayerCard from '../playerCard/PlayerCard';
 import './infoPanel.scss';
