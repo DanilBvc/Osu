@@ -1,8 +1,20 @@
-import React from 'react';
+import InfoPanel from '../../components/infoPanel/InfoPanel';
+import MainButton from '../../components/mainButton/MainButton';
+import MainMenu from '../../components/mainMenu/MainMenu';
 
-function MainPage() {
+import './mainPage.scss';
+
+function MainPage(): JSX.Element {
   return (
-    <div>MainPage</div>
+    <main className="main">
+      <InfoPanel />
+      <div className="wrapper">
+        <MainButton />
+        <MainMenu />
+      </div>
+
+    </main>
+
   );
 }
 
