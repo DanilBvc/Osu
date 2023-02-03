@@ -6,4 +6,5 @@ export interface userDataState {
   performance: number | null;
   accuracy: number | null;
   lvl: number | null;
+  uuid: string | null;
 }

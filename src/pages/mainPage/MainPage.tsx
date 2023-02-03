@@ -1,7 +1,14 @@
+/* eslint-disable import/order */
 /* eslint-disable max-len */
 import React, { useEffect } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
+import Footer from '../../components/footer/Footer';
+import InfoPanel from '../../components/infoPanel/InfoPanel';
+import MainButton from '../../components/mainButton/MainButton';
+import MainMenu from '../../components/mainMenu/MainMenu';
+
+import './mainPage.scss';
 import {
   collection, doc, getDoc, getDocs
 } from 'firebase/firestore';
@@ -11,6 +18,7 @@ import { auth, db } from '../../firebase/firebase';
 import setUserData from '../../store/actionCreators/userData/setUserData';
 import AddMap from '../../components/addMap/AddMap';
 import setNewMap from '../../store/actionCreators/mapsData/setNewMap';
+import RegisterCmponents from '../../components/Register/RegisterCmponents';
 
 function MainPage() {
   const {
@@ -59,15 +67,14 @@ function MainPage() {
   return (
     <div>
       {isAuth ? (
-        <div>
-          <div>{email}</div>
-          <div>{avatar ? <img src={avatar} alt="" /> : null}</div>
-          <div>{name}</div>
-          <div>{accuracy}</div>
-          <div>{lvl}</div>
-          <div>{performance}</div>
-          <button onClick={() => { signOut(auth); }} type="submit">Logout</button>
-        </div>
+        <main className="main">
+          <InfoPanel />
+          <div className="wrapper">
+            <MainButton />
+            <MainMenu />
+          </div>
+          <Footer />
+        </main>
       ) : <LoginComponent />}
 
     </div>

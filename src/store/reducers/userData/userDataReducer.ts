@@ -30,6 +30,7 @@ const userDataReducer = (state: userDataState = initialUserData, action: {
       state.accuracy = null;
       state.lvl = null;
       state.performance = null;
+      state.uuid = null;
       return state;
     }
     default: return state;

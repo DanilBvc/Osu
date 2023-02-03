@@ -8,5 +8,6 @@ const initialUserData: userDataState = {
   performance: null,
   accuracy: null,
   lvl: null,
+  uuid: null,
 };
 export default initialUserData;
