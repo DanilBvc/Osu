@@ -6,28 +6,33 @@
 import React, { useState } from 'react';
 import './LoginComponentStyles.scss';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase/firebase';
+import { auth, db } from '../../firebase/firebase';
 import setUserData from '../../store/actionCreators/userData/setUserData';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { doc, getDoc } from 'firebase/firestore';
+import mapsDataReducer from '../../store/reducers/mapsData/mapsDataReducer';
+import IReducers from '../../types/reducers/reducersType';
 
 function LoginComponent() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const handleLogin = (email: string, password: string) => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const { user } = userCredential;
-        if (user.email !== null && user.accessToken !== null && user.displayName !== null && user.photoURL !== null) {
-          dispatch(setUserData({
-            name: user.displayName, email: user.email, avatar: user.photoURL, accessToken: user.accessToken,
-          }));
-        }
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
+  const state = useSelector((state: IReducers) => console.log(state.mapsDataReducer));
+  const handleLogin = async (email: string, password: string) => {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const { user } = userCredential;
+    const docRef = doc(db, 'users', user.uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const userData = docSnap.data();
+      if (user.email !== null && user.accessToken !== null && user.displayName !== null && user.photoURL !== null) {
+        dispatch(setUserData({
+          name: user.displayName, email: user.email, avatar: user.photoURL, accessToken: user.accessToken, performance: userData.performance, accuracy: userData.accuracy, lvl: userData.lvl, uuid: user.uid,
+        }));
+      }
+    } else {
+      console.log('No such document!');
+    }
   };
 
   return (

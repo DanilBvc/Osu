@@ -5,5 +5,8 @@ const initialUserData: userDataState = {
   email: null,
   avatar: null,
   accessToken: null,
+  performance: null,
+  accuracy: null,
+  lvl: null,
 };
 export default initialUserData;

@@ -7,6 +7,10 @@ const saveUserData = (store: userDataState) => (next: Dispatch) => (action: {
     email: string;
     avatar: string;
     accessToken: string;
+    performance: number;
+    accuracy: number;
+    lvl: number;
+    uuid: string;
   };
 }) => {
   // тут сохранять данные пользователя при перезагрузке

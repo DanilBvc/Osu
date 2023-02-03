@@ -16,7 +16,6 @@ function RegisterCmponents() {
   const [name, setName] = useState('');
   const [file, setFile] = useState<Blob>();
   const dispatch = useDispatch();
-  const state = useSelector((state: userDataState) => state);
   const handleFile = (e: React.FormEvent) => {
     const { files } = e.target as HTMLInputElement;
     if (files && files.length > 0) {
@@ -40,6 +39,9 @@ function RegisterCmponents() {
                 displayName: name,
                 email,
                 photoURL: downloadURL,
+                performance: 0,
+                accuracy: 0,
+                lvl: 0,
               });
             } catch (err) {
               console.log(err);
@@ -50,7 +52,7 @@ function RegisterCmponents() {
       const { user } = userCredential;
       if (user.email !== null && user.accessToken !== null && user.photoURL !== null && user.displayName !== null) {
         dispatch(setUserData({
-          name: user.displayName, email: user.email, avatar: user.photoURL, accessToken: user.accessToken,
+          name: user.displayName, email: user.email, avatar: user.photoURL, accessToken: user.accessToken, performance: 0, accuracy: 0, lvl: 0, uuid: user.uid,
         }));
       }
     } catch (err) {
@@ -63,7 +65,6 @@ function RegisterCmponents() {
         <p>Регистрация</p>
         <div>
           <p>Имя</p>
-          {state.email ? state.email : ''}
           <input value={name} onChange={(e) => { setName(e.target.value); }} type="text" required />
         </div>
         <div>

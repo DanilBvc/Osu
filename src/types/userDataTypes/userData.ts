@@ -3,4 +3,7 @@ export interface userDataState {
   email: string | null;
   avatar: string | null;
   accessToken: string | null;
+  performance: number | null;
+  accuracy: number | null;
+  lvl: number | null;
 }
