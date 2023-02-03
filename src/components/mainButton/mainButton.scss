@@ -1,0 +1,75 @@
+.button_container {
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  border: 15px solid white;
+  display: flex;
+  background: rgb(61, 111, 162);
+  background: linear-gradient(275deg, rgba(61, 111, 162, 1) 0%, rgba(246, 130, 144, 1) 32%, rgba(32, 98, 56, 1) 70%, rgba(237, 226, 165, 1) 100%);
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 10px 10px 30px black;
+  position: relative;
+  animation: scale 2s ease infinite;
+  z-index: 99999;
+
+  .bg,
+  .bg2,
+  .bg3 {
+    background: rgb(61, 111, 162);
+    background: linear-gradient(90deg, rgba(61, 111, 162, 1) 0%, rgba(246, 130, 144, 1) 32%, rgba(32, 98, 56, 1) 70%, rgba(237, 226, 165, 1) 100%);
+    width: 100%;
+    z-index: -99;
+    position: absolute;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: 10px 10px 50px rgb(254, 144, 144);
+    animation: pulse 2s ease infinite;
+  }
+
+  .button {
+    border: 0;
+    background: transparent;
+    font-size: 100px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 99;
+    cursor: pointer;
+    outline: none;
+  }
+}
+
+
+@keyframes pulse {
+  0% {
+    transform: scale(1.1);
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+}
+
+
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}

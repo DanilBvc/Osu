@@ -1,0 +1,174 @@
+@import '../../globalStyles/variables.scss';
+
+
+
+.main__menu {
+  width: 600px;
+  position: absolute;
+  transition: all 1s;
+  left: 48%;
+  right: 0;
+  top: 30%;
+  bottom: 0;
+  animation: show 3s ease;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+  }
+
+  &-item {
+    list-style: none;
+    border-radius: 0 10px 10px 0;
+    text-align: right;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 30px;
+    background: $button;
+    transition: all 1s;
+    position: relative;
+
+    .border {
+      position: absolute;
+      z-index: 99999;
+      transition: all 3s;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    .border:hover::before {
+      content: "";
+      z-index: -1;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(150deg, rgba(78, 202, 153, 1) 0%, rgba(205, 217, 164, 1) 32%, rgba(31, 79, 103, 1) 70%, rgba(217, 175, 174, 1) 100%);
+      transform: translate3d(-7px, 20px, 0) scale(0.95);
+      filter: blur(20px);
+      opacity: var(0.7);
+      transition: opacity 0.3s;
+      border-radius: inherit;
+    }
+
+    .border:hover::after {
+      content: "";
+      z-index: -1;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: inherit;
+      border-radius: inherit;
+    }
+
+    span {
+      color: #fff;
+      transition: all 2s;
+    }
+
+    transition: color 0.25s transform 1s;
+
+    &::before,
+    &::after {
+      box-sizing: inherit;
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    &::before,
+    &::after {
+      border: 3px solid transparent;
+      width: 0;
+      height: 0;
+    }
+
+    &::before {
+      top: 0;
+      left: 0;
+    }
+
+    &::after {
+      bottom: 0;
+      right: 0;
+    }
+
+  }
+
+  &-item:hover {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, rgb(30 43 53 / 93%) 1%, rgb(86 196 132) 47%, rgb(48, 74, 199) 100%);
+
+    span {
+      transition: all 1s;
+      color: rgb(21, 7, 206);
+
+      font-size: 35px;
+      display: block;
+
+    }
+
+
+    &:hover {
+      color: $green;
+    }
+
+    &:hover::before,
+    &:hover::after {
+      width: 100%;
+      height: 100%;
+    }
+
+    &:hover::before {
+      border-top-color: $green;
+      border-right-color: $green;
+      border-radius: 0 10px 10px 0;
+      transition:
+        width 0.25s ease-out,
+        height 0.25s ease-out 0.25s;
+    }
+
+    &:hover::after {
+      border-bottom-color: $green;
+      border-left-color: $green;
+      border-radius: 0 10px 10px 0;
+      transition:
+        border-color 0s ease-out 0.5s,
+        width 0.25s ease-out 0.5s,
+        height 0.25s ease-out 0.75s;
+    }
+  }
+
+}
+
+@keyframes borderButton {
+  0% {
+    left: 0px;
+    top: -5px;
+    right: 800px;
+    bottom: -5px;
+  }
+
+  100% {
+    right: -5px;
+  }
+}
+
+@keyframes show {
+  0% {
+    width: 100px;
+  }
+
+  100% {
+    width: 500;
+  }
+}
