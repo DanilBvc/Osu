@@ -1,6 +1,12 @@
-@use 'fonts';
-@import './variables';
-
+@charset "UTF-8";
+/* aller */
+@font-face {
+  font-family: "Aller";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../assets/fonts/allercyrillic.eot"); /* IE9 Compat Modes */
+  src: url("../assets/fonts/allercyrillic.woff2") format("woff2"), url("../assets/fonts/allercyrillic.woff") format("woff"); /* Chrome 5+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
 /* Указываем box sizing */
 *,
 *::before,
@@ -11,12 +17,13 @@
   box-sizing: border-box;
 }
 
-html, 
+html,
 body {
   height: 100%;
-  font-family: 'Aller';
-  font-size: $font-small;
+  font-family: "Aller";
+  font-size: 14px;
 }
+
 #root {
   height: 100%;
 }
@@ -65,7 +72,8 @@ ol[class] {
 
 /* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
 a:not([class]) {
-  text-decoration-skip-ink: auto;
+  -webkit-text-decoration-skip: ink;
+          text-decoration-skip-ink: auto;
 }
 
 /* Упрощаем работу с изображениями */
@@ -85,4 +93,4 @@ button,
 textarea,
 select {
   font: inherit;
-}
+}/*# sourceMappingURL=global.css.map */
