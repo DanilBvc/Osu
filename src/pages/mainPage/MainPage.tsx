@@ -39,7 +39,7 @@ function MainPage() {
               name: user.displayName,
               email: user.email,
               avatar: user.photoURL,
-              accessToken: '',
+              accessToken: 'user.accessToken',
               performance: userData.performance,
               accuracy: userData.accuracy,
               lvl: userData.lvl,
