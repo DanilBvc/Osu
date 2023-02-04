@@ -9,7 +9,6 @@ const useUnSub = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
-      console.log(user);
       if (user) {
         const docRef = doc(db, 'users', user.uid);
         const docSnap = await getDoc(docRef);
