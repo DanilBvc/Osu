@@ -1,11 +1,12 @@
+/* eslint-disable no-await-in-loop */
 import uploadAlbumCover from './uploadAlbumCover';
 
 const uploadAdditionalPictures = async (id: string, files: File[]) => {
   const deployLink: string[] = [];
-  files.forEach(async (file) => {
-    const deployFile = await uploadAlbumCover(file, id, 'additionalPict');
+  for (let i = 0; i < files.length; i += 1) {
+    const deployFile = await uploadAlbumCover(files[i], id, 'additionalPict');
     deployLink.push(deployFile);
-  });
+  }
   return deployLink;
 };
 export default uploadAdditionalPictures;
