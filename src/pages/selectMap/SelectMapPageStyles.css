@@ -1,0 +1,188 @@
+@charset "UTF-8";
+.select-map-page-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.select-map-page-container__background {
+  position: relative;
+  width: 110%;
+  height: 110%;
+  filter: brightness(70%);
+  background-size: cover;
+  background-position: center;
+  transition: background 0.5s ease-out;
+}
+
+.select-map-page-container__songs-list {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  transform: translateY(-50%);
+  overflow-y: auto;
+  -ms-scroll-snap-type: y mandatory;
+      scroll-snap-type: y mandatory;
+  padding-right: -130px;
+  z-index: 1;
+}
+.select-map-page-container__songs-list::-webkit-scrollbar {
+  width: 0;
+}
+.select-map-page-container__songs-list .song-list-item-wrapper {
+  position: relative;
+  transform: translate(130px);
+}
+.select-map-page-container__songs-list .song-list-item {
+  width: 800px;
+  height: 100px;
+  display: flex;
+  color: #fff;
+  background: rgb(223, 70, 146);
+  opacity: 0.9;
+  transition: all 0.8s ease;
+  float: right;
+  cursor: pointer;
+  box-shadow: 0px 1px 2px 2px rgba(0, 0, 0, 0.4), 0px 2px 4px 2px rgba(0, 0, 0, 0.4), 0px 4px 8px 2px rgba(0, 0, 0, 0.4), 0px 8px 16px 2px rgba(0, 0, 0, 0.4);
+  transform: translate(0px);
+  margin: 0;
+  z-index: 3;
+}
+.select-map-page-container__songs-list .song-list-item .song-list-item__cover {
+  width: 130px;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.select-map-page-container__songs-list .song-list-item .song-list-item__info-list {
+  padding: 4px 8px;
+}
+.select-map-page-container__songs-list .active-item {
+  transform: translate(-100px);
+  margin: 10px 0;
+}
+.select-map-page-container__songs-list .selected-item {
+  transform: translate(-100px);
+  margin: 10px 0;
+  color: #000;
+  background: rgb(220, 220, 220);
+}
+.select-map-page-container__songs-list .stick-selected-item {
+  transform: translate(-130px);
+}
+
+.star-path {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  visibility: hidden;
+}
+
+.star-path-active {
+  display: block;
+  visibility: visible;
+}
+
+.star-path__star-item {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 1px;
+  height: 1px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 16px rgba(255, 255, 255, 0.5), 0 0 0 32px rgba(255, 255, 255, 0.5) 0 0 0 80px rgba(255, 255, 255, 0.5);
+  -webkit-animation: animate 3s linear infinite;
+          animation: animate 3s linear infinite;
+  z-index: 0;
+}
+
+.star-path__star-item::before {
+  content: "★";
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  color: #fff;
+  font-size: 50px;
+  text-shadow: 0 0 3px #fff, 0 0 5px #fff;
+}
+
+@-webkit-keyframes animate {
+  0% {
+    transform: translateX(0) rotate(0deg);
+  }
+  100% {
+    transform: translateX(-1500px) rotate(45deg);
+  }
+}
+
+@keyframes animate {
+  0% {
+    transform: translateX(0) rotate(0deg);
+  }
+  100% {
+    transform: translateX(-1500px) rotate(45deg);
+  }
+}
+.star-path__star-item:nth-child(1) {
+  top: 5px;
+  right: 40px;
+  -webkit-animation-delay: 0;
+          animation-delay: 0;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+}
+
+.star-path__star-item:nth-child(2) {
+  top: 10px;
+  right: 80px;
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+}
+
+.star-path__star-item:nth-child(3) {
+  top: 35px;
+  right: 120px;
+  -webkit-animation-delay: 0.6s;
+          animation-delay: 0.6s;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+}
+
+.star-path__star-item:nth-child(4) {
+  top: 45px;
+  right: 180px;
+  -webkit-animation-delay: 0.7s;
+          animation-delay: 0.7s;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+}
+
+.star-path__star-item:nth-child(5) {
+  top: 55px;
+  right: 400px;
+  -webkit-animation-delay: 1s;
+          animation-delay: 1s;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+}
+
+.star-path__star-item:nth-child(6) {
+  top: 65px;
+  right: 600px;
+  -webkit-animation-delay: 1.3s;
+          animation-delay: 1.3s;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+}/*# sourceMappingURL=SelectMapPageStyles.css.map */

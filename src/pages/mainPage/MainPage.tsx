@@ -33,7 +33,6 @@ function MainPage() {
         if (docSnap.exists()) {
           const userData = docSnap.data();
           if (user.email !== null
-
             && user.displayName !== null
             && user.photoURL !== null) {
             dispatch(setUserData({
