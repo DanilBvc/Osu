@@ -17,7 +17,6 @@ function LoginComponent() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const state = useSelector((state: IReducers) => console.log(state.mapsDataReducer));
   const handleLogin = async (email: string, password: string) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const { user } = userCredential;
