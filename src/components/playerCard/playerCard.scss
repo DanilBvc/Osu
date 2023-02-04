@@ -1,0 +1,37 @@
+@import '../../globalStyles/variables.scss';
+
+.playerCard {
+  display: flex;
+  gap: 10px;
+  padding: 0px 5px 5px 0;
+  justify-content: space-between;
+
+  &-avatar {
+    max-height: 120px;
+  }
+
+  &-info {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    text-align: left;
+  }
+
+  &-name {
+    font-size: 30px;
+  }
+
+  .lvl {
+    &-progress {
+      width: 30%;
+      background-color: $green;
+      height: 100%;
+    }
+
+    &-bar {
+      height: 6px;
+      background-color: #fff;
+      margin: 3px 0;
+    }
+  }
+}

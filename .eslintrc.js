@@ -35,10 +35,10 @@ module.exports = {
     'jest',
   ],
   rules: {
-    'linebreak-style': 0,
     /*
         JavaScript rules
       */
+    'linebreak-style': 0,
     'lines-between-class-members': [
       'error', 'always',
       { exceptAfterSingleLine: true },
