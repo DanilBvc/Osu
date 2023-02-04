@@ -50,9 +50,9 @@ function RegisterCmponents() {
         });
       }
       const { user } = userCredential;
-      if (user.email !== null && user.accessToken !== null && user.photoURL !== null && user.displayName !== null) {
+      if (user.email !== null && user.photoURL !== null && user.displayName !== null) {
         dispatch(setUserData({
-          name: user.displayName, email: user.email, avatar: user.photoURL, accessToken: user.accessToken, performance: 0, accuracy: 0, lvl: 0, uuid: user.uid,
+          name: user.displayName, email: user.email, avatar: user.photoURL, accessToken: '', performance: 0, accuracy: 0, lvl: 0, uuid: user.uid,
         }));
       }
     } catch (err) {
