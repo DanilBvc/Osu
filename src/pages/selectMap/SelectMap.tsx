@@ -14,6 +14,7 @@ import { auth, db } from '../../firebase/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import useUnSub from '../../customHooks/useUnSub';
 import PlayersStatisticList from '../../components/selectMap/playersStatisticList/PlayersStatisticList';
+import SelectMapPageFooter from '../../components/selectMap/footer/SelectMapPageFooter';
 
 function SelectMap() {
   const mapsData = useSelector((state: IReducers) => state.mapsDataReducer);
@@ -74,6 +75,7 @@ function SelectMap() {
           />
         ))}
       </ul>
+      <SelectMapPageFooter />
     </div>
   );
 }
