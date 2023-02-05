@@ -9,32 +9,63 @@
   gap: 20px;
   border-radius: 7px;
   flex-basis: 50%;
+  position: relative;
+
+
+  &-right {
+    flex-basis: 40%;
+  }
+
+  &-box {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    img {
+      width: 90px;
+    }
+
+  }
+
+  &-playlist {
+    list-style: none;
+    position: absolute;
+    bottom: -100px;
+  }
+
 
 
   svg {
-    fill: red
+    width: 20px;
+    height: 20px;
   }
+
 
   &-trackname {
     align-self: end;
   }
 
-  &-controls {
+  button {
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+    transition: all 1s;
+  }
+
+  button:hover {
+    transform: scale(1.3);
+  }
+
+
+
+  &-buttons {
     display: flex;
-    justify-content: center;
     gap: 10px;
-    align-self: end;
 
     img {
       width: 20px;
       height: 20px;
-    }
-
-    button {
-      cursor: pointer;
-      border: 0;
-      padding: 0;
-      background-color: transparent;
     }
   }
 }
