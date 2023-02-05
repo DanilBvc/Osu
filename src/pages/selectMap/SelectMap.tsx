@@ -13,12 +13,14 @@ import { collection, getDocs } from 'firebase/firestore';
 import { auth, db } from '../../firebase/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import useUnSub from '../../customHooks/useUnSub';
+import PlayersStatisticList from '../../components/selectMap/playersStatisticList/PlayersStatisticList';
 
 function SelectMap() {
   const mapsData = useSelector((state: IReducers) => state.mapsDataReducer);
   const stateUsers = useSelector((state: IReducers) => state.userDataReducer);
   const throttleInProgress = useRef(false);
   const [clickedSongListItemID, setClickedSongListItemID] = useState('dead batteries');
+  const [clickedSongListData, setClickedSongListData] = useState(mapsData[0]);
   // TODO: change to right bg image
   const [backgroundSource, setBackgroundSource] = useState(songsData[1011011].background);
   const dispatch = useDispatch();
@@ -32,7 +34,6 @@ function SelectMap() {
 
       querySnapshot.forEach((document) => {
         const mapsData = document.data();
-        console.log(mapsData);
         dispatch(setNewMap({
           mapName: mapsData.mapName,
           audio: mapsData.audio,
@@ -59,12 +60,14 @@ function SelectMap() {
           backgroundImage: `url(${backgroundSource})`,
         }}
       />
+      <PlayersStatisticList clickedSongListData={clickedSongListData} />
       <ul className="select-map-page-container__songs-list">
         {Object.values(mapsData).map((songData) => (
           <SongListItem
             songData={songData}
             clickedSongListItemID={clickedSongListItemID}
             setClickedSongListItemID={setClickedSongListItemID}
+            setClickedSongListData={setClickedSongListData}
             setBackgroundSource={setBackgroundSource}
             currentPageAudio={currentPageAudio}
             key={window.crypto.randomUUID()}

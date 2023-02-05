@@ -13,10 +13,14 @@ export interface ISongListItem {
   songData: IMapData;
   clickedSongListItemID: string;
   setClickedSongListItemID: React.Dispatch<React.SetStateAction<string>>;
+  setClickedSongListData: React.Dispatch<React.SetStateAction<IMapData>>;
   setBackgroundSource: React.Dispatch<React.SetStateAction<string>>;
   currentPageAudio: HTMLAudioElement;
 }
 export interface IStarAnimation {
   songID: string | null;
   clickedSongListItemID: string;
+}
+export interface IPlayersStatisticList {
+  clickedSongListData: IMapData;
 }
