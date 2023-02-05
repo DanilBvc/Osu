@@ -1,18 +1,22 @@
 import React from 'react';
+import IMapData from '../mapsDataTypes/mapsDataTypes';
 
 export interface ISongData {
-  name: string;
-  background: string;
+  mapName: string;
   audio: string;
-  ID: number;
+  albumCover: string;
+  topPlayers: string[];
+  additionalAudio: string[];
+  additionalPictures: string[];
 }
 export interface ISongListItem {
-  songData: ISongData;
+  songData: IMapData;
   clickedSongListItemID: string;
   setClickedSongListItemID: React.Dispatch<React.SetStateAction<string>>;
   setBackgroundSource: React.Dispatch<React.SetStateAction<string>>;
+  currentPageAudio: HTMLAudioElement;
 }
 export interface IStarAnimation {
-  songID: number;
+  songID: string | null;
   clickedSongListItemID: string;
 }
