@@ -1,0 +1,38 @@
+@import '../../../globalStyles/variables';
+
+.players-statistic-list-wrapper {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  color: #fff;
+  .players-statistic-list {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: $spacer-xs;
+  }
+  .players-statistic-list__item {
+    display: flex;
+    gap: $spacer-xs;
+    padding: $spacer-xs;
+    background-color: rgba($color: #000, $alpha: 0.3);
+    cursor: pointer;
+    &:hover {
+      background-color: rgba($color: #000, $alpha: 0.7);
+    }
+    .player-avatar-wrapper {
+      width: 50px;
+      height: 50px;
+      background: url(../../../assets/images/userAvatarPlaceholderImage.png);
+      background-size: cover;
+      background-position:  center;
+    }
+    .player-info {
+      .player-info__list {
+        text-transform: capitalize;
+      }
+    }
+  }
+}

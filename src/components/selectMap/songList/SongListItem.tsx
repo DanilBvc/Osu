@@ -10,6 +10,7 @@ function SongListItem(props: ISongListItem) {
     songData,
     clickedSongListItemID,
     setClickedSongListItemID,
+    setClickedSongListData,
     setBackgroundSource,
     currentPageAudio,
   } = props;
@@ -28,6 +29,7 @@ function SongListItem(props: ISongListItem) {
         onClick={(event) => {
           setBackgroundSource(songData.albumCover);
           songListItemClickHandler(event, setClickedSongListItemID);
+          setClickedSongListData(songData);
           currentPageAudio.src = songData.audio as string;
           currentPageAudio.play();
         }}
