@@ -107,5 +107,6 @@ module.exports = {
     // 'react/react-in-jsx-scope': 'off',
     'import/no-dynamic-require': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
+    'react/self-closing-comp': 'off',
   },
 };
