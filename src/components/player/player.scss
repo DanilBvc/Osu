@@ -87,6 +87,7 @@ input[type='range'] {
 
   -webkit-appearance: none;
   background-color: #fff;
+  filter: drop-shadow(8px 7px 10px rgb(17, 0, 255));
 }
 
 input[type='range']::-webkit-slider-thumb {
@@ -94,6 +95,10 @@ input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none;
   height: 5px;
   cursor: pointer;
-  background: $green;
-  box-shadow: -1000px 0 0 1000px $green;
+  filter: contrast(200%);
+
+
+
+  background: $progress;
+  box-shadow: -1000px 0 0 1000px $progress;
 }

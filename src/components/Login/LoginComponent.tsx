@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { doc, getDoc } from 'firebase/firestore';
 import mapsDataReducer from '../../store/reducers/mapsData/mapsDataReducer';
 import IReducers from '../../types/reducers/reducersType';
+import { Link } from 'react-router-dom';
 
 function LoginComponent() {
   const [email, setEmail] = useState('');
@@ -35,7 +36,7 @@ function LoginComponent() {
   };
 
   return (
-    <div>
+    <div className="login">
       <div>
         <p>ВХОД</p>
         <div>
@@ -48,7 +49,7 @@ function LoginComponent() {
         </div>
       </div>
       <button onClick={() => { handleLogin(email, password); }} type="submit">Вход</button>
-      <p>Нету аккаунта?</p>
+      <Link to="/register">Нету Аккаунта? </Link>
     </div>
   );
 }
