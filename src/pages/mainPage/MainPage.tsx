@@ -2,11 +2,9 @@
 /* eslint-disable max-len */
 import React, { useEffect } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Footer from '../../components/footer/Footer';
 import InfoPanel from '../../components/infoPanel/InfoPanel';
-import MainButton from '../../components/mainButton/MainButton';
-import MainMenu from '../../components/mainMenu/MainMenu';
 
 import './mainPage.scss';
 import {
@@ -20,26 +18,18 @@ import AddMap from '../../components/addMap/AddMap';
 import setNewMap from '../../store/actionCreators/mapsData/setNewMap';
 import RegisterCmponents from '../../components/Register/RegisterCmponents';
 import useUnSub from '../../customHooks/useUnSub';
+import useGetMapsData from '../../customHooks/useGetMapsData';
+import IReducers from '../../types/reducers/reducersType';
+import BigButton from '../../components/bigButton/BigButton';
 
 function MainPage() {
-  const {
-    isAuth, email, avatar, name, accuracy, lvl, performance,
-  } = useAuth();
-  useUnSub();
   return (
-    <div>
-      {isAuth ? (
-        <main className="main">
-          <InfoPanel />
-          <div className="wrapper">
-            <MainButton />
-            <MainMenu />
-          </div>
-          <Footer />
-        </main>
-      ) : <LoginComponent />}
+    <main className="main">
+      <InfoPanel />
+      <BigButton />
+      <Footer />
+    </main>
 
-    </div>
   );
 }
 
