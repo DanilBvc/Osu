@@ -12,13 +12,14 @@ const mapsDataReducer = (state: IMapData[] = mapsDataState, action: {
     topPlayers: string[];
     additionalAudio: string[];
     additionalPictures: string[];
+    id: string;
   };
 }) => {
   switch (action.type) {
     case 'SET_NEW_MAP': {
       const { payload } = action;
       return [...state, {
-        mapName: payload.mapName, audio: payload.audio, albumCover: payload.albumCover, topPlayers: payload.topPlayers, additionalAudio: payload.additionalAudio, additionalPictures: payload.additionalPictures,
+        mapName: payload.mapName, audio: payload.audio, albumCover: payload.albumCover, topPlayers: payload.topPlayers, additionalAudio: payload.additionalAudio, additionalPictures: payload.additionalPictures, id: payload.id,
       }];
     }
     default: return state;

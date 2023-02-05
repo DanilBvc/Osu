@@ -17,6 +17,7 @@ const handleUploadData = async (
     topPlayers,
     additionalAudio,
     additionalPictures,
+    id,
   });
 };
 export default handleUploadData;

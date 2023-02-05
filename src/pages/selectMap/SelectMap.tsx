@@ -34,6 +34,7 @@ function SelectMap() {
       const querySnapshot = await getDocs(collection(db, 'maps'));
       querySnapshot.forEach((document) => {
         const mapsData = document.data();
+        console.log(mapsData);
         dispatch(setNewMap({
           mapName: mapsData.mapName,
           audio: mapsData.audio,
@@ -41,6 +42,7 @@ function SelectMap() {
           topPlayers: mapsData.topPlayers,
           additionalAudio: mapsData.additionalAudio,
           additionalPictures: mapsData.additionalPictures,
+          id: mapsData.id,
         }));
       });
     };

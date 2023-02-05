@@ -6,6 +6,7 @@ const setNewMap = (payload: {
   topPlayers: string[];
   additionalAudio: string[];
   additionalPictures: string[];
+  id: string;
 }) => ({
   type: actionType,
   payload,
