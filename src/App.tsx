@@ -7,6 +7,7 @@ import Game from './pages/Game/Game';
 import SelectMap from './pages/selectMap/SelectMap';
 import './globalStyles/global.scss';
 import AddMap from './components/addMap/AddMap';
+import RegisterCmponents from './components/Register/RegisterCmponents';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/404" element={<NotFound />} />
       <Route path="/game" element={<Game />} />
       <Route path="/selectMap" element={<SelectMap />} />
+      <Route path="/register" element={<RegisterCmponents />} />
       <Route path="/c" element={<AddMap />} />
     </Routes>
   );

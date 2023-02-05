@@ -7,5 +7,5 @@ import saveMapsData from './middleware/saveMapsData';
 
 const rootReducer = combineReducers({ userDataReducer, mapsDataReducer });
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const store = createStore(rootReducer, applyMiddleware(saveMapsData as any));
+const store = createStore(rootReducer);
 export default store;
