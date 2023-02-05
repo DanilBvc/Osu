@@ -1,5 +1,5 @@
 import React from 'react';
-import { IStarAnimation } from '../../../types/selectMapPageTypes';
+import { IStarAnimation } from '../../../types/selectMapPageTypes/selectMapPageTypes';
 
 function StarAnimation(props: IStarAnimation) {
   const { songID, clickedSongListItemID } = props;

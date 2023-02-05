@@ -15,23 +15,21 @@ import { onAuthStateChanged } from 'firebase/auth';
 import useUnSub from '../../customHooks/useUnSub';
 
 function SelectMap() {
+  const mapsData = useSelector((state: IReducers) => state.mapsDataReducer);
+  const stateUsers = useSelector((state: IReducers) => state.userDataReducer);
   const throttleInProgress = useRef(false);
-  const [clickedSongListItemID, setClickedSongListItemID] = useState('1011011');
+  const [clickedSongListItemID, setClickedSongListItemID] = useState('dead batteries');
+  // TODO: change to right bg image
   const [backgroundSource, setBackgroundSource] = useState(songsData[1011011].background);
   const dispatch = useDispatch();
+  const currentPageAudio = new Audio();
+
   useUnSub();
-  // eslint-disable-next-line @typescript-eslint/no-shadow
-  const state = useSelector((state: IReducers) => state.mapsDataReducer);
-  const stateUsers = useSelector((state: IReducers) => state.userDataReducer);
-  console.log(state);
-  console.log(stateUsers);
   useEffect(() => {
     const background = document.querySelector('.select-map-page-container__background') as HTMLDivElement;
-    document.addEventListener('mousemove', (event) => {
-      throttle(() => parallaxCreate(event, background), throttleInProgress, 25);
-    });
-    const getDat = async () => {
+    const getMapsData = async () => {
       const querySnapshot = await getDocs(collection(db, 'maps'));
+
       querySnapshot.forEach((document) => {
         const mapsData = document.data();
         dispatch(setNewMap({
@@ -44,7 +42,11 @@ function SelectMap() {
         }));
       });
     };
-    getDat();
+
+    document.addEventListener('mousemove', (event) => {
+      throttle(() => parallaxCreate(event, background), throttleInProgress, 25);
+    });
+    getMapsData();
   }, []);
 
   return (
@@ -56,12 +58,13 @@ function SelectMap() {
         }}
       />
       <ul className="select-map-page-container__songs-list">
-        {Object.values(songsData).map((songData) => (
+        {Object.values(mapsData).map((songData) => (
           <SongListItem
             songData={songData}
             clickedSongListItemID={clickedSongListItemID}
             setClickedSongListItemID={setClickedSongListItemID}
             setBackgroundSource={setBackgroundSource}
+            currentPageAudio={currentPageAudio}
             key={window.crypto.randomUUID()}
           />
         ))}
