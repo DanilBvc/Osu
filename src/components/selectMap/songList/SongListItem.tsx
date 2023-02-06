@@ -12,6 +12,7 @@ function SongListItem(props: ISongListItem) {
     setClickedSongListItemID,
     setClickedSongListData,
     setBackgroundSource,
+    setCurrentPageAudio,
     currentPageAudio,
   } = props;
 
@@ -31,6 +32,7 @@ function SongListItem(props: ISongListItem) {
           songListItemClickHandler(event, setClickedSongListItemID);
           setClickedSongListData(songData);
           currentPageAudio.src = songData.audio as string;
+          setCurrentPageAudio(currentPageAudio);
           currentPageAudio.play();
         }}
       >

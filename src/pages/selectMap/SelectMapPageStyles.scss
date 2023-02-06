@@ -6,15 +6,6 @@
   height: 100%;
   overflow: hidden;
 }
-.select-map-page-container__background {
-  position: relative;
-  width: 110%;
-  height: 110%;
-  filter: brightness(70%);
-  background-size: cover;
-  background-position:  center;
-  transition: background 0.5s ease-out;
-}
 .select-map-page-container__songs-list {
   position: absolute;
   top: 50%;

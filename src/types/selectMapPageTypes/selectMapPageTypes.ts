@@ -16,6 +16,7 @@ export interface ISongListItem {
   setClickedSongListData: React.Dispatch<React.SetStateAction<IMapData>>;
   setBackgroundSource: React.Dispatch<React.SetStateAction<string>>;
   currentPageAudio: HTMLAudioElement;
+  setCurrentPageAudio: React.Dispatch<React.SetStateAction<HTMLAudioElement>>;
 }
 export interface IStarAnimation {
   songID: string | null;
@@ -23,4 +24,11 @@ export interface IStarAnimation {
 }
 export interface IPlayersStatisticList {
   clickedSongListData: IMapData;
+}
+export interface IOsuButton {
+  path: string;
+  currentPageAudio: HTMLAudioElement;
+}
+export interface IParallaxBacground {
+  backgroundSource: string;
 }
