@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable import/order */
-import React, { useRef, useEffect, useState } from 'react';
-import parallaxCreate from '../../utils/parallaxCreate';
+import React, { useEffect, useState } from 'react';
 import './SelectMapPageStyles.scss';
-import throttle from '../../utils/throttle';
 import songsData from './songsData';
 import SongListItem from '../../components/selectMap/songList/SongListItem';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,22 +13,28 @@ import { onAuthStateChanged } from 'firebase/auth';
 import useUnSub from '../../customHooks/useUnSub';
 import PlayersStatisticList from '../../components/selectMap/playersStatisticList/PlayersStatisticList';
 import SelectMapPageFooter from '../../components/selectMap/footer/SelectMapPageFooter';
+import OsuButton from '../../components/selectMap/osuButton/OsuButton';
+import ParallaxBacground from '../../components/selectMap/parallaxBacground/ParallaxBacground';
 
 function SelectMap() {
   const mapsData = useSelector((state: IReducers) => state.mapsDataReducer);
   // TODO: delete stateUsers if it wont be used
   const stateUsers = useSelector((state: IReducers) => state.userDataReducer);
-  const throttleInProgress = useRef(false);
   const [clickedSongListItemID, setClickedSongListItemID] = useState('1119f01d-988f-0dfe-2f97-5c63b5da2aad');
   const [clickedSongListData, setClickedSongListData] = useState(mapsData[0]);
   // TODO: change to right bg image
   const [backgroundSource, setBackgroundSource] = useState(songsData[1011011].background);
   const dispatch = useDispatch();
-  const currentPageAudio = new Audio();
+  // const [currentPageAudio, setCurrentPageAudio] = useState(new Audio());
+  // TODO: change to right audio
+  const [currentPageAudio, setCurrentPageAudio] = useState(new Audio('/songs/682290.mp3'));
+
+  useEffect(() => {
+    currentPageAudio.play();
+  }, []);
 
   useUnSub();
   useEffect(() => {
-    const background = document.querySelector('.select-map-page-container__background') as HTMLDivElement;
     const getMapsData = async () => {
       const querySnapshot = await getDocs(collection(db, 'maps'));
 
@@ -48,20 +52,12 @@ function SelectMap() {
       });
     };
 
-    document.addEventListener('mousemove', (event) => {
-      throttle(() => parallaxCreate(event, background), throttleInProgress, 25);
-    });
     getMapsData();
   }, []);
 
   return (
     <div className="select-map-page-container">
-      <div
-        className="select-map-page-container__background"
-        style={{
-          backgroundImage: `url(${backgroundSource})`,
-        }}
-      />
+      <ParallaxBacground backgroundSource={backgroundSource} />
       <PlayersStatisticList clickedSongListData={clickedSongListData} />
       <ul className="select-map-page-container__songs-list">
         {Object.values(mapsData).map((songData) => (
@@ -72,11 +68,13 @@ function SelectMap() {
             setClickedSongListData={setClickedSongListData}
             setBackgroundSource={setBackgroundSource}
             currentPageAudio={currentPageAudio}
+            setCurrentPageAudio={setCurrentPageAudio}
             key={window.crypto.randomUUID()}
           />
         ))}
       </ul>
       <SelectMapPageFooter />
+      <OsuButton path="/game" currentPageAudio={currentPageAudio} />
     </div>
   );
 }

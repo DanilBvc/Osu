@@ -1,0 +1,28 @@
+@import '../../../globalStyles/variables';
+
+.osu-button {
+  position: absolute;
+  right: -40px;
+  bottom: -70px;
+  width: 290px;
+  height: 290px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 15px solid #fff;
+  border-radius: 50%;
+  background: url(../../../assets/images/osuButtonBacgroundImage.png);
+  background-size: contain;
+  background-position:  center;
+  box-shadow: $black-box-shadow;
+  z-index: 5;
+  &:hover {
+    transform: scale(1.2);
+  }
+  .osu-button__title {
+    color: #fff;
+    font-size: 110px;
+    font-weight: bold;
+    text-shadow: 1px 1px 4px rgba($color: #000000, $alpha: 0.5);
+  }
+}
