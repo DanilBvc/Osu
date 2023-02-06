@@ -5,5 +5,6 @@ interface IMapData {
   topPlayers: string[] | [];
   additionalAudio: string[] | [];
   additionalPictures: string[] | [];
+  id: string;
 }
 export default IMapData;

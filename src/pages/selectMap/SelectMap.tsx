@@ -18,9 +18,10 @@ import SelectMapPageFooter from '../../components/selectMap/footer/SelectMapPage
 
 function SelectMap() {
   const mapsData = useSelector((state: IReducers) => state.mapsDataReducer);
+  // TODO: delete stateUsers if it wont be used
   const stateUsers = useSelector((state: IReducers) => state.userDataReducer);
   const throttleInProgress = useRef(false);
-  const [clickedSongListItemID, setClickedSongListItemID] = useState('dead batteries');
+  const [clickedSongListItemID, setClickedSongListItemID] = useState('1119f01d-988f-0dfe-2f97-5c63b5da2aad');
   const [clickedSongListData, setClickedSongListData] = useState(mapsData[0]);
   // TODO: change to right bg image
   const [backgroundSource, setBackgroundSource] = useState(songsData[1011011].background);
