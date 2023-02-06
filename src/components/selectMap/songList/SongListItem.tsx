@@ -17,11 +17,11 @@ function SongListItem(props: ISongListItem) {
 
   return (
     <div className="song-list-item-wrapper">
-      <StarAnimation songID={songData.mapName} clickedSongListItemID={clickedSongListItemID} />
+      <StarAnimation songID={songData.id} clickedSongListItemID={clickedSongListItemID} />
       <li
-        className={`song-list-item ${String(songData.mapName) === clickedSongListItemID ? 'selected-item' : ''}`}
+        className={`song-list-item ${String(songData.id) === clickedSongListItemID ? 'selected-item' : ''}`}
         role="menuitem"
-        data-id={songData.mapName}
+        data-id={songData.id}
         onMouseEnter={(event) => {
           songListItemHoverHandler(event);
         }}
