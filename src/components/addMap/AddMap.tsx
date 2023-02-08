@@ -5,12 +5,14 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState } from 'react';
 import uuid from 'react-uuid';
+import JSZip from 'jszip';
 import uploadSoundTodb from '../../utils/uploadMap/uploadSound';
 import uploadAlbumCover from '../../utils/uploadMap/uploadAlbumCover';
 import uploadMapName from '../../utils/uploadMap/uploadMapName';
 import handleUploadData from '../../utils/uploadMap/handleUploadData';
 import uploadAdditonalSounds from '../../utils/uploadMap/uploadAdditionalAudio';
 import uploadAdditionalPictures from '../../utils/uploadMap/uploadAdditionalPictures';
+import getMapDataFromApi from '../../utils/api/getMapDataFromApi';
 
 function AddMap() {
   const [file, setFile] = useState<File>();
@@ -31,6 +33,7 @@ function AddMap() {
       setAlbumsCover(files[0]);
     }
   };
+  // getMapDataFromApi();
   const handleAdditionalSound = (e: React.FormEvent) => {
     const { files } = e.target as HTMLInputElement;
     if (files !== null) {
@@ -57,8 +60,10 @@ function AddMap() {
       handleUploadData(id, mapNames, audioLink, albumCover, ['billy', 'anrew', 'artem'], additionalAudio, additionalPictures);
     }
   };
+
   return (
     <div>
+      <div />
       <p>Upload sound</p>
       <input type="file" required onChange={(e) => { handleAudioFile(e); }} name="" id="" />
       <p>Upload album cover</p>

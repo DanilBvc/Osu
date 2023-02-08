@@ -1,11 +1,14 @@
+import { AudioFromApi, Images } from '../../../types/mapsDataTypes/mapsDataFromApiTypes';
+
 const actionType = 'SET_NEW_MAP';
 const setNewMap = (payload: {
   mapName: string;
   audio: string;
-  albumCover: string;
+  images: Images[];
   topPlayers: string[];
-  additionalAudio: string[];
-  additionalPictures: string[];
+  additionalAudio: AudioFromApi[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  mapData: any;
   id: string;
 }) => ({
   type: actionType,
