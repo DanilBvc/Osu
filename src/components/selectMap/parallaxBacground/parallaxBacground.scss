@@ -1,0 +1,11 @@
+@import '../../../globalStyles/variables';
+
+.select-map-page-container__background {
+  position: relative;
+  width: 110%;
+  height: 110%;
+  filter: brightness(70%);
+  background-size: cover;
+  background-position:  center;
+  transition: background 0.5s ease-out;
+}

@@ -9,5 +9,8 @@ interface IMapData {
   id: string | null;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   mapData: any;
+  additionalAudio: string[] | [];
+  additionalPictures: string[] | [];
+  id: string;
 }
 export default IMapData;

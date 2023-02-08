@@ -1,0 +1,42 @@
+@import '../../../globalStyles/variables';
+
+.select-map-page-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 120px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #000;
+  border-top: 4px solid rgb(49, 94, 237);
+  z-index: 4;
+  .previous-page-button-wrapper {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    .previous-page-button {
+      width: 130px;
+      height: 50px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: $spacer-xs;
+      color: #fff;
+      font-size: $font-medium;
+      background-color: $color-pink;
+      clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
+      transition: all 0.1s ease;
+      &:hover {
+        width: 180px;
+      }
+      .previous-page-button__icon {
+        width: 25px;
+        filter: drop-shadow( 1px 1px 8px rgba(0, 0, 0, .7));
+      }
+    }
+  }
+  .player-card-wrapper {
+    padding: 0 256px 0 $spacer-m;
+    color: #fff;
+  }
+}
