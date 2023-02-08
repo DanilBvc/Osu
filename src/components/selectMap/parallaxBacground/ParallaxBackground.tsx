@@ -1,12 +1,13 @@
 import React, { useEffect, useRef } from 'react';
-import { IParallaxBacground } from '../../../types/selectMapPageTypes/selectMapPageTypes';
+import { useSelector } from 'react-redux';
+import IReducers from '../../../types/reducers/reducersType';
 import parallaxCreate from '../../../utils/parallaxCreate';
 import throttle from '../../../utils/throttle';
-import './parallaxBacground.scss';
+import './parallaxBackground.scss';
 
-function ParallaxBacground(props: IParallaxBacground) {
-  const { backgroundSource } = props;
+function ParallaxBacground() {
   const throttleInProgress = useRef(false);
+  const backgroundSource = useSelector((state: IReducers) => state.backgroundSourceReducer);
 
   useEffect(() => {
     const background = document.querySelector('.select-map-page-container__background') as HTMLDivElement;

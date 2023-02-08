@@ -2,7 +2,6 @@
 /* eslint-disable import/order */
 import React, { useEffect, useState } from 'react';
 import './SelectMapPageStyles.scss';
-import songsData from './songsData';
 import SongListItem from '../../components/selectMap/songList/SongListItem';
 import { useDispatch, useSelector } from 'react-redux';
 import IReducers from '../../types/reducers/reducersType';
@@ -15,24 +14,20 @@ import { MapDataFromApi } from '../../types/mapsDataTypes/mapsDataFromApiTypes';
 import PlayersStatisticList from '../../components/selectMap/playersStatisticList/PlayersStatisticList';
 import SelectMapPageFooter from '../../components/selectMap/footer/SelectMapPageFooter';
 import OsuButton from '../../components/selectMap/osuButton/OsuButton';
-import ParallaxBacground from '../../components/selectMap/parallaxBacground/ParallaxBacground';
+import ParallaxBackground from '../../components/selectMap/parallaxBacground/ParallaxBackground';
 
 
 function SelectMap() {
   const mapsData = useSelector((state: IReducers) => state.mapsDataReducer);
   // TODO: delete stateUsers if it wont be used
   const stateUsers = useSelector((state: IReducers) => state.userDataReducer);
-  const [clickedSongListItemID, setClickedSongListItemID] = useState('1119f01d-988f-0dfe-2f97-5c63b5da2aad');
   const [clickedSongListData, setClickedSongListData] = useState(mapsData[0]);
   // TODO: change to right bg image
-  const [backgroundSource, setBackgroundSource] = useState(songsData[1011011].background);
   const dispatch = useDispatch();
-  // const [currentPageAudio, setCurrentPageAudio] = useState(new Audio());
-  // TODO: change to right audio
-  const [currentPageAudio, setCurrentPageAudio] = useState(new Audio('/songs/682290.mp3'));
 
+  // TODO: play starting audio
   useEffect(() => {
-    currentPageAudio.play();
+    // currentPageAudio.play();
   }, []);
 
   useUnSub();
@@ -103,24 +98,19 @@ function SelectMap() {
 
   return (
     <div className="select-map-page-container">
-      <ParallaxBacground backgroundSource={backgroundSource} />
+      <ParallaxBackground />
       <PlayersStatisticList clickedSongListData={clickedSongListData} />
       <ul className="select-map-page-container__songs-list">
         {Object.values(mapsData).map((songData) => (
           <SongListItem
             songData={songData}
-            clickedSongListItemID={clickedSongListItemID}
-            setClickedSongListItemID={setClickedSongListItemID}
             setClickedSongListData={setClickedSongListData}
-            setBackgroundSource={setBackgroundSource}
-            currentPageAudio={currentPageAudio}
-            setCurrentPageAudio={setCurrentPageAudio}
             key={window.crypto.randomUUID()}
           />
         ))}
       </ul>
       <SelectMapPageFooter />
-      <OsuButton path="/game" currentPageAudio={currentPageAudio} />
+      <OsuButton path="/game" />
     </div>
   );
 }
