@@ -4,7 +4,6 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
-import './LoginComponentStyles.scss';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from '../../firebase/firebase';
 import setUserData from '../../store/actionCreators/userData/setUserData';

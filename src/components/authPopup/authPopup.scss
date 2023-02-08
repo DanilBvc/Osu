@@ -1,4 +1,4 @@
-.login {
+.popup {
   position: absolute;
   width: 50%;
   background-color: #00000091;
@@ -10,8 +10,11 @@
   align-items: center;
   color: #fff;
   transition: all 3s;
+
+  text-align: center;
   animation: show 3s ease;
 }
+
 
 
 @keyframes show {
