@@ -1,11 +1,20 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from '@redux-devtools/extension';
 import userDataReducer from './reducers/userData/userDataReducer';
-import saveUserData from './middleware/saveUserData';
 import mapsDataReducer from './reducers/mapsData/mapsDataReducer';
-import saveMapsData from './middleware/saveMapsData';
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+import { backgroundSourceReducer } from './reducers/selectMapPage/backgroundSourceReducer';
+import { songIDReducer } from './reducers/selectMapPage/songIDReducer';
+import { currentAudioReducer } from './reducers/selectMapPage/currentAudioReducer';
 
-const rootReducer = combineReducers({ userDataReducer, mapsDataReducer });
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const store = createStore(rootReducer);
+const rootReducer = combineReducers(
+  {
+    userDataReducer,
+    mapsDataReducer,
+    backgroundSourceReducer,
+    songIDReducer,
+    currentAudioReducer,
+  }
+);
+const store = createStore(rootReducer, composeWithDevTools());
+
 export default store;
