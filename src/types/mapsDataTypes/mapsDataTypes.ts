@@ -1,9 +1,13 @@
+import { Images, AudioFromApi } from './mapsDataFromApiTypes';
+
 interface IMapData {
   mapName: string | null;
   audio: string | null;
-  albumCover: string;
+  images: Images[];
   topPlayers: string[] | [];
-  additionalAudio: string[] | [];
-  additionalPictures: string[] | [];
+  additionalAudio: AudioFromApi[] | [];
+  id: string | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  mapData: any;
 }
 export default IMapData;

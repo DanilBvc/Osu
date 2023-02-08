@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable default-param-last */
+import { AudioFromApi, Images } from '../../../types/mapsDataTypes/mapsDataFromApiTypes';
 import IMapData from '../../../types/mapsDataTypes/mapsDataTypes';
 import { userDataState } from '../../../types/userDataTypes/userData';
 import mapsDataState from '../../initialState/MapsDataState';
@@ -8,10 +9,11 @@ const mapsDataReducer = (state: IMapData[] = mapsDataState, action: {
   type: string; payload: {
     mapName: string;
     audio: string;
-    albumCover: string[];
+    images: Images[];
     topPlayers: string[];
-    additionalAudio: string[];
-    additionalPictures: string[];
+    additionalAudio: AudioFromApi[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    mapData: any;
     id: string;
   };
 }) => {
@@ -19,7 +21,13 @@ const mapsDataReducer = (state: IMapData[] = mapsDataState, action: {
     case 'SET_NEW_MAP': {
       const { payload } = action;
       return [...state, {
-        mapName: payload.mapName, audio: payload.audio, albumCover: payload.albumCover, topPlayers: payload.topPlayers, additionalAudio: payload.additionalAudio, additionalPictures: payload.additionalPictures, id: payload.id,
+        mapName: payload.mapName,
+        audio: payload.audio,
+        images: payload.images,
+        topPlayers: payload.topPlayers,
+        additionalAudio: payload.additionalAudio,
+        id: payload.id,
+        mapData: payload.mapData,
       }];
     }
     default: return state;

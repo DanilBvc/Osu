@@ -13,6 +13,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { auth, db } from '../../firebase/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import useUnSub from '../../customHooks/useUnSub';
+import { MapDataFromApi } from '../../types/mapsDataTypes/mapsDataFromApiTypes';
 
 function SelectMap() {
   const throttleInProgress = useRef(false);
@@ -24,7 +25,7 @@ function SelectMap() {
   const state = useSelector((state: IReducers) => state.mapsDataReducer);
   const stateUsers = useSelector((state: IReducers) => state.userDataReducer);
   console.log(state);
-  console.log(stateUsers);
+  // console.log(stateUsers);
   useEffect(() => {
     const background = document.querySelector('.select-map-page-container__background') as HTMLDivElement;
     document.addEventListener('mousemove', (event) => {
@@ -34,15 +35,52 @@ function SelectMap() {
       const querySnapshot = await getDocs(collection(db, 'maps'));
       querySnapshot.forEach((document) => {
         const mapsData = document.data();
-        console.log(mapsData);
+        const resultData: MapDataFromApi = {
+          id: '',
+          mapName: '',
+          audio: '',
+          additionAudio: [
+
+          ],
+          images: [
+
+          ],
+          mapData: [
+
+          ],
+        };
+        Object.entries(mapsData).forEach((data) => {
+          const format = data[0].split(' ')[0];
+          const name = data[0].split(' ')[1];
+          const fileLink: string = data[1];
+          if (format === 'audio') {
+            resultData.additionAudio = [...resultData.additionAudio, {
+              audioName: name,
+              audioFile: fileLink,
+            }];
+          } else if (format === 'id') {
+            resultData.id = fileLink;
+          } else if (format === 'images') {
+            resultData.images = [...resultData.images, { imagesName: name, imagesFile: fileLink }];
+          } else if (format === 'mapData') {
+            resultData.mapData = [...resultData.mapData, JSON.parse(fileLink)];
+          }
+        });
+        resultData.mapName = resultData.mapData[0].metadata.Title;
+        Object.entries(resultData.additionAudio).forEach((item) => {
+          const format = resultData.mapData[0].general.AudioFilename.split('.').join('');
+          if (item[1].audioName === format) {
+            resultData.audio = item[1].audioFile;
+          }
+        });
         dispatch(setNewMap({
-          mapName: mapsData.mapName,
-          audio: mapsData.audio,
-          albumCover: mapsData.albumCover,
-          topPlayers: mapsData.topPlayers,
-          additionalAudio: mapsData.additionalAudio,
-          additionalPictures: mapsData.additionalPictures,
-          id: mapsData.id,
+          mapName: resultData.mapName,
+          audio: resultData.audio,
+          images: resultData.images,
+          topPlayers: ['andrew', 'grisha', 'billy'],
+          additionalAudio: resultData.additionAudio,
+          id: resultData.id,
+          mapData: resultData.mapData,
         }));
       });
     };
