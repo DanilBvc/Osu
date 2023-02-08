@@ -48,6 +48,10 @@ $menu-height: $logo-size / 5;
 
 }
 
+.noevents {
+  pointer-events: none;
+}
+
 .bg {
   z-index: -1;
   position: absolute;
