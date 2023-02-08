@@ -41,8 +41,8 @@ function SongListItem(props: ISongListItem) {
         }}
         onMouseLeave={(event) => songListMousLeaveHandler(event, selectedSongID)}
         onClick={(event) => {
-          setBackgroundSource(songData.albumCover);
-          setSongID(songData.id);
+          setBackgroundSource(songData.images[0].imagesFile);
+          setSongID(songData.id as string);
           currentAudioElement.forEach((auduoElement) => auduoElement.pause());
           setCurrentAudio(new Audio(songData.audio as string));
           currentAudioElement.at(-1)?.play();
@@ -50,7 +50,7 @@ function SongListItem(props: ISongListItem) {
           setClickedSongListData(songData);
         }}
       >
-        <img className="song-list-item__cover" src={songData.albumCover} alt="song cover" />
+        <img className="song-list-item__cover" src={songData.images[0].imagesFile} alt="song cover" />
         <ul className="song-list-item__info-list">
           <li className="info-list-item"><h2>{`${songData.mapName}`}</h2></li>
         </ul>

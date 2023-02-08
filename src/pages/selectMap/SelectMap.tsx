@@ -16,7 +16,6 @@ import SelectMapPageFooter from '../../components/selectMap/footer/SelectMapPage
 import OsuButton from '../../components/selectMap/osuButton/OsuButton';
 import ParallaxBackground from '../../components/selectMap/parallaxBacground/ParallaxBackground';
 
-
 function SelectMap() {
   const mapsData = useSelector((state: IReducers) => state.mapsDataReducer);
   // TODO: delete stateUsers if it wont be used
@@ -33,9 +32,7 @@ function SelectMap() {
   useUnSub();
   // eslint-disable-next-line @typescript-eslint/no-shadow
   const state = useSelector((state: IReducers) => state.mapsDataReducer);
-  const stateUsers = useSelector((state: IReducers) => state.userDataReducer);
   console.log(state);
-  // console.log(stateUsers);
 
   useEffect(() => {
     const getMapsData = async () => {
