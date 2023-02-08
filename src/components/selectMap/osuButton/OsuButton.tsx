@@ -1,25 +1,28 @@
 /* eslint-disable no-use-before-define */
 import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import IReducers from '../../../types/reducers/reducersType';
 import { IOsuButton } from '../../../types/selectMapPageTypes/selectMapPageTypes';
 import './osuButtonStyles.scss';
 
 function OsuButton(props: IOsuButton) {
-  const { path, currentPageAudio } = props;
-  let context = null;
+  const { path } = props;
+  let context: null | AudioContext = null;
   let audioAanalyser: null | AnalyserNode = null;
-  let audioSource = null;
+  let audioSource: null | MediaElementAudioSourceNode = null;
   let frequencyData = null;
   let osuButton: null | HTMLLinkElement = null;
+  const currentAudioElement = useSelector((state: IReducers) => state.currentAudioReducer.at(-1));
 
   useEffect(() => {
     audioContextBind();
-  }, [currentPageAudio]);
+  }, []);
 
   function audioContextBind() {
     context = new AudioContext();
     audioAanalyser = context.createAnalyser();
-    audioSource = context.createMediaElementSource(currentPageAudio);
+    audioSource = context.createMediaElementSource(currentAudioElement as HTMLAudioElement);
     audioSource.connect(audioAanalyser);
     audioAanalyser.connect(context.destination);
     buttonAnimation();
