@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable no-unused-expressions */
 import {
   useEffect, useMemo, useState
@@ -10,12 +11,16 @@ import ProgressBar from './ProgressBar';
 import VolumeBar from './VolumeBar';
 import IMapData from '../../types/mapsDataTypes/mapsDataTypes';
 
+import useMapsData from '../../customHooks/useMapsData';
+
 export default function Player(): JSX.Element {
   const playList: IMapData[] = useSelector((state: IReducers) => state.mapsDataReducer);
+
+  const state = useSelector((state: IReducers) => console.log(state));
   const audioPlayer = useMemo((): HTMLAudioElement => new Audio(''), []);
   const [trackIndex, setTrackIndex] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-
+  const { getMapsData } = useMapsData();
   const nextSong = (): void => {
     trackIndex + 1 > playList.length - 1 ? setTrackIndex(0) : setTrackIndex((s) => s + 1);
   };
@@ -47,6 +52,10 @@ export default function Player(): JSX.Element {
       audioPlayer.src = playList[trackIndex].audio as string;
     }
   }, [playList.length]);
+
+  useEffect(() => {
+    getMapsData();
+  }, []);
 
   return (
     <div className="player">
