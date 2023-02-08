@@ -83,7 +83,6 @@ function RegisterCmponents() {
           <button onClick={() => { handleRegister(email, password); }} type="submit">Регистрация</button>
         </div>
       </div>
-      <p>Уже есть аккаунт?</p>
     </div>
   );
 }

@@ -3,7 +3,7 @@ $font-small: 14px;
 $font-base-size: 16px;
 $font-medium: 20px;
 $font-large: 24px;
-
+$progress: #d8a643;
 //colors
 $color-orange: #ff7004;
 $color-pink: #ee3399;
@@ -25,9 +25,9 @@ $spacer-xl: 1.75 * $spacer-base;
 $spacer-xxl: 2 * $spacer-base;
 
 // shadow
-$black-box-shadow: 0px 1px 2px 2px rgba(0,0,0,0.4), 
-                  0px 2px 4px 2px rgba(0,0,0,0.4), 
-                  0px 4px 8px 2px rgba(0,0,0,0.4), 
-                  0px 8px 16px 2px rgba(0,0,0,0.4);
+$black-box-shadow: 0px 1px 2px 2px rgba(0, 0, 0, 0.4),
+  0px 2px 4px 2px rgba(0, 0, 0, 0.4),
+  0px 4px 8px 2px rgba(0, 0, 0, 0.4),
+  0px 8px 16px 2px rgba(0, 0, 0, 0.4);
 
 $button :linear-gradient(135deg, rgba(28, 68, 101, 0.9304096638655462) 1%, rgba(86, 129, 196, 1) 47%, rgba(48, 74, 199, 1) 100%);

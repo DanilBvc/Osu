@@ -11,6 +11,7 @@
     "@types/node": "^16.18.11",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
+    "@types/three": "^0.149.0",
     "firebase": "^9.17.1",
     "jszip": "^3.10.1",
     "react": "^18.2.0",
