@@ -7,8 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import IReducers from '../../types/reducers/reducersType';
 import setNewMap from '../../store/actionCreators/mapsData/setNewMap';
 import { collection, getDocs } from 'firebase/firestore';
-import { auth, db } from '../../firebase/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { db } from '../../firebase/firebase';
 import useUnSub from '../../customHooks/useUnSub';
 import { MapDataFromApi } from '../../types/mapsDataTypes/mapsDataFromApiTypes';
 import PlayersStatisticList from '../../components/selectMap/playersStatisticList/PlayersStatisticList';
@@ -30,7 +29,6 @@ function SelectMap() {
   }, []);
 
   useUnSub();
-  // eslint-disable-next-line @typescript-eslint/no-shadow
   const state = useSelector((state: IReducers) => state.mapsDataReducer);
   console.log(state);
 
@@ -44,15 +42,9 @@ function SelectMap() {
           id: '',
           mapName: '',
           audio: '',
-          additionAudio: [
-
-          ],
-          images: [
-
-          ],
-          mapData: [
-
-          ],
+          additionAudio: [],
+          images: [],
+          mapData: [],
         };
         Object.entries(mapsData).forEach((data) => {
           const format = data[0].split(' ')[0];
