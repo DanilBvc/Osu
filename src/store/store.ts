@@ -5,6 +5,7 @@ import mapsDataReducer from './reducers/mapsData/mapsDataReducer';
 import { backgroundSourceReducer } from './reducers/selectMapPage/backgroundSourceReducer';
 import { songIDReducer } from './reducers/selectMapPage/songIDReducer';
 import { currentAudioReducer } from './reducers/selectMapPage/currentAudioReducer';
+import activeGameReduccer from './reducers/game/selectGameReducer';
 
 const rootReducer = combineReducers(
   {
@@ -13,6 +14,7 @@ const rootReducer = combineReducers(
     backgroundSourceReducer,
     songIDReducer,
     currentAudioReducer,
+    activeGameReduccer,
   }
 );
 const store = createStore(rootReducer, composeWithDevTools());

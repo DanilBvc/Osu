@@ -7,5 +7,6 @@ interface IReducers {
   backgroundSourceReducer: string;
   songIDReducer: string;
   currentAudioReducer: HTMLAudioElement[];
+  activeGameReduccer: IMapData;
 }
 export default IReducers;
