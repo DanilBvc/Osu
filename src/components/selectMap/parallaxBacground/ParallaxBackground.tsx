@@ -8,12 +8,13 @@ import './parallaxBackground.scss';
 function ParallaxBacground() {
   const throttleInProgress = useRef(false);
   const backgroundSource = useSelector((state: IReducers) => state.backgroundSourceReducer);
+  const backgroundElement = useRef(null);
 
   useEffect(() => {
-    const background = document.querySelector('.select-map-page-container__background') as HTMLDivElement;
-
     document.addEventListener('mousemove', (event) => {
-      throttle(() => parallaxCreate(event, background), throttleInProgress, 25);
+      if (backgroundElement.current !== null) {
+        throttle(() => parallaxCreate(event, backgroundElement.current), throttleInProgress, 25);
+      }
     });
   }, []);
 
@@ -23,6 +24,7 @@ function ParallaxBacground() {
       style={{
         backgroundImage: `url(${backgroundSource})`,
       }}
+      ref={backgroundElement}
     />
   );
 }
