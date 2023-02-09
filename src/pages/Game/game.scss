@@ -1,0 +1,15 @@
+.game {
+  &-background {
+    height: 1000px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+    text-align: center;
+    width: 1000px;
+  }
+
+  &-title {
+    font-size: 30px;
+  }
+}
