@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable no-unused-expressions */
 import {
   useEffect, useMemo, useState
 } from 'react';
 import './player.scss';
 import { useSelector } from 'react-redux';
-
 import IReducers from '../../types/reducers/reducersType';
 import ProgressBar from './ProgressBar';
 import VolumeBar from './VolumeBar';
@@ -15,8 +13,6 @@ import useMapsData from '../../customHooks/useMapsData';
 
 export default function Player(): JSX.Element {
   const playList: IMapData[] = useSelector((state: IReducers) => state.mapsDataReducer);
-
-  const state = useSelector((state: IReducers) => console.log(state));
   const audioPlayer = useMemo((): HTMLAudioElement => new Audio(''), []);
   const [trackIndex, setTrackIndex] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
