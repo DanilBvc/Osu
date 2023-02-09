@@ -1,8 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { setActiveGameAction } from '../../../store/reducers/game/selectGameReducer';
 import { setBackgroundSourceAction } from '../../../store/reducers/selectMapPage/backgroundSourceReducer';
 import { setCurrentAudioAction } from '../../../store/reducers/selectMapPage/currentAudioReducer';
 import { setSongIDAction } from '../../../store/reducers/selectMapPage/songIDReducer';
+import IMapData from '../../../types/mapsDataTypes/mapsDataTypes';
 import IReducers from '../../../types/reducers/reducersType';
 import { ISongListItem } from '../../../types/selectMapPageTypes/selectMapPageTypes';
 import songListItemClickHandler from './songListItemClickHandler';
@@ -27,6 +29,10 @@ function SongListItem(props: ISongListItem) {
   const setCurrentAudio = (audio: HTMLAudioElement) => {
     dispatch(setCurrentAudioAction(audio));
   };
+
+  const setActiveGame = (data: IMapData) => {
+    dispatch(setActiveGameAction(data));
+  };
   const selectedSongID = useSelector((state: IReducers) => state.songIDReducer);
 
   return (
@@ -48,6 +54,7 @@ function SongListItem(props: ISongListItem) {
           currentAudioElement.at(-1)?.play();
           songListItemClickHandler(event);
           setClickedSongListData(songData);
+          setActiveGame(songData);
         }}
       >
         <img className="song-list-item__cover" src={songData.images[0].imagesFile} alt="song cover" />
