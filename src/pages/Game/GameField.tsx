@@ -1,3 +1,9 @@
+/* eslint-disable no-unsafe-optional-chaining */
+/* eslint-disable array-callback-return */
+/* eslint-disable consistent-return */
+/* eslint-disable max-len */
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable no-multiple-empty-lines */
 import { useEffect, useRef, useState } from 'react';
 import { Data, HitObjects } from '../../types/mapsDataTypes/osuDataTypes';
 import Curve from './Curve';
@@ -8,24 +14,25 @@ interface GameFieldProps {
 }
 
 export default function GameField({ game, audio }: GameFieldProps): JSX.Element {
-  const { colors, hitObjects, timingPoints } = game;
+  const {
+    colors, hitObjects, timingPoints, difficulty,
+  } = game;
 
   const audioRef = useRef<HTMLAudioElement>(null);
   const [currentAudioTime, setCurrentAudioTIme] = useState<number>(0);
-  const [timePointIndex, setTimePointIndex] = useState<number>(0);
+  const [objectsToRender, setObjectsToRender] = useState<HitObjects[] | null>(null);
 
-  const timeUpdate = () => {
-    if (audioRef.current) setCurrentAudioTIme(+String(audioRef.current.currentTime).slice(0, 5).replace('.', ''));
-  };
-  const [Objects, setObjects] = useState<HitObjects[]>([hitObjects[0]]);
+  const lifeTime = 5555;
 
   useEffect(() => {
-    const actualObjects = hitObjects.filter(
-      (object: HitObjects) => object.time < timingPoints[timePointIndex].offset
-        && object.time > currentAudioTime
-    );
-    setObjects(() => actualObjects);
+    const render = hitObjects.filter((obj: HitObjects) => currentAudioTime > obj.time && obj.time + lifeTime > currentAudioTime);
+
+    setObjectsToRender(() => render);
   }, [currentAudioTime]);
+
+  const timeUpdate = () => {
+    if (audioRef.current) setCurrentAudioTIme(+(audioRef.current?.currentTime * 1000).toFixed(0));
+  };
 
   return (
     <>
@@ -34,9 +41,9 @@ export default function GameField({ game, audio }: GameFieldProps): JSX.Element 
       <audio onTimeUpdate={timeUpdate} ref={audioRef} src={audio}>
         <track kind="captions" />
       </audio>
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <svg width="100%" height="100vh" xmlns="http://www.w3.org/2000/svg">
 
-        {Objects?.map(
+        {objectsToRender?.map(
           (obj) => <Curve hitObjects={obj} colors={colors} key={window.crypto.randomUUID()} />
         )}
 
