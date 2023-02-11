@@ -91,11 +91,20 @@ function SelectMap() {
       <PlayersStatisticList clickedSongListData={clickedSongListData} />
       <ul className="select-map-page-container__songs-list">
         {Object.values(mapsData).map((songData) => (
-          <SongListItem
-            songData={songData}
-            setClickedSongListData={setClickedSongListData}
-            key={window.crypto.randomUUID()}
-          />
+          <>
+            <SongListItem
+              songData={songData}
+              difficulty="Easy"
+              setClickedSongListData={setClickedSongListData}
+              key={window.crypto.randomUUID()}
+            />
+            <SongListItem
+              songData={songData}
+              difficulty="Hard"
+              setClickedSongListData={setClickedSongListData}
+              key={window.crypto.randomUUID()}
+            />
+          </>
         ))}
       </ul>
       <SelectMapPageFooter />

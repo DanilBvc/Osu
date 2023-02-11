@@ -42,6 +42,7 @@
     margin: 0;
     z-index: 3;
     text-transform: capitalize;
+    line-height: 1.2;
     .song-list-item__cover {
       width: 130px;
       height: 100%;
@@ -49,6 +50,9 @@
     }
     .song-list-item__info-list {
       padding: 4px 8px;
+      .artist-title {
+        font-size: $font-base-size;
+      }
     }
   }
   .active-item {

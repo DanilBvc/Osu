@@ -5,6 +5,7 @@ import { setCurrentAudioAction } from '../../../store/reducers/selectMapPage/cur
 import { setSongIDAction } from '../../../store/reducers/selectMapPage/songIDReducer';
 import IReducers from '../../../types/reducers/reducersType';
 import { ISongListItem } from '../../../types/selectMapPageTypes/selectMapPageTypes';
+import DifficultRateStars from './DifficultRateStars';
 import songListItemClickHandler from './songListItemClickHandler';
 import songListItemHoverHandler from './songListItemHoverHandler';
 import songListMousLeaveHandler from './songListMousLeaveHandler';
@@ -13,6 +14,7 @@ import StarAnimation from './StarAnimation';
 function SongListItem(props: ISongListItem) {
   const {
     songData,
+    difficulty,
     setClickedSongListData,
   } = props;
 
@@ -48,11 +50,15 @@ function SongListItem(props: ISongListItem) {
           currentAudioElement.at(-1)?.play();
           songListItemClickHandler(event);
           setClickedSongListData(songData);
+          setClickedSongListData(songData);
         }}
       >
         <img className="song-list-item__cover" src={songData.images[0].imagesFile} alt="song cover" />
         <ul className="song-list-item__info-list">
-          <li className="info-list-item"><h2>{`${songData.mapName}`}</h2></li>
+          <li className="map-name-title"><h2>{`${songData.mapName}`}</h2></li>
+          <li className="artist-title">{`${songData.mapData[0].metadata.Artist}`}</li>
+          <li className="difficult-title"><h3>Easy</h3></li>
+          <li className="difficult-title"><DifficultRateStars difficulty={difficulty} /></li>
         </ul>
       </li>
     </div>
