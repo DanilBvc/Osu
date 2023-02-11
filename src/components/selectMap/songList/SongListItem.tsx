@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBackgroundSourceAction } from '../../../store/reducers/selectMapPage/backgroundSourceReducer';
 import { setCurrentAudioAction } from '../../../store/reducers/selectMapPage/currentAudioReducer';
+import { setSongDifficultyAction } from '../../../store/reducers/selectMapPage/songDifficultyReducer';
 import { setSongIDAction } from '../../../store/reducers/selectMapPage/songIDReducer';
 import IReducers from '../../../types/reducers/reducersType';
 import { ISongListItem } from '../../../types/selectMapPageTypes/selectMapPageTypes';
@@ -25,17 +26,25 @@ function SongListItem(props: ISongListItem) {
   const setSongID = (ID: string) => {
     dispatch(setSongIDAction(ID));
   };
+  const setSongDifficulty = (songDifficulty: string) => {
+    dispatch(setSongDifficultyAction(songDifficulty));
+  };
   const currentAudioElement = useSelector((state: IReducers) => state.currentAudioReducer);
   const setCurrentAudio = (audio: HTMLAudioElement) => {
     dispatch(setCurrentAudioAction(audio));
   };
   const selectedSongID = useSelector((state: IReducers) => state.songIDReducer);
+  const selectedSongDifficulty = useSelector((state: IReducers) => state.songDifficultyReducer);
 
   return (
     <div className="song-list-item-wrapper">
-      <StarAnimation songID={songData.id} />
+      <StarAnimation songID={songData.id} difficulty={difficulty} />
       <li
-        className={`song-list-item ${String(songData.id) === selectedSongID ? 'selected-item' : ''}`}
+        className={`song-list-item ${
+          String(songData.id) === selectedSongID && difficulty === selectedSongDifficulty
+            ? 'selected-item'
+            : ''
+        }`}
         role="menuitem"
         data-id={songData.id}
         onMouseEnter={(event) => {
@@ -50,14 +59,14 @@ function SongListItem(props: ISongListItem) {
           currentAudioElement.at(-1)?.play();
           songListItemClickHandler(event);
           setClickedSongListData(songData);
-          setClickedSongListData(songData);
+          setSongDifficulty(difficulty);
         }}
       >
         <img className="song-list-item__cover" src={songData.images[0].imagesFile} alt="song cover" />
         <ul className="song-list-item__info-list">
           <li className="map-name-title"><h2>{`${songData.mapName}`}</h2></li>
           <li className="artist-title">{`${songData.mapData[0].metadata.Artist}`}</li>
-          <li className="difficult-title"><h3>Easy</h3></li>
+          <li className="difficult-title"><h3>{difficulty}</h3></li>
           <li className="difficult-title"><DifficultRateStars difficulty={difficulty} /></li>
         </ul>
       </li>

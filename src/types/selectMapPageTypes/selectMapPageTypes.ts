@@ -16,6 +16,7 @@ export interface ISongListItem {
 }
 export interface IStarAnimation {
   songID: string | null;
+  difficulty: string;
 }
 export interface IPlayersStatisticList {
   clickedSongListData: IMapData;
