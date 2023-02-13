@@ -39,6 +39,10 @@ function SongListItem(props: ISongListItem) {
       <StarAnimation songID={songData.id} difficulty={difficulty} />
       <li
         className={`song-list-item ${
+          difficulty === 'Easy'
+            ? 'easy-map'
+            : 'hard-map'
+        } ${
           String(songData.id) === selectedSongID && difficulty === selectedSongDifficulty
             ? 'selected-item'
             : ''

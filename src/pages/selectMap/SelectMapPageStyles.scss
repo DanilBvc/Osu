@@ -32,7 +32,6 @@
     height: 100px;
     display: flex;
     color: #fff;
-    background: rgb(223, 70, 146);
     opacity: 0.9;
     transition: all 0.8s ease;
     float: right;
@@ -54,19 +53,25 @@
         font-size: $font-base-size;
       }
     }
-  }
-  .active-item {
-    transform: translate(-100px);
-    margin: 10px 0;
-  }
-  .selected-item {
-    transform: translate(-100px);
-    margin: 10px 0;
-    color: #000;
-    background: rgb(220, 220, 220);
-  }
-  .stick-selected-item {
-    transform: translate(-130px);
+    &.easy-map {
+      background: rgb(5, 142, 230);
+    }
+    &.hard-map {
+      background: rgb(223, 70, 146);
+    }
+    &.selected-item {
+      transform: translate(-100px);
+      margin: 10px 0;
+      color: #000;
+      background: rgb(220, 220, 220);
+    }
+    &.active-item {
+      transform: translate(-100px);
+      margin: 10px 0;
+    }
+    &.stick-selected-item {
+      transform: translate(-130px);
+    }
   }
 }
 
