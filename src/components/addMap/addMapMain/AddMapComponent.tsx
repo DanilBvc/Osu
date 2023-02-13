@@ -28,7 +28,6 @@ function AddMapComponent({ input }: IProps) {
     fetchMapPreview(count, `${currentRoute}`, { classification, language, search: input }).then((r) => {
       setLoading(r.loading);
       setData(r.result);
-      console.log(r.result);
     });
   }, [location, language, classification, input]);
   useEffect(() => {

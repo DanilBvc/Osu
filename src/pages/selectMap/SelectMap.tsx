@@ -32,7 +32,6 @@ function SelectMap() {
   useUnSub();
   // eslint-disable-next-line @typescript-eslint/no-shadow
   const state = useSelector((state: IReducers) => state.mapsDataReducer);
-  console.log(state);
 
   useEffect(() => {
     const getMapsData = async () => {

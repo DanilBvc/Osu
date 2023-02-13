@@ -12,12 +12,12 @@ import setUserData from '../../../../store/actionCreators/userData/setUserData';
 import getMapDataFromApi from '../../../../utils/api/getMapDataFromApi';
 import handleUserMaps from '../../../../store/actionCreators/userData/handleUserMaps';
 import StarComponent from '../starComponent/StarComponent';
+import { BeatData } from '../../../../types/mapsDataTypes/mapsDataFromApiTypes';
 
 interface IProps {
   img: string;
   audio: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  beat: any;
+  beat: BeatData[];
   handleLoadingMap: (value: boolean) => void;
   loadingMap: boolean;
 }

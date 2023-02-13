@@ -6,9 +6,16 @@ import AddMapComponent from './addMapMain/AddMapComponent';
 
 function AddMap() {
   const [input, setInput] = useState<string>('');
-  const handleInput = (value: React.KeyboardEvent<HTMLElement>, inputValue: string) => {
-    if (value.code === 'Enter') {
+  const handleInput = (
+    value: React.KeyboardEvent<HTMLElement> | null,
+    inputValue: string,
+    mustBeRemoved?: boolean
+  ) => {
+    if (value && value.code === 'Enter') {
       setInput(inputValue);
+    }
+    if (mustBeRemoved) {
+      setInput('');
     }
   };
 

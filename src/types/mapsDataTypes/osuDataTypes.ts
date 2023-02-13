@@ -8,7 +8,7 @@ interface HitObjectEdgeSets {
   additionSet: number;
 }
 
-interface Timing {
+export interface Timing {
   offset: number;
   millisecondsPerBeat: number;
   meter: number;

@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 /* eslint-disable default-param-last */
 import { userDataState } from '../../../types/userDataTypes/userData';
 /* eslint-disable no-param-reassign */

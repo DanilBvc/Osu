@@ -1,13 +1,11 @@
 /* eslint-disable no-return-await */
 /* eslint-disable max-len */
 import { doc, setDoc, updateDoc } from 'firebase/firestore';
-import uuid from 'react-uuid';
-import JSZip, { files } from 'jszip';
+import JSZip from 'jszip';
 import { db } from '../../firebase/firebase';
 import getDataFromOsuMap from '../uploadMap/uploadByBytes/parseOusFile';
 import uploadImageByBytes from '../uploadMap/uploadByBytes/uploadImageByBytes';
 import uploadAudioByBytes from '../uploadMap/uploadByBytes/uploadAudioByBytes';
-import uploadAdditionAudioByBytes from '../uploadMap/uploadByBytes/uploadAdditionAudioByBytes';
 import uploadVideoByBytes from '../uploadMap/uploadByBytes/uploadVideoByBytes';
 
 const getMapDataFromApi = async (mapId: number, mapName: string) => {
@@ -42,7 +40,6 @@ const getMapDataFromApi = async (mapId: number, mapName: string) => {
           if (file !== null && fileExtension === 'osu') {
             file.async('string').then(async (content) => {
               const mapData = getDataFromOsuMap(content);
-              console.log(mapData);
               await updateDoc(doc(db, 'maps', id), {
                 [`mapData ${file.name.replace(regex, '').trim()}`]: JSON.stringify(mapData),
               });

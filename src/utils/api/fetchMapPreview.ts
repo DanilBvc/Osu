@@ -1,10 +1,13 @@
 /* eslint-disable default-param-last */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { BeatData } from '../../types/mapsDataTypes/mapsDataFromApiTypes';
+
 /* eslint-disable no-await-in-loop */
 export interface Result {
   images: string;
   audio: string;
-  beatMapInfo: string;
+  beatMapInfo: BeatData[];
   id: string;
 }
 export const fetchMapPreview = async (count = 20, action = 'popular', payload?: {
@@ -26,14 +29,27 @@ export const fetchMapPreview = async (count = 20, action = 'popular', payload?: 
   const resultData = await response.json();
 
   const handlePromise = async () => {
-    const res = await resultData.data.map((item: any) => new Promise((resolve, reject) => {
+    const res = await resultData.data.map((item: {
+      approved: number;
+      artist: string;
+      artistU: string;
+      creator: string;
+      favourite_count: number;
+      lastupdate: number;
+      modes: number;
+      order: number;
+      play_count: number;
+      sid: number;
+      title: string;
+      titleU: string;
+    }) => new Promise((resolve, reject) => {
       const beatMapInfoUrl = `https://api.sayobot.cn/beatmapinfo?1=${item.sid}`;
       const req = fetch(beatMapInfoUrl).then((data) => data.json());
       resolve(req);
     }));
-    const fetchedData = await Promise.all(res).then((data: any[]) => {
+    const fetchedData = await Promise.all(res).then((data: any) => {
       let result: Result[] | [] = [];
-      data.forEach((item) => {
+      data.forEach((item: any) => {
         const imgUrl = `https://cdn.sayobot.cn:25225/beatmaps/${item.data[0].sid}/covers/cover.webp`;
         const audioPreviewUrl = `https://cdn.sayobot.cn:25225/preview/${item.data[0].sid}.mp3`;
         result = [...result, {

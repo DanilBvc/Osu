@@ -185,7 +185,7 @@ const getDataFromOsuMap = (text: string) => {
         if (hit.hitSample && hit.hitSample.additionSet > 3) { hit.hitSample.additionSet = 0; }
         data.hitObjects = [...data.hitObjects, hit];
         break;
-      default: console.log('');
+      default:
     }
   }
 
