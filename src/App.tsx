@@ -17,7 +17,7 @@ function App() {
       <Route path="/game" element={<Game />} />
       <Route path="/selectMap" element={<SelectMap />} />
       <Route path="/register" element={<RegisterCmponents />} />
-      <Route path="/c" element={<AddMap />} />
+      <Route path="/download/*" element={<AddMap />} />
     </Routes>
   );
 }

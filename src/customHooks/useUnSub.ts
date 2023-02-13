@@ -26,6 +26,7 @@ const useUnSub = () => {
               accuracy: userData.accuracy,
               lvl: userData.lvl,
               uuid: user.uid,
+              maps: userData.maps,
             }));
           }
         }

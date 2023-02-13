@@ -1,0 +1,378 @@
+body {
+  background: #191919;
+}
+
+.nav-wrapper {
+  background: #bd1d77;
+  color: #fff;
+  display: flex;
+  white-space: nowrap;
+  padding-right: 1em;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3em;
+  padding: 0 0.6em;
+  box-shadow: 0 0 0.2em rgb(17 17 17 / 20%);
+  z-index: 10000;
+  transition: all .3s;
+  transform-style: preserve-3d;
+  align-items: center;
+}
+
+.nav-link,
+.nav-tools {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.nav-search {
+  width: 100%;
+  margin-left: 1.5em;
+  margin-right: 1.5em;
+  position: relative;
+}
+
+.nav-search-input {
+  width: 100%;
+  background: #931562;
+  color: #fff;
+  border: none;
+  padding: 0.3em 0.6em;
+}
+
+.btn-switch {
+  background-color: transparent;
+  color: #fff;
+  margin: 0px 10px;
+}
+
+.choose-category:hover,
+.btn-switch:hover {
+  border-bottom: 2px solid #fff;
+  cursor: pointer;
+  margin-right: 10px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.choose-category {
+  margin-right: 10px;
+  color: #fff;
+}
+
+.loading {
+  position: absolute;
+  font-size: 40px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.addMapBlock-wrapper {
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 30%);
+  background: #fff;
+  font-size: 18px;
+  height: 190px;
+  position: relative;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.addMapBlock-img {
+  object-fit: cover;
+  background: #555;
+  color: gray;
+  width: 100%;
+  height: 130px;
+  position: absolute;
+  border-radius: 4px 4px 0 0;
+}
+
+.addMapBlock-overlay {
+  background-image: linear-gradient(180deg, rgba(0, 0, 0, .1), rgba(0, 0, 0, .7));
+  width: 100%;
+  height: 130px;
+  position: absolute;
+}
+
+.addMapBlock-title {
+  width: 400px;
+  padding-top: 73px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 1.3em;
+  font-style: italic;
+  color: #fff;
+  overflow: hidden;
+  position: absolute;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-shadow: 0 2px 4px rgb(0 0 0 / 75%);
+}
+
+.addMapBlock-artist {
+  width: 100%;
+  padding-top: 102px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 0.8em;
+  font-style: italic;
+  color: #fff;
+  overflow: hidden;
+  position: absolute;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-shadow: 0 2px 4px rgb(0 0 0 / 75%);
+}
+
+.addMapBlock-creator {
+  padding-top: 134px;
+  padding-left: 10px;
+  color: #444;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  position: absolute;
+}
+
+.classification-wrapper {
+  margin-top: 55px;
+  color: #7df;
+}
+
+.addMapComponent-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  margin: 0px 30px;
+  margin-top: 50px;
+}
+
+@media(max-width: 1200px) {
+  .addMapComponent-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0px 30px;
+    margin-top: 50px;
+  }
+}
+
+@media(max-width: 850px) {
+  .addMapComponent-wrapper {
+    grid-template-columns: repeat(1, 1fr);
+    margin: 0px 30px;
+    margin-top: 110px;
+  }
+
+  .classification-wrapper {
+    margin-top: 125px;
+  }
+
+  .nav-wrapper {
+    background: #bd1d77;
+    color: #fff;
+    display: flex;
+    white-space: nowrap;
+    padding-right: 1em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 7em;
+    padding: 0 0.6em;
+    box-shadow: 0 0 0.2em rgb(17 17 17 / 20%);
+    z-index: 10000;
+    transition: all 0.3s;
+    transform-style: preserve-3d;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+.addMapBlock-approved {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background: rgba(0, 0, 0, 0.4);
+  font-weight: bold;
+  font-size: 11px;
+  text-shadow: 0px 1px 2px rgb(0 0 0 / 70%);
+  border-radius: 12px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  color: #fff;
+}
+
+
+
+.addMapBlock-difficulties {
+  position: absolute;
+  padding-top: 133px;
+  padding-left: 10px;
+}
+
+.addMapBlock-length {
+  right: 13px;
+  position: absolute;
+  float: right;
+  font-style: italic;
+  color: #fff;
+  font-size: 0.8em;
+  padding-top: 72px;
+}
+
+.difficulty-count {
+  color: #000;
+  line-height: 18px;
+  font-size: 0.8em;
+  position: relative;
+  font-weight: bold;
+  bottom: 5px;
+}
+
+
+
+.classification-style,
+.classification-language {
+  display: flex;
+  justify-content: space-around;
+}
+
+.select-style:hover,
+.select-language:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.active {
+  color: #Fff;
+}
+
+.clear-input {
+  cursor: pointer;
+  position: absolute;
+  top: 14px;
+  right: 30px;
+}
+
+.clear-input::before,
+.clear-input::after {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 4px;
+  background: gray;
+}
+
+.clear-input::before {
+  transform: rotate(45deg);
+}
+
+.clear-input::after {
+  transform: rotate(-45deg);
+}
+
+.favorite-button {
+  cursor: pointer;
+  border: 0;
+  color: red;
+}
+
+.favorite-button .favorite__icon {
+  height: 35px;
+  right: 0;
+  bottom: 13px;
+  width: 56px;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  transform: scale(0.6);
+  position: absolute;
+}
+
+.favorite-button.is-favorite .favorite--enable {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.favorite-button:not(.is-favorite) .favorite--not {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.active-nav-link {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #fff;
+}
+
+// difficult
+.difficult {
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  border: solid #aaa 3px;
+  margin-top: 2px;
+  margin-left: 0px;
+  margin-right: 6px;
+  display: inline-block;
+}
+
+.Beginner {
+  border-color: rgb(74, 176, 254);
+}
+
+.Normal {
+  border-color: rgb(98, 255, 179)
+}
+
+.Hard {
+  border-color: rgb(234, 242, 90)
+}
+
+.Insane {
+  border-color: rgb(253, 160, 102);
+}
+
+.DDInsane {
+  border-color: rgb(255, 79, 111);
+}
+
+.Expert {
+  border-color: rgb(196, 70, 185);
+}
+
+.Extra {
+  border-color: rgb(106, 98, 221);
+}
+
+//
+@media(max-width: 480px) {
+  .addMapBlock-title {
+    width: 250px;
+  }
+}
+
+@media(max-width: 600px) {
+
+  .classification-style,
+  .classification-language {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.nothing {
+  color: #fff;
+}

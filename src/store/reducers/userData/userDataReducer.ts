@@ -14,12 +14,22 @@ const userDataReducer = (state: userDataState = initialUserData, action: {
     accuracy: number;
     lvl: number;
     uuid: string;
+    maps: number[] | number;
   };
 }) => {
   switch (action.type) {
     case 'SET_USER_DATA': {
       return {
-        ...state, name: action.payload.name, email: action.payload.email, avatar: action.payload.avatar, accessToken: action.payload.accessToken, performance: action.payload.performance, accuracy: action.payload.accuracy, lvl: action.payload.lvl,
+        ...state,
+        name: action.payload.name,
+        email: action.payload.email,
+        avatar: action.payload.avatar,
+        accessToken: action.payload.accessToken,
+        performance: action.payload.performance,
+        accuracy: action.payload.accuracy,
+        lvl: action.payload.lvl,
+        maps: action.payload.maps,
+        uuid: action.payload.uuid,
       };
     }
     case 'REMOVE_USER_DATA': {
@@ -31,6 +41,23 @@ const userDataReducer = (state: userDataState = initialUserData, action: {
       state.lvl = null;
       state.performance = null;
       state.uuid = null;
+      state.maps = null;
+      return state;
+    }
+    case 'HANDLE_USER_MAPS': {
+      if (!Array.isArray(action.payload.maps)) {
+        if (state.maps?.includes(action.payload.maps)) {
+          state.maps.filter((item) => item !== action.payload.maps);
+          return {
+            ...state,
+            maps: state.maps.filter((item) => item !== action.payload.maps),
+          };
+        }
+        return {
+          ...state,
+          maps: state.maps !== null ? [...state.maps, action.payload.maps] : [action.payload.maps],
+        };
+      }
       return state;
     }
     default: return state;

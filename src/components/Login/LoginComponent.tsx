@@ -26,7 +26,15 @@ function LoginComponent() {
       const userData = docSnap.data();
       if (user.email !== null && user.displayName !== null && user.photoURL !== null) {
         dispatch(setUserData({
-          name: user.displayName, email: user.email, avatar: user.photoURL, accessToken: 'user.accessToken', performance: userData.performance, accuracy: userData.accuracy, lvl: userData.lvl, uuid: user.uid,
+          name: user.displayName,
+          email: user.email,
+          avatar: user.photoURL,
+          accessToken: 'user.accessToken',
+          performance: userData.performance,
+          accuracy: userData.accuracy,
+          lvl: userData.lvl,
+          uuid: user.uid,
+          maps: userData.maps,
         }));
       }
     } else {

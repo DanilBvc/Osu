@@ -1,5 +1,5 @@
-const actionType = 'SET_USER_DATA';
-const setUserData = (payload: {
+const actionType = 'HANDLE_USER_MAPS';
+const handleUserMaps = (payload: {
   name: string;
   email: string;
   avatar: string;
@@ -8,9 +8,9 @@ const setUserData = (payload: {
   accuracy: number;
   lvl: number;
   uuid: string;
-  maps: string[];
+  maps: number[] | number;
 }) => ({
   type: actionType,
   payload,
 });
-export default setUserData;
+export default handleUserMaps;
