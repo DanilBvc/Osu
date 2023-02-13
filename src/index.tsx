@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import App from './App';
 import store from './store/store';
+import { AudioContextWrapperProvider } from './contexts/audioContextWrapper';
 // eslint-disable-next-line import/no-unresolved
 
 const root = ReactDOM.createRoot(
@@ -12,7 +13,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <BrowserRouter>
     <Provider store={store}>
-      <App />
+      <AudioContextWrapperProvider>
+        <App />
+      </AudioContextWrapperProvider>
     </Provider>
   </BrowserRouter>
 );
