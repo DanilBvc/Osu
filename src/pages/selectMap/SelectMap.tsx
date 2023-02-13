@@ -18,19 +18,15 @@ import ParallaxBackground from '../../components/selectMap/parallaxBacground/Par
 function SelectMap() {
   const mapsData = useSelector((state: IReducers) => state.mapsDataReducer);
   // TODO: delete stateUsers if it wont be used
-  const stateUsers = useSelector((state: IReducers) => state.userDataReducer);
   const [clickedSongListData, setClickedSongListData] = useState(mapsData[0]);
   // TODO: change to right bg image
   const dispatch = useDispatch();
 
-  // TODO: play starting audio
+  // TODO: set to play starting audio
   useEffect(() => {
     // currentPageAudio.play();
   }, []);
-
   useUnSub();
-  const state = useSelector((state: IReducers) => state.mapsDataReducer);
-  console.log(state);
 
   useEffect(() => {
     const getMapsData = async () => {
@@ -91,20 +87,18 @@ function SelectMap() {
       <PlayersStatisticList clickedSongListData={clickedSongListData} />
       <ul className="select-map-page-container__songs-list">
         {Object.values(mapsData).map((songData) => (
-          <>
+          <React.Fragment key={window.crypto.randomUUID()}>
             <SongListItem
               songData={songData}
               difficulty="Easy"
               setClickedSongListData={setClickedSongListData}
-              key={window.crypto.randomUUID()}
             />
             <SongListItem
               songData={songData}
               difficulty="Hard"
               setClickedSongListData={setClickedSongListData}
-              key={window.crypto.randomUUID()}
             />
-          </>
+          </React.Fragment>
         ))}
       </ul>
       <SelectMapPageFooter />
