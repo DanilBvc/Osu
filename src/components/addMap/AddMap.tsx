@@ -1,9 +1,3 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable guard-for-in */
-/* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable import/no-extraneous-dependencies */
 import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AddMapHeader from './addMapHeader/AddMapHeader';

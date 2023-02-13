@@ -1,11 +1,10 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { onAuthStateChanged } from 'firebase/auth';
 import {
   arrayRemove,
-  arrayUnion,
-  collection, doc, getDoc, getDocFromCache, getDocs, updateDoc
+  arrayUnion, doc, getDoc, updateDoc
 } from 'firebase/firestore';
 import IReducers from '../../../../types/reducers/reducersType';
 import { auth, db } from '../../../../firebase/firebase';
@@ -27,7 +26,7 @@ function AddMapBlock({
   img, audio, beat, handleLoadingMap, loadingMap,
 }: IProps) {
   const userDataReducer = useSelector((data: IReducers) => data.userDataReducer);
-  const dispatch = useDispatch(); // тут 20 раз ререндер происходит
+  const dispatch = useDispatch();
   const handleAddMap = async (id: number, mapName: string, isInclude?: boolean) => {
     if (!isInclude) {
       handleLoadingMap(true);

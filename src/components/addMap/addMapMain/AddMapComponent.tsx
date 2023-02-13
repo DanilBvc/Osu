@@ -2,7 +2,6 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import useFetch from '../../../customHooks/useFetch';
 import useInfiniteScroll from '../../../customHooks/useInfiniteScroll';
 import { Result, fetchMapPreview } from '../../../utils/api/fetchMapPreview';
 import AddMapBlock from './addMapBlock/AddMapBlock';

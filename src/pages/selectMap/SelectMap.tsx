@@ -37,7 +37,6 @@ function SelectMap() {
   useEffect(() => {
     const getMapsData = async () => {
       const querySnapshot = await getDocs(collection(db, 'maps'));
-
       querySnapshot.forEach((document) => {
         const mapsData = document.data();
         const resultData: MapDataFromApi = {
@@ -92,7 +91,6 @@ function SelectMap() {
 
     getMapsData();
   }, []);
-
   return (
     <div className="select-map-page-container">
       <ParallaxBackground />

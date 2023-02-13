@@ -42,6 +42,7 @@ const getMapDataFromApi = async (mapId: number, mapName: string) => {
           if (file !== null && fileExtension === 'osu') {
             file.async('string').then(async (content) => {
               const mapData = getDataFromOsuMap(content);
+              console.log(mapData);
               await updateDoc(doc(db, 'maps', id), {
                 [`mapData ${file.name.replace(regex, '').trim()}`]: JSON.stringify(mapData),
               });
