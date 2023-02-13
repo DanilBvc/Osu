@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBackgroundSourceAction } from '../../../store/reducers/selectMapPage/backgroundSourceReducer';
-import { setCurrentAudioAction } from '../../../store/reducers/selectMapPage/currentAudioReducer';
+import { setCurrentAudioSourceAction } from '../../../store/reducers/selectMapPage/currentAudioSourceReducer';
 import { setSongDifficultyAction } from '../../../store/reducers/selectMapPage/songDifficultyReducer';
 import { setSongIDAction } from '../../../store/reducers/selectMapPage/songIDReducer';
 import IReducers from '../../../types/reducers/reducersType';
@@ -18,7 +18,6 @@ function SongListItem(props: ISongListItem) {
     difficulty,
     setClickedSongListData,
   } = props;
-
   const dispatch = useDispatch();
   const setBackgroundSource = (source: string) => {
     dispatch(setBackgroundSourceAction(source));
@@ -29,9 +28,8 @@ function SongListItem(props: ISongListItem) {
   const setSongDifficulty = (songDifficulty: string) => {
     dispatch(setSongDifficultyAction(songDifficulty));
   };
-  const currentAudioElement = useSelector((state: IReducers) => state.currentAudioReducer);
-  const setCurrentAudio = (audio: HTMLAudioElement) => {
-    dispatch(setCurrentAudioAction(audio));
+  const setCurrentAudioSource = (audioSource: string) => {
+    dispatch(setCurrentAudioSourceAction(audioSource));
   };
   const selectedSongID = useSelector((state: IReducers) => state.songIDReducer);
   const selectedSongDifficulty = useSelector((state: IReducers) => state.songDifficultyReducer);
@@ -47,18 +45,25 @@ function SongListItem(props: ISongListItem) {
         }`}
         role="menuitem"
         data-id={songData.id}
-        onMouseEnter={(event) => {
-          songListItemHoverHandler(event);
-        }}
-        onMouseLeave={(event) => songListMousLeaveHandler(event, selectedSongID)}
+        data-difficulty={difficulty}
+        onMouseEnter={(event) => songListItemHoverHandler(event)}
+        onMouseLeave={(event) => (
+          songListMousLeaveHandler(event, selectedSongID, selectedSongDifficulty)
+        )}
         onClick={(event) => {
           setBackgroundSource(songData.images[0].imagesFile);
           setSongID(songData.id as string);
-          currentAudioElement.forEach((auduoElement) => auduoElement.pause());
-          setCurrentAudio(new Audio(songData.audio as string));
-          currentAudioElement.at(-1)?.play();
+
+          // TODO: bind originial maps songs
+          setCurrentAudioSource(difficulty === 'Easy' ? '/songs/1011011.mp3' : '/songs/935732.mp3');
+          // setCurrentAudio(songData.audio as string);
+
+          // TODO: move all methods calls to click handler
           songListItemClickHandler(event);
+
+          // TODO: change to saving songdata to redux
           setClickedSongListData(songData);
+
           setSongDifficulty(difficulty);
         }}
       >
