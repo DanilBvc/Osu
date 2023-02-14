@@ -1,6 +1,6 @@
 import './playerCard.scss';
 import { useSelector } from 'react-redux';
-import avatarPlug from '../../assets/plugs/avatar-plug.jpg';
+import userAvatarPlaceHolder from '../../assets/images/userAvatarPlaceholderImage.png';
 import IReducers from '../../types/reducers/reducersType';
 import useUnSub from '../../customHooks/useUnSub';
 
@@ -16,7 +16,7 @@ export default function PlayerCard(): JSX.Element {
 
   return (
     <div className="playerCard">
-      <img className="playerCard-avatar" src={avatar || avatarPlug} alt="avatar" />
+      <img className="playerCard-avatar" src={avatar || userAvatarPlaceHolder} alt="avatar" />
       <div className="playerCard-info">
         <p className="playerCard-name">{name}</p>
         <p className="playerCard-performance">
