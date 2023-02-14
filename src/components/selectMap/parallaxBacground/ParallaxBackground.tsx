@@ -20,7 +20,7 @@ function ParallaxBackground() {
 
   return (
     <div
-      className="select-map-page-container__background"
+      className="parallax-background"
       style={{
         backgroundImage: `url(${backgroundSource})`,
       }}
