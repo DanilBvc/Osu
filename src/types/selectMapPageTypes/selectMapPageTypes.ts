@@ -12,14 +12,10 @@ export interface ISongData {
 export interface ISongListItem {
   songData: IMapData;
   difficulty: string;
-  setClickedSongListData: React.Dispatch<React.SetStateAction<IMapData>>;
 }
 export interface IStarAnimation {
   songID: string | null;
   difficulty: string;
-}
-export interface IPlayersStatisticList {
-  clickedSongListData: IMapData;
 }
 export interface IOsuButton {
   path: string;

@@ -16,7 +16,6 @@ function SongListItem(props: ISongListItem) {
   const {
     songData,
     difficulty,
-    setClickedSongListData,
   } = props;
   const dispatch = useDispatch();
   const setBackgroundSource = (source: string) => {
@@ -64,9 +63,6 @@ function SongListItem(props: ISongListItem) {
 
           // TODO: move all methods calls to click handler
           songListItemClickHandler(event);
-
-          // TODO: change to saving songdata to redux
-          setClickedSongListData(songData);
 
           setSongDifficulty(difficulty);
         }}
