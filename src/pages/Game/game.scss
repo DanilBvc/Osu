@@ -1,15 +1,17 @@
-.game {
-  &-background {
-    height: 100vh;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    color: #fff;
-    text-align: center;
-    width: 100%;
-  }
+.gameStage {
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
 
-  &-title {
-    font-size: 30px;
+  &::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.644);
   }
 }
