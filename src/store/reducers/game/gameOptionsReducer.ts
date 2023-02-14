@@ -13,7 +13,10 @@ interface setResolutionAction {
 
 interface setDifficultyAction {
   type: gameOptionsActions.SET_GAME_DIFFICULTY;
-  payload: { OD: number; CS: number; AR: number };
+  payload: {
+    approachTime: number;
+    circleSize: number;
+  };
 }
 
 interface setGameModeAction {
@@ -24,9 +27,8 @@ interface setGameModeAction {
 export interface IGameOptions {
   КСoefficient: { CX: number; CY: number };
   difficulty: {
-    OD: number;
-    CS: number;
-    AR: number;
+    approachTime: number;
+    circleSize: number;
   };
   isHard: boolean;
 }
@@ -37,9 +39,8 @@ const gameOptions: IGameOptions = {
     CY: 0,
   },
   difficulty: {
-    OD: 0,
-    CS: 0,
-    AR: 0,
+    approachTime: 0,
+    circleSize: 0,
   },
   isHard: false,
 };
@@ -80,9 +81,8 @@ export const setGameMode = (payload: boolean) => (
 
 export const setGameDiffuculty = (
   payload: {
-    OD: number;
-    CS: number;
-    AR: number;
+    approachTime: number;
+    circleSize: number;
   }
 ) => (
   { type: gameOptionsActions.SET_GAME_DIFFICULTY, payload }
