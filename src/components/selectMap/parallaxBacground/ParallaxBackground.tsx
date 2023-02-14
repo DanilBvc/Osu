@@ -5,7 +5,7 @@ import parallaxCreate from '../../../utils/parallaxCreate';
 import throttle from '../../../utils/throttle';
 import './parallaxBackground.scss';
 
-function ParallaxBacground() {
+function ParallaxBackground() {
   const throttleInProgress = useRef(false);
   const backgroundSource = useSelector((state: IReducers) => state.backgroundSourceReducer);
   const backgroundElement = useRef(null);
@@ -29,4 +29,4 @@ function ParallaxBacground() {
   );
 }
 
-export default ParallaxBacground;
+export default ParallaxBackground;
