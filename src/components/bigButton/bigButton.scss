@@ -1,10 +1,6 @@
 $text-shadow: 0 0 15px #FFFFDD;
 $logo-size: 500px;
 $menu-height: $logo-size / 5;
-
-
-
-
 @keyframes pulse {
   0% {
     transform: scale(1) rotateY(-13deg) rotateX(17deg) rotateZ(-7deg);
@@ -18,7 +14,6 @@ $menu-height: $logo-size / 5;
     transform: scale(1) rotateY(-13deg) rotateX(17deg) rotateZ(-7deg);
   }
 }
-
 @-webkit-keyframes pulse {
   0% {
     -webkit-transform: scale(1) rotateY(-13deg) rotateX(17deg) rotateZ(-7deg);
@@ -32,26 +27,20 @@ $menu-height: $logo-size / 5;
     -webkit-transform: scale(1) rotateY(-13deg) rotateX(17deg) rotateZ(-7deg);
   }
 }
-
 .main {
-
   *,
   *:before,
   *:after {
     box-sizing: border-box;
     transition: all 0.2s;
     -webkit-transition: all 0.2s;
-    font-family: verdana;
     color: #FFF;
     text-decoration: none;
   }
-
 }
-
 .noevents {
   pointer-events: none;
 }
-
 .bg {
   z-index: -1;
   position: absolute;
@@ -59,20 +48,19 @@ $menu-height: $logo-size / 5;
   box-shadow: 26px 50px 500px rgba(0, 0, 0, 0.35) inset;
   height: 100%;
   width: 100%;
-
-
 }
-
 .osu-main {
-  position: relative;
-  margin-left: 50%;
+  // position: absolute;
+  // left: 0;
+  // top: 50%;
+  // margin-left: 50%;
   left: -$logo-size / 2;
   height: $logo-size;
   width: $logo-size;
 }
-
-
 .osu-main .osu {
+  // position: absolute;
+  // left: 0;
   cursor: pointer;
   height: $logo-size;
   width: $logo-size;
@@ -92,14 +80,11 @@ $menu-height: $logo-size / 5;
   animation: pulse 0.4s linear infinite;
   -webkit-animation: pulse 0.4s linear infinite;
 }
-
-
 .osu-main .osu-main-menu {
   position: absolute;
   top: $logo-size / 12;
   left: $logo-size / 2;
 }
-
 .osu-main .osu-main-menu div {
   cursor: pointer;
   position: relative;
@@ -115,78 +100,62 @@ $menu-height: $logo-size / 5;
   width: 0;
   opacity: 0;
 }
-
 .osu-main .osu-main-menu .play {
   border-radius: 0 2.5em 0.3em 0;
 }
-
 .osu-main .osu-main-menu .edit {
   border-radius: 0 1em 0.3em 0;
 }
-
 .osu-main .osu-main-menu .options {
   border-radius: 0 0.3em 1em 0;
 }
-
 .osu-main .osu-main-menu .exit {
   border-radius: 0 0.3em 2.5em 0;
 }
-
 /* ANIMATIONS */
 .osu-main:hover {
   left: -$logo-size / 2 - 150px;
 }
-
 .osu-main:hover .osu {
   transform: scale(1.07);
   -webkit-transform: scale(1.07);
   animation: none;
   -webkit-animation: none;
 }
-
 .osu-main:hover .osu:active {
   transform: scale(1.05);
   -webkit-transform: scale(1.05);
 
 }
-
-
-
 .osu-main:hover .osu-main-menu .play {
   width: 550px;
   font-size: 70px;
   opacity: 1;
 
 }
-
 .osu-main:hover .osu-main-menu .edit {
   width: 600px;
   font-size: 70px;
   opacity: 1;
 }
-
 .osu-main:hover .osu-main-menu .options {
   width: 600px;
   font-size: 70px;
   opacity: 1;
 }
-
 .osu-main:hover .osu-main-menu .exit {
   width: 550px;
   font-size: 70px;
   opacity: 1;
 }
-
 .osu-main .osu-main-menu div:hover {
   transform: scale(1.07);
   -webkit-transform: scale(1.07);
 }
-
 .osu-main .osu-main-menu div:active {
   transform: scale(1.03);
   -webkit-transform: scale(1.03);
 }
-
 .osu-main .osu-main-menu div:hover {
   width: 620px;
   text-shadow: $text-shadow;

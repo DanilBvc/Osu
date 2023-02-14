@@ -14,7 +14,7 @@ function MainPage() {
     <main className="main" style={!isAuth ? { pointerEvents: 'none' } : {}}>
       <ParallaxBackground />
       <InfoPanel />
-      <div className="main__ose-button-wrapper">
+      <div className="main__osu-button-wrapper">
         <OsuButton path="/selectMap" />
       </div>
       <BigButton />

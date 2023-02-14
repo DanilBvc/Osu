@@ -1,13 +1,27 @@
 .main {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  justify-content: space-between;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  .main__osu-button-wrapper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
+    z-index: 5;
+    font-size: 200px;
+    font-weight: bold;
+    text-shadow: 1px 1px 4px rgba($color: #000000, $alpha: 0.5);
+    .osu-button {
+      border: 1.5rem solid #fff;
+    }
+  }
 }
-
-
 .wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
