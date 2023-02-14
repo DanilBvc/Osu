@@ -1,11 +1,54 @@
+@import '../../globalStyles/variables';
+
 .footer {
-  background-color: #00000087;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 64px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  color: #fff;
-
-  .authors {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  .outer-wrapper {
+    width: 100%;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .socials-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+  .image-link {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 0px;
+  }
+  .github-block__link {
+    width: $social-logo-size;
+    height: $social-logo-size;
+  }
+  .github-block__logo {
+    transition: all ease 0.3s;
+  }
+  .rss-block__link,
+  .rss-block__logo {
+    height: $social-logo-size;
+  }
+  .rss-block__logo {
+    transition: all ease 0.3s;
+    fill: hsl(348, 100%, 47%);
+    filter: invert(1);
+  }
+  .developed-year {
+    color: #FFFFFF;
+    font-size: $font-base-size;
+    line-height: 90%;
+    margin-left: auto;
+    &:before {
+      content: '©';
+    }
   }
 }
