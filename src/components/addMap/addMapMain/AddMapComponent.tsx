@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/jsx-no-useless-fragment */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import useInfiniteScroll from '../../../customHooks/useInfiniteScroll';
 import { Result, fetchMapPreview } from '../../../utils/api/fetchMapPreview';
@@ -18,6 +18,8 @@ function AddMapComponent({ input }: IProps) {
   const [loadingMap, setLoadingMap] = useState(false);
   const [data, setData] = useState<Result[]>([]);
   const location = useLocation();
+  const audioElementRef = useRef<HTMLAudioElement | null>(null);
+  const audioStatusRef = useRef(false);
   const splittedRoute = location.pathname.split('/');
   const currentRoute = splittedRoute[splittedRoute.length - 1];
   const handleLoadingMap = (value: boolean) => {
@@ -36,6 +38,15 @@ function AddMapComponent({ input }: IProps) {
       setData(r.result);
     });
   }, [count]);
+  const handleAudio = (audio: string) => {
+    const audioElement = new Audio(audio);
+    if (audioStatusRef.current) {
+      audioElementRef.current?.pause();
+    }
+    audioStatusRef.current = true;
+    audioElementRef.current = audioElement;
+    audioElement.play();
+  };
   return (
     <>
       {!loading
@@ -72,6 +83,7 @@ function AddMapComponent({ input }: IProps) {
             <div className="addMapComponent-wrapper">
               {data.map((map) => (
                 <AddMapBlock
+                  handleAudio={handleAudio}
                   handleLoadingMap={handleLoadingMap}
                   loadingMap={loadingMap}
                   key={map.id}
@@ -84,7 +96,15 @@ function AddMapComponent({ input }: IProps) {
             </div>
           </>
         )
-        : <div className="loading">Loading please wait</div>}
+        : (
+          <div className="loading">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        )}
     </>
   );
 }
