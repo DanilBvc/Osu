@@ -11,6 +11,7 @@ import songListItemClickHandler from './songListItemClickHandler';
 import songListItemHoverHandler from './songListItemHoverHandler';
 import songListMousLeaveHandler from './songListMousLeaveHandler';
 import StarAnimation from './StarAnimation';
+import './songListItemStyles.scss';
 
 function SongListItem(props: ISongListItem) {
   const {

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSongDifficultyAction } from '../../../store/reducers/selectMapPage/songDifficultyReducer';
 import IReducers from '../../../types/reducers/reducersType';
 import { IStarAnimation } from '../../../types/selectMapPageTypes/selectMapPageTypes';
+import './starAnimationStyles.scss';
 
 function StarAnimation(props: IStarAnimation) {
   const {
