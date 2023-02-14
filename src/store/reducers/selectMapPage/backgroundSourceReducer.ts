@@ -3,7 +3,7 @@
 const SET_BACKGROUND_SOURCE = 'SET_BACKGROUND_SOURCE';
 
 export const backgroundSourceReducer = (
-  state = '/songs/1011011.jpg',
+  state = '/images/pages-default-background.jpg',
   action: {
     type: string;
     payload: string;
