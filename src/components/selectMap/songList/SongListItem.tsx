@@ -56,10 +56,7 @@ function SongListItem(props: ISongListItem) {
         onClick={(event) => {
           setBackgroundSource(songData.images[0].imagesFile);
           setSongID(songData.id as string);
-
-          // TODO: bind originial maps songs
-          setCurrentAudioSource(difficulty === 'Easy' ? '/songs/1011011.mp3' : '/songs/935732.mp3');
-          // setCurrentAudio(songData.audio as string);
+          setCurrentAudioSource(songData.audio as string);
 
           // TODO: move all methods calls to click handler
           songListItemClickHandler(event);
