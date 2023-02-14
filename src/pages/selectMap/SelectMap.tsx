@@ -100,7 +100,9 @@ function SelectMap() {
         ))}
       </ul>
       <SelectMapPageFooter />
-      <OsuButton path="/game" />
+      <div className="select-map-page-container__osu-button-wrapper">
+        <OsuButton path="/game" />
+      </div>
     </div>
   );
 }
