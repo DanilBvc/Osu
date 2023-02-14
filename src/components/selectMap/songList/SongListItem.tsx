@@ -57,11 +57,8 @@ function SongListItem(props: ISongListItem) {
           setBackgroundSource(songData.images[0].imagesFile);
           setSongID(songData.id as string);
           setCurrentAudioSource(songData.audio as string);
-
-          // TODO: move all methods calls to click handler
-          songListItemClickHandler(event);
-
           setSongDifficulty(difficulty);
+          songListItemClickHandler(event);
         }}
       >
         <img className="song-list-item__cover" src={songData.images[0].imagesFile} alt="song cover" />
