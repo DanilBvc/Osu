@@ -51,10 +51,18 @@ export default function Player(): JSX.Element {
   return (
     <div className="player">
       <div className="player-box">
-        {/* <img src={playList[trackIndex]?.albumCover} alt="cover" /> */}
-
         <div className="player-right">
-          <p className="player-trackname">{playList[trackIndex]?.mapName}</p>
+          <div className="player-track-info">
+            <p className="player-track-info__title">Current track</p>
+            <span className="player-track-info__musical-note">♪</span>
+            <p className="player-track-info__name">
+              {
+                playList[trackIndex]?.mapName
+                  ? `${playList[trackIndex]?.mapData[0].metadata.Artist} - ${playList[trackIndex]?.mapName}`
+                  : 'no existing tracks'
+              }
+            </p>
+          </div>
           <VolumeBar audioPlayer={audioPlayer} />
           <div className="player-buttons">
             <button type="button" onClick={prevSong}>
