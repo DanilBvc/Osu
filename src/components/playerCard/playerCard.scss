@@ -26,13 +26,14 @@
   .lvl {
     &-progress {
       width: 2%;
-      background-color: $progress;
+      background-color: $color-pink;
       height: 100%;
     }
     &-bar {
       height: 6px;
       background-color: #fff;
       margin: 3px 0;
+      border-radius: 4px;
     }
   }
 }

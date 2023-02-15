@@ -8,13 +8,11 @@ export default function ProgressBar({ audioPlayer }: PlayerBarsProps) {
   const [progress, setProgress] = useState<string>('0');
   const activeSong = audioPlayer;
   const { duration, currentTime } = activeSong;
-
   const changeProgress = (e: { target: HTMLInputElement }): void => {
     const { value } = e.target;
     activeSong.currentTime = (duration / 100) * parseInt(value, 10);
     setProgress(value);
   };
-
   const updateProgress = (): void => {
     const progressPercent = (currentTime / duration) * 100;
     setProgress(`${progressPercent}`);
