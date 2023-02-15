@@ -11,9 +11,6 @@ import {
 } from 'firebase/firestore';
 import { auth, db } from '../../firebase/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../../firebase/firebase';
-import useUnSub from '../../customHooks/useUnSub';
 import { MapDataFromApi } from '../../types/mapsDataTypes/mapsDataFromApiTypes';
 import PlayersStatisticList from '../../components/selectMap/playersStatisticList/PlayersStatisticList';
 import SelectMapPageFooter from '../../components/selectMap/footer/SelectMapPageFooter';
@@ -32,8 +29,7 @@ function SelectMap() {
   // useEffect(() => {
   //   currentPageAudio.play();
   // }, []);
-  useUnSub();
-useEffect(() => {
+  useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const docRef = doc(db, 'users', user.uid);
@@ -94,7 +90,7 @@ useEffect(() => {
         });
         resultData.mapName = resultData.mapData[0].metadata.Title;
         Object.entries(resultData.additionAudio).forEach((item) => {
-          const format = resultData.mapData[0].general.AudioFilename.split('.').join('');
+          const format = resultData.mapData[0].general.AudioFilename.split(' ').map((item) => item.replace(/[^A-Za-z0-9]/gi, '')).join('');
           if (item[1].audioName === format) {
             resultData.audio = item[1].audioFile;
           }
