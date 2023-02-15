@@ -13,11 +13,12 @@ import getMapDataFromApi from '../../../../utils/api/getMapDataFromApi';
 import handleUserMaps from '../../../../store/actionCreators/userData/handleUserMaps';
 import StarComponent from '../starComponent/StarComponent';
 import { BeatData } from '../../../../types/mapsDataTypes/mapsDataFromApiTypes';
+import { BigData, ResponseItem } from '../../../../utils/api/fetchMapPreview';
 
 interface IProps {
   img: string;
   audio: string;
-  beat: BeatData[];
+  beat: ResponseItem;
   handleLoadingMap: (value: boolean) => void;
   loadingMap: boolean;
   handleAudio: (audio: string) => void;
@@ -85,26 +86,35 @@ function AddMapBlock({
     });
     unsub();
   }, []);
+  console.log(beat);
   return (
     <div className="addMapBlock-wrapper">
-      <img className="addMapBlock-img" src={img} alt={`img${beat[0].sid}`} />
+      <img className="addMapBlock-img" src={img} alt={`img${beat.sid}`} />
       <div className="addMapBlock-overlay"></div>
-      <div className="addMapBlock-title">{beat[0].title}</div>
-      <div className="addMapBlock-artist">{beat[0].artist}</div>
-      <div className="addMapBlock-creator">{beat[0].creator}</div>
-      <div className="addMapBlock-approved">{beat[0].ranked ? 'RANKED' : 'NON RANKED'}</div>
+      <div className="addMapBlock-title">{beat.title}</div>
+      <div className="addMapBlock-artist">{beat.artist}</div>
+      <div className="addMapBlock-creator">{beat.creator}</div>
+      <div className="addMapBlock-approved">
+        {beat.approved === 1 ? 'RANKED' : null}
+        {beat.approved === 3 ? 'QUALIFIED' : null}
+        {beat.approved === 0 ? 'PENDING' : null}
+        {beat.approved === 2 ? 'APPROVED' : null}
+        {beat.approved === -1 ? 'WIP' : null}
+        {beat.approved === -2 ? 'GRAVEYARD' : null}
+        {beat.approved === 4 ? 'LOVED' : null}
+      </div>
       <div className="play-sound" onClick={() => { handleAudio(audio); }}>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M499.1 6.3c8.1 6 12.9 15.6 12.9 25.7v72V368c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V147L192 223.8V432c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V200 128c0-14.1 9.3-26.6 22.8-30.7l320-96c9.7-2.9 20.2-1.1 28.3 5z" /></svg>
       </div>
       <div className={`addMapBlock-like icon-heart ${loadingMap ? 'hidden' : ''}`}>
         <button
           type="button"
-          className={`favorite-button ${userDataReducer.maps?.includes(beat[0].sid) ? 'is-favorite' : ''}`}
+          className={`favorite-button ${userDataReducer.maps?.includes(beat.sid) ? 'is-favorite' : ''}`}
           onClick={() => {
             handleAddMap(
-              beat[0].sid,
-              beat[0].title,
-              userDataReducer.maps?.includes(beat[0].sid)
+              beat.sid,
+              beat.title,
+              userDataReducer.maps?.includes(beat.sid)
             );
           }}
         >
@@ -113,21 +123,21 @@ function AddMapBlock({
         </button>
       </div>
       <div className="addMapBlock-difficulties">
-        {beat.length > 12
+        {beat.bid_data.length > 12
           ? (
             <>
               <div className="difficult Extra"></div>
-              <span className="difficulty-count">{beat.length}</span>
+              <span className="difficulty-count">{beat.bid_data.length}</span>
             </>
           )
-          : beat.map((item: { star: number }) => (
+          : beat.bid_data.map((item: BigData) => (
             <StarComponent
               key={item.star}
               star={item.star}
             />
           ))}
       </div>
-      <div className="addMapBlock-length">{`${Math.floor(beat[0].length / 60)}:${beat[0].length % 60 < 10 ? `${beat[0].length % 60}0` : beat[0].length % 60}`}</div>
+      <div className="addMapBlock-length">{`${Math.floor(beat.bid_data[0].length / 60)}:${beat.bid_data[0].length % 60 < 10 ? `${beat.bid_data[0].length % 60}0` : beat.bid_data[0].length % 60}`}</div>
     </div>
   );
 }
