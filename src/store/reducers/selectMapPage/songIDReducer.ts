@@ -2,7 +2,7 @@
 const SET_SONG_ID = 'SET_SONG_ID';
 
 export const songIDReducer = (
-  state = '1119f01d-988f-0dfe-2f97-5c63b5da2aad',
+  state = '',
   action: {
     type: string;
     payload: string;

@@ -1,16 +1,19 @@
 import React from 'react';
-import { IPlayersStatisticList } from '../../../types/selectMapPageTypes/selectMapPageTypes';
+import { useSelector } from 'react-redux';
+import IReducers from '../../../types/reducers/reducersType';
 import './PlayersStatisticListStyles.scss';
 
-function PlayersStatisticList(props: IPlayersStatisticList) {
-  const { clickedSongListData } = props;
+function PlayersStatisticList() {
+  const mapsData = useSelector((state: IReducers) => state.mapsDataReducer);
+  const selectedSongID = useSelector((state: IReducers) => state.songIDReducer);
+  const newclickedSongListData = mapsData.filter((songData) => songData.id === selectedSongID)[0];
 
   return (
     <div className="players-statistic-list-wrapper">
       <ul className="players-statistic-list">
-        { clickedSongListData
+        { newclickedSongListData
           ? (
-            clickedSongListData.topPlayers.map((playerName) => (
+            newclickedSongListData.topPlayers.map((playerName) => (
               <li className="players-statistic-list__item" key={window.crypto.randomUUID()}>
                 <figure className="player-avatar-wrapper" />
                 <div className="player-info">

@@ -11,14 +11,15 @@ export interface ISongData {
 }
 export interface ISongListItem {
   songData: IMapData;
-  setClickedSongListData: React.Dispatch<React.SetStateAction<IMapData>>;
+  difficulty: string;
 }
 export interface IStarAnimation {
   songID: string | null;
-}
-export interface IPlayersStatisticList {
-  clickedSongListData: IMapData;
+  difficulty: string;
 }
 export interface IOsuButton {
   path: string;
+}
+export interface IDifficultRateStars {
+  difficulty: string;
 }

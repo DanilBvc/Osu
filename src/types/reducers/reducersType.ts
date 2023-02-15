@@ -6,6 +6,7 @@ interface IReducers {
   userDataReducer: userDataState;
   backgroundSourceReducer: string;
   songIDReducer: string;
-  currentAudioReducer: HTMLAudioElement[];
+  currentAudioSourceReducer: string;
+  songDifficultyReducer: string;
 }
 export default IReducers;

@@ -1,0 +1,17 @@
+@import '../../../globalStyles/variables';
+
+.song-list-item__info-list {
+  .difficult-rate {
+    display: flex;
+    align-items: center;
+    gap: $spacer-xs;
+    .difficult-rate__star {
+      font-size: $font-base-size;
+      opacity: 0.6;
+      &.full-star {
+        font-size: $font-xlarge;
+        opacity: 1;
+      }
+    }
+  }
+}

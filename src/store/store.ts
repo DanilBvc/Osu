@@ -4,7 +4,8 @@ import userDataReducer from './reducers/userData/userDataReducer';
 import mapsDataReducer from './reducers/mapsData/mapsDataReducer';
 import { backgroundSourceReducer } from './reducers/selectMapPage/backgroundSourceReducer';
 import { songIDReducer } from './reducers/selectMapPage/songIDReducer';
-import { currentAudioReducer } from './reducers/selectMapPage/currentAudioReducer';
+import { currentAudioSourceReducer } from './reducers/selectMapPage/currentAudioSourceReducer';
+import { songDifficultyReducer } from './reducers/selectMapPage/songDifficultyReducer';
 
 const rootReducer = combineReducers(
   {
@@ -12,7 +13,8 @@ const rootReducer = combineReducers(
     mapsDataReducer,
     backgroundSourceReducer,
     songIDReducer,
-    currentAudioReducer,
+    currentAudioSourceReducer,
+    songDifficultyReducer,
   }
 );
 const store = createStore(rootReducer, composeWithDevTools());

@@ -1,49 +1,66 @@
 /* eslint-disable no-use-before-define */
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useAudioAanalyser, useAudioContext, usePlayAudio } from '../../../contexts/audioContextWrapper';
 import IReducers from '../../../types/reducers/reducersType';
 import { IOsuButton } from '../../../types/selectMapPageTypes/selectMapPageTypes';
 import './osuButtonStyles.scss';
 
 function OsuButton(props: IOsuButton) {
+  const dispatch = useDispatch();
   const { path } = props;
-  let context: null | AudioContext = null;
-  let audioAanalyser: null | AnalyserNode = null;
-  let audioSource: null | MediaElementAudioSourceNode = null;
+  const [oseButtonHover, setOsuButtonHover] = useState(false);
+  const animationID = useRef(0);
+  const osuButton = useRef(null);
+  const playAudio = usePlayAudio();
+  const audioAnalyser = useAudioAanalyser();
   let frequencyData = null;
-  let osuButton: null | HTMLLinkElement = null;
-  const currentAudioElement = useSelector((state: IReducers) => state.currentAudioReducer.at(-1));
+  const currentAudioElement = useSelector((state: IReducers) => state.currentAudioSourceReducer);
 
   useEffect(() => {
-    audioContextBind();
-  }, []);
+    if (!currentAudioElement || !playAudio) return;
+    playAudio(currentAudioElement);
+  }, [currentAudioElement]);
 
-  function audioContextBind() {
-    context = new AudioContext();
-    audioAanalyser = context.createAnalyser();
-    audioSource = context.createMediaElementSource(currentAudioElement as HTMLAudioElement);
-    audioSource.connect(audioAanalyser);
-    audioAanalyser.connect(context.destination);
-    buttonAnimation();
-  }
+  useEffect(() => {
+    if (audioAnalyser && !animationID.current) {
+      buttonAnimation(audioAnalyser);
+    }
+  }, [audioAnalyser]);
 
-  function buttonAnimation() {
-    window.requestAnimationFrame(buttonAnimation);
-    frequencyData = new Uint8Array((audioAanalyser as AnalyserNode).frequencyBinCount);
-    (audioAanalyser as AnalyserNode).getByteFrequencyData(frequencyData);
-    osuButton = document.querySelector('.osu-button');
-    if (osuButton !== null) {
+  function buttonAnimation(analyser: AnalyserNode) {
+    frequencyData = new Uint8Array(analyser.frequencyBinCount);
+    analyser.getByteFrequencyData(frequencyData);
+    if (osuButton.current !== null) {
       const frequencyIndex = 40;
       const frequencyValueReduce = 750;
       const buttonScaleCoefficient = frequencyData[frequencyIndex] / frequencyValueReduce;
 
-      osuButton.style.transform = `scale(${1 + buttonScaleCoefficient})`;
+      if (!oseButtonHover) {
+        (osuButton.current as HTMLElement).style.transform = `scale(${1 + buttonScaleCoefficient})`;
+      }
+    }
+    if (!oseButtonHover) {
+      animationID.current = window.requestAnimationFrame(buttonAnimation.bind(undefined, analyser));
     }
   }
 
   return (
-    <Link className="osu-button" to={path}>
+    <Link
+      className="osu-button"
+      ref={osuButton}
+      to={path}
+
+      // TODO: disable animation on button hover
+      // onMouseEnter={() => {
+      //   setOsuButtonHover(true);
+      //   cancelAnimationFrame(animationID.current);
+      // }}
+      // onMouseLeave={() => {
+      //   setOsuButtonHover(false);
+      // }}
+    >
       <span className="osu-button__title">osu!</span>
     </Link>
   );

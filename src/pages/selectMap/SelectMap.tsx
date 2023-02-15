@@ -11,6 +11,9 @@ import {
 } from 'firebase/firestore';
 import { auth, db } from '../../firebase/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../../firebase/firebase';
+import useUnSub from '../../customHooks/useUnSub';
 import { MapDataFromApi } from '../../types/mapsDataTypes/mapsDataFromApiTypes';
 import PlayersStatisticList from '../../components/selectMap/playersStatisticList/PlayersStatisticList';
 import SelectMapPageFooter from '../../components/selectMap/footer/SelectMapPageFooter';
@@ -20,18 +23,17 @@ import setUserData from '../../store/actionCreators/userData/setUserData';
 
 function SelectMap() {
   const mapsData = useSelector((state: IReducers) => state.mapsDataReducer);
-  // TODO: delete stateUsers if it wont be used
-  const stateUsers = useSelector((state: IReducers) => state.userDataReducer);
-  const [clickedSongListData, setClickedSongListData] = useState(mapsData[0]);
-  // TODO: change to right bg image
   const dispatch = useDispatch();
-
-  // TODO: play starting audio
-  useEffect(() => {
-    // currentPageAudio.play();
-  }, []);
-
-  useEffect(() => {
+  console.log(mapsData);
+  // TODO: change to right bg image
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  const state = useSelector((state: IReducers) => state.mapsDataReducer);
+  // TODO: set to play starting audio
+  // useEffect(() => {
+  //   currentPageAudio.play();
+  // }, []);
+  useUnSub();
+useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const docRef = doc(db, 'users', user.uid);
@@ -60,9 +62,6 @@ function SelectMap() {
       unsub();
     };
   }, []);
-  // eslint-disable-next-line @typescript-eslint/no-shadow
-  const state = useSelector((state: IReducers) => state.mapsDataReducer);
-
   useEffect(() => {
     const getMapsData = async () => {
       const querySnapshot = await getDocs(collection(db, 'maps'));
@@ -72,15 +71,9 @@ function SelectMap() {
           id: '',
           mapName: '',
           audio: '',
-          additionAudio: [
-
-          ],
-          images: [
-
-          ],
-          mapData: [
-
-          ],
+          additionAudio: [],
+          images: [],
+          mapData: [],
         };
         Object.entries(mapsData).forEach((data) => {
           const format = data[0].split(' ')[0];
@@ -123,18 +116,25 @@ function SelectMap() {
   return (
     <div className="select-map-page-container">
       <ParallaxBackground />
-      <PlayersStatisticList clickedSongListData={clickedSongListData} />
+      <PlayersStatisticList />
       <ul className="select-map-page-container__songs-list">
         {Object.values(mapsData).map((songData) => (
-          <SongListItem
-            songData={songData}
-            setClickedSongListData={setClickedSongListData}
-            key={window.crypto.randomUUID()}
-          />
+          <React.Fragment key={window.crypto.randomUUID()}>
+            <SongListItem
+              songData={songData}
+              difficulty="Easy"
+            />
+            <SongListItem
+              songData={songData}
+              difficulty="Hard"
+            />
+          </React.Fragment>
         ))}
       </ul>
       <SelectMapPageFooter />
-      <OsuButton path="/game" />
+      <div className="select-map-page-container__osu-button-wrapper">
+        <OsuButton path="/game" />
+      </div>
     </div>
   );
 }

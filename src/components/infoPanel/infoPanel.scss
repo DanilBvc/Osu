@@ -1,7 +1,12 @@
+@import '../../globalStyles/variables';
+
 .panel {
+  position: fixed;
+  top: 0;
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 10px;
-  background-color: #00000087;
+  padding: $spacer-xs;
+  background-color: rgba(0, 0, 0, 0.2);
   color: #fff;
 }
