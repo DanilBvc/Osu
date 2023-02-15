@@ -25,6 +25,7 @@ function App() {
         <Route element={<PrivateRoutes />}>
           <Route path="/game" element={<Game />} />
           <Route path="/selectMap" element={<SelectMap />} />
+          <Route path="/download/*" element={<AddMap />} />
         </Route>
       </Routes>
     </>

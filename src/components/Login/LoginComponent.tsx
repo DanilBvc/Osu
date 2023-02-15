@@ -1,16 +1,13 @@
-/* eslint-disable max-len */
 /* eslint-disable import/order */
-/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from '../../firebase/firebase';
 import setUserData from '../../store/actionCreators/userData/setUserData';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { doc, getDoc } from 'firebase/firestore';
-
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+
 
 function LoginComponent() {
   const [email, setEmail] = useState('');
@@ -30,7 +27,15 @@ function LoginComponent() {
       const userData = docSnap.data();
       if (user.email !== null && user.displayName !== null && user.photoURL !== null) {
         dispatch(setUserData({
-          name: user.displayName, email: user.email, avatar: user.photoURL, accessToken: 'user.accessToken', performance: userData.performance, accuracy: userData.accuracy, lvl: userData.lvl, uuid: user.uid,
+          name: user.displayName,
+          email: user.email,
+          avatar: user.photoURL,
+          accessToken: 'user.accessToken',
+          performance: userData.performance,
+          accuracy: userData.accuracy,
+          lvl: userData.lvl,
+          uuid: user.uid,
+          maps: userData.maps,
         }));
       }
     } else {

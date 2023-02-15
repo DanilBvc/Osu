@@ -6,6 +6,11 @@ import SongListItem from '../../components/selectMap/songList/SongListItem';
 import { useDispatch, useSelector } from 'react-redux';
 import IReducers from '../../types/reducers/reducersType';
 import setNewMap from '../../store/actionCreators/mapsData/setNewMap';
+import {
+  collection, doc, getDoc, getDocs
+} from 'firebase/firestore';
+import { auth, db } from '../../firebase/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase/firebase';
 import useUnSub from '../../customHooks/useUnSub';
@@ -14,24 +19,52 @@ import PlayersStatisticList from '../../components/selectMap/playersStatisticLis
 import SelectMapPageFooter from '../../components/selectMap/footer/SelectMapPageFooter';
 import OsuButton from '../../components/selectMap/osuButton/OsuButton';
 import ParallaxBackground from '../../components/selectMap/parallaxBacground/ParallaxBackground';
+import setUserData from '../../store/actionCreators/userData/setUserData';
 
 function SelectMap() {
   const mapsData = useSelector((state: IReducers) => state.mapsDataReducer);
   const dispatch = useDispatch();
   console.log(mapsData);
-
   // TODO: change to right bg image
-
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  const state = useSelector((state: IReducers) => state.mapsDataReducer);
   // TODO: set to play starting audio
   // useEffect(() => {
   //   currentPageAudio.play();
   // }, []);
   useUnSub();
-
+useEffect(() => {
+    const unsub = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const docRef = doc(db, 'users', user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const userData = docSnap.data();
+          if (user.email !== null
+            && user.displayName !== null
+            && user.photoURL !== null) {
+            dispatch(setUserData({
+              name: user.displayName,
+              email: user.email,
+              avatar: user.photoURL,
+              accessToken: 'user.accessToken',
+              performance: userData.performance,
+              accuracy: userData.accuracy,
+              lvl: userData.lvl,
+              uuid: user.uid,
+              maps: userData.maps,
+            }));
+          }
+        }
+      }
+    });
+    return () => {
+      unsub();
+    };
+  }, []);
   useEffect(() => {
     const getMapsData = async () => {
       const querySnapshot = await getDocs(collection(db, 'maps'));
-
       querySnapshot.forEach((document) => {
         const mapsData = document.data();
         const resultData: MapDataFromApi = {
@@ -80,7 +113,6 @@ function SelectMap() {
 
     getMapsData();
   }, []);
-
   return (
     <div className="select-map-page-container">
       <ParallaxBackground />

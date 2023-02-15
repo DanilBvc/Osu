@@ -1,14 +1,11 @@
-/* eslint-disable max-len */
-/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-shadow */
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { doc, setDoc } from 'firebase/firestore';
 import setUserData from '../../store/actionCreators/userData/setUserData';
 import { auth, db, storage } from '../../firebase/firebase';
-import { userDataState } from '../../types/userDataTypes/userData';
 
 function RegisterCmponents() {
   const [email, setEmail] = useState('');
@@ -42,6 +39,7 @@ function RegisterCmponents() {
                 performance: 0,
                 accuracy: 0,
                 lvl: 0,
+                maps: [],
               });
             } catch (err) {
               console.log(err);
@@ -52,7 +50,15 @@ function RegisterCmponents() {
       const { user } = userCredential;
       if (user.email !== null && user.photoURL !== null && user.displayName !== null) {
         dispatch(setUserData({
-          name: user.displayName, email: user.email, avatar: user.photoURL, accessToken: 'user.accessToken', performance: 0, accuracy: 0, lvl: 0, uuid: user.uid,
+          name: user.displayName,
+          email: user.email,
+          avatar: user.photoURL,
+          accessToken: 'user.accessToken',
+          performance: 0,
+          accuracy: 0,
+          lvl: 0,
+          uuid: user.uid,
+          maps: [],
         }));
       }
     } catch (err) {
