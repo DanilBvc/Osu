@@ -8,7 +8,6 @@ import { useDispatch } from 'react-redux';
 import { doc, getDoc } from 'firebase/firestore';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-
 function LoginComponent() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

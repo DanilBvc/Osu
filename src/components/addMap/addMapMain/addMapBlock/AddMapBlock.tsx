@@ -86,7 +86,6 @@ function AddMapBlock({
     });
     unsub();
   }, []);
-  console.log(beat);
   return (
     <div className="addMapBlock-wrapper">
       <img className="addMapBlock-img" src={img} alt={`img${beat.sid}`} />

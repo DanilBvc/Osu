@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/indent */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBackgroundSourceAction } from '../../../store/reducers/selectMapPage/backgroundSourceReducer';
@@ -33,20 +34,17 @@ function SongListItem(props: ISongListItem) {
   };
   const selectedSongID = useSelector((state: IReducers) => state.songIDReducer);
   const selectedSongDifficulty = useSelector((state: IReducers) => state.songDifficultyReducer);
-
   return (
     <div className="song-list-item-wrapper">
       <StarAnimation songID={songData.id} difficulty={difficulty} />
       <li
-        className={`song-list-item ${
-          difficulty === 'Easy'
-            ? 'easy-map'
-            : 'hard-map'
-        } ${
-          String(songData.id) === selectedSongID && difficulty === selectedSongDifficulty
+        className={`song-list-item ${difficulty === 'Easy'
+          ? 'easy-map'
+          : 'hard-map'
+          } ${String(songData.id) === selectedSongID && difficulty === selectedSongDifficulty
             ? 'selected-item'
             : ''
-        }`}
+          }`}
         role="menuitem"
         data-id={songData.id}
         data-difficulty={difficulty}

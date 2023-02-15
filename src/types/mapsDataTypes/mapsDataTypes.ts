@@ -7,7 +7,7 @@ interface IMapData {
   topPlayers: string[] | [];
   additionalAudio: AudioFromApi[] | [];
   id: string | null;
-  mapData: MapData;
+  mapData: MapData[];
   additionalPictures: string[] | [];
 }
 export default IMapData;

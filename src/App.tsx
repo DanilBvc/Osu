@@ -7,14 +7,12 @@ import Game from './pages/Game/Game';
 import SelectMap from './pages/selectMap/SelectMap';
 import './globalStyles/global.scss';
 import PrivateRoutes from './utils/RequireAuth/PrivatRoutes';
-import useUnSub from './customHooks/useUnSub';
 
 import AuthPopup from './components/authPopup/AuthPopup';
 import IReducers from './types/reducers/reducersType';
+import AddMap from './components/addMap/AddMap';
 
 function App() {
-  useUnSub();
-
   const isAuth = useSelector((state: IReducers) => !!state.userDataReducer.email);
   return (
     <>

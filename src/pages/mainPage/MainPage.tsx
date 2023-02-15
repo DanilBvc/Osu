@@ -1,4 +1,5 @@
-import { useSelector } from 'react-redux';
+/* eslint-disable import/order */
+import { useDispatch, useSelector } from 'react-redux';
 import Footer from '../../components/footer/Footer';
 import InfoPanel from '../../components/infoPanel/InfoPanel';
 import './mainPage.scss';
@@ -11,11 +12,13 @@ import ParallaxBackground from '../../components/selectMap/parallaxBacground/Par
 import OsuButton from '../../components/selectMap/osuButton/OsuButton';
 import LoginComponent from '../../components/Login/LoginComponent';
 import useAuth from '../../customHooks/useAuth';
+import { onAuthStateChanged } from 'firebase/auth';
+import { useEffect } from 'react';
 import { auth, db } from '../../firebase/firebase';
 import setUserData from '../../store/actionCreators/userData/setUserData';
 
 function MainPage() {
- const isAuth = useSelector((state: IReducers) => !!state.userDataReducer.email);
+  const isAuth = useSelector((state: IReducers) => !!state.userDataReducer.email);
   const dispatch = useDispatch();
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {

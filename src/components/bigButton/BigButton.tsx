@@ -41,7 +41,7 @@ export default function BigButton() {
             tabIndex={-1}
             role="button"
           >
-            <Link className="main__menu-item" to="/game">Game</Link>
+            <Link className="main__menu-item" to="/download">Maps</Link>
           </div>
           <div
             className="options"
