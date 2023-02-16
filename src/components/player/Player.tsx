@@ -1,51 +1,57 @@
+/* eslint-disable max-len */
 /* eslint-disable no-unused-expressions */
-import {
-  useEffect, useMemo, useState
-} from 'react';
+import { useRef, useState } from 'react';
 import './player.scss';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import IReducers from '../../types/reducers/reducersType';
 import ProgressBar from './ProgressBar';
 import VolumeBar from './VolumeBar';
 import IMapData from '../../types/mapsDataTypes/mapsDataTypes';
+import { usePlayAudio, useAudioElement } from '../../contexts/audioContextWrapper';
+import { setCurrentAudioSourceAction } from '../../store/reducers/selectMapPage/currentAudioSourceReducer';
+import { setSongIDAction } from '../../store/reducers/selectMapPage/songIDReducer';
 
 export default function Player(): JSX.Element {
-  const playList: IMapData[] = useSelector((state: IReducers) => state.mapsDataReducer);
-  const audioPlayer = useMemo((): HTMLAudioElement => new Audio(''), []);
-  const [trackIndex, setTrackIndex] = useState<number>(0);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
-
+  const dispatch = useDispatch();
+  const storeMapsData: IMapData[] = useSelector((state: IReducers) => state.mapsDataReducer);
+  const playAudio = usePlayAudio();
+  const audioElement = useAudioElement();
+  const currentAudioSource = useSelector((state: IReducers) => state.currentAudioSourceReducer);
+  const setSongID = (ID: string) => {
+    dispatch(setSongIDAction(ID));
+  };
+  const setCurrentAudioSource = (audioSource: string) => {
+    dispatch(setCurrentAudioSourceAction(audioSource));
+  };
+  const trackIndex = useRef<number>(0);
+  const [isPlaying, setIsPlaying] = useState<boolean>(!audioElement?.paused);
   const nextSong = (): void => {
-    trackIndex + 1 > playList.length - 1 ? setTrackIndex(0) : setTrackIndex((s) => s + 1);
+    trackIndex.current + 1 > storeMapsData.length - 1
+      ? trackIndex.current = 0
+      : trackIndex.current += 1;
+    setSongID(storeMapsData[trackIndex.current].id as string);
+    setCurrentAudioSource(storeMapsData[trackIndex.current].audio as string);
   };
-
   const prevSong = (): void => {
-    trackIndex - 1 < 0 ? setTrackIndex(playList.length - 1) : setTrackIndex((s) => s - 1);
+    trackIndex.current - 1 < 0
+      ? trackIndex.current = storeMapsData.length - 1
+      : trackIndex.current -= 1;
+    setSongID(storeMapsData[trackIndex.current].id as string);
+    setCurrentAudioSource(storeMapsData[trackIndex.current].audio as string);
   };
-
   const tooglePlayerState = (): void => {
-    isPlaying ? audioPlayer.pause() : audioPlayer.play();
+    if (!playAudio) return;
+    if (currentAudioSource !== storeMapsData[trackIndex.current].audio) {
+      setCurrentAudioSource(storeMapsData[trackIndex.current].audio as string);
+      setSongID(storeMapsData[trackIndex.current].id as string);
+    }
+    isPlaying ? audioElement?.pause() : audioElement?.play();
     setIsPlaying(!isPlaying);
   };
-
   const stopAndReload = (): void => {
-    audioPlayer.load();
+    audioElement?.load();
     setIsPlaying(false);
   };
-
-  useEffect((): void => {
-    if (playList[trackIndex]) {
-      audioPlayer.src = playList[trackIndex].audio as string;
-      audioPlayer.play();
-      setIsPlaying(true);
-    }
-  }, [trackIndex]);
-
-  useEffect((): void => {
-    if (playList[trackIndex]?.audio) {
-      audioPlayer.src = playList[trackIndex].audio as string;
-    }
-  }, [playList.length]);
 
   return (
     <div className="player">
@@ -54,9 +60,9 @@ export default function Player(): JSX.Element {
         <span className="player-track-info__musical-note">♪</span>
         <p className="player-track-info__name">
           {
-            playList[trackIndex]?.mapName
-              ? `${playList[trackIndex]?.mapData[0].metadata.Artist} - ${playList[trackIndex]?.mapName}`
-              : 'No existing tracks'
+            storeMapsData[trackIndex.current]?.mapName
+              ? `${storeMapsData[trackIndex.current]?.mapData[0].metadata.Artist} - ${storeMapsData[trackIndex.current]?.mapName}`
+              : 'Loading track data...'
           }
         </p>
       </div>
@@ -81,9 +87,9 @@ export default function Player(): JSX.Element {
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="white" d="M52.5 440.6c-9.5 7.9-22.8 9.7-34.1 4.4S0 428.4 0 416V96C0 83.6 7.2 72.3 18.4 67s24.5-3.6 34.1 4.4L224 214.3V256v41.7L52.5 440.6zM256 352V256 128 96c0-12.4 7.2-23.7 18.4-29s24.5-3.6 34.1 4.4l192 160c7.3 6.1 11.5 15.1 11.5 24.6s-4.2 18.5-11.5 24.6l-192 160c-9.5 7.9-22.8 9.7-34.1 4.4s-18.4-16.6-18.4-29V352z" /></svg>
             </button>
           </div>
-          <VolumeBar audioPlayer={audioPlayer} />
+          <VolumeBar audioElement={audioElement} />
         </div>
-        <ProgressBar audioPlayer={audioPlayer} />
+        <ProgressBar audioElement={audioElement} />
       </div>
     </div>
   );

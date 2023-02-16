@@ -1,15 +1,24 @@
-import { useState } from 'react';
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useEffect, useState } from 'react';
 import { higherSpeakerIcon, lowerSpeakerIcon } from '../../assets/playersIcons/icons';
-import { PlayerBarsProps } from './ProgressBar';
+import { PlayerBarsProps } from '../../types/mainPageTypes/mainPageTypes';
 
-export default function VolumeBar({ audioPlayer }: PlayerBarsProps): JSX.Element {
-  const [volume, setVolume] = useState<number>(0.3);
-  const activeSong: HTMLAudioElement = audioPlayer;
+export default function VolumeBar({ audioElement }: PlayerBarsProps): JSX.Element {
+  if (!audioElement) return (<span>No current audio</span>);
+
+  const activeSong: HTMLAudioElement = audioElement;
+  const [volume, setVolume] = useState<number>(activeSong.volume);
   const changeVolume = (e: { target: HTMLInputElement }): void => {
     const { value } = e.target;
     setVolume(parseFloat(value));
     activeSong.volume = volume;
   };
+
+  useEffect(() => {
+    if (activeSong) {
+      activeSong.volume = volume;
+    }
+  }, [volume, activeSong]);
 
   return (
     <div className="volume-bar-wrapper">
