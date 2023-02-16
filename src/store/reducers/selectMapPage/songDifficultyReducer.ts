@@ -2,7 +2,7 @@
 const SET_SONG_DIFFICULTY = 'SET_SONG_DIFFICULTY';
 
 export const songDifficultyReducer = (
-  state = '',
+  state = 'Easy',
   action: {
     type: string;
     payload: string;
