@@ -14,8 +14,8 @@ import IReducers from './types/reducers/reducersType';
 
 function App() {
   useUnSub();
-
   const isAuth = useSelector((state: IReducers) => !!state.userDataReducer.email);
+
   return (
     <>
       {!isAuth ? <AuthPopup /> : null}
