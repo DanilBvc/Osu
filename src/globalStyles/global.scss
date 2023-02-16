@@ -86,7 +86,14 @@ textarea,
 select {
   font: inherit;
 }
-
 .hover-opacity:hover {
   opacity: 0.6;
+}
+.hover-pink-bgc {
+  cursor: pointer;
+  transition: ease all 0.3s;
+  &:hover {
+    background-color: $color-pink;
+    color: #fff;
+  }
 }

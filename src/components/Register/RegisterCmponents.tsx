@@ -2,13 +2,13 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-shadow */
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { doc, setDoc } from 'firebase/firestore';
 import setUserData from '../../store/actionCreators/userData/setUserData';
 import { auth, db, storage } from '../../firebase/firebase';
-import { userDataState } from '../../types/userDataTypes/userData';
+import './registerCmponentsStyles.scss';
 
 function RegisterCmponents() {
   const [email, setEmail] = useState('');
@@ -61,26 +61,26 @@ function RegisterCmponents() {
   };
   return (
     <div>
-      <div>
-        <p>Регистрация</p>
+      <div className="sing-up">
+        <h1>Sign up</h1>
         <div>
-          <p>Имя</p>
+          <p className="sing-up__input-title">Name</p>
           <input value={name} onChange={(e) => { setName(e.target.value); }} type="text" required />
         </div>
         <div>
-          <p>Почта</p>
+          <p className="sing-up__input-title">E-mail</p>
           <input value={email} onChange={(e) => { setEmail(e.target.value); }} type="email" required />
         </div>
         <div>
-          <p>Пароль</p>
+          <p className="sing-up__input-title">Password</p>
           <input value={password} onChange={(e) => { setPassword(e.target.value); }} type="password" required />
         </div>
         <div>
           <div>
-            <p>Выберите ваш аватар</p>
+            <p className="sing-up__input-title">Your avatar</p>
             <input onChange={(e) => { handleFile(e); }} type="file" />
           </div>
-          <button onClick={() => { handleRegister(email, password); }} type="submit">Регистрация</button>
+          <button className="sing-up__button hover-pink-bgc" onClick={() => { handleRegister(email, password); }} type="submit">Sign up</button>
         </div>
       </div>
     </div>

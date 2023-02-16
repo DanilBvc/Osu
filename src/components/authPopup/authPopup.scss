@@ -10,13 +10,12 @@
   align-items: center;
   color: #fff;
   transition: all 3s;
-
   text-align: center;
-  animation: show 3s ease;
+  animation: show 1s ease;
+  .popup__authorization-components-switch-button {
+    padding: 8px 16px;
+  }
 }
-
-
-
 @keyframes show {
   0% {
     width: 0;
