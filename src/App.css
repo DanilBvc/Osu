@@ -1,5 +1,6 @@
 body {
-  background: url(./assets//plugs/background-plug.jpg);
+  background: url(/public/images/pages-default-background.jpg);
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
 }

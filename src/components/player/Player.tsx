@@ -10,6 +10,7 @@ import IMapData from '../../types/mapsDataTypes/mapsDataTypes';
 import { usePlayAudio, useAudioElement } from '../../contexts/audioContextWrapper';
 import { setCurrentAudioSourceAction } from '../../store/reducers/selectMapPage/currentAudioSourceReducer';
 import { setSongIDAction } from '../../store/reducers/selectMapPage/songIDReducer';
+import { setBackgroundSourceAction } from '../../store/reducers/selectMapPage/backgroundSourceReducer';
 
 export default function Player(): JSX.Element {
   const dispatch = useDispatch();
@@ -17,13 +18,21 @@ export default function Player(): JSX.Element {
   const playAudio = usePlayAudio();
   const audioElement = useAudioElement();
   const currentAudioSource = useSelector((state: IReducers) => state.currentAudioSourceReducer);
+  const selectedSongID = useSelector((state: IReducers) => state.songIDReducer);
   const setSongID = (ID: string) => {
     dispatch(setSongIDAction(ID));
   };
   const setCurrentAudioSource = (audioSource: string) => {
     dispatch(setCurrentAudioSourceAction(audioSource));
   };
-  const trackIndex = useRef<number>(0);
+  const setBackgroundSource = (source: string) => {
+    dispatch(setBackgroundSourceAction(source));
+  };
+  const trackIndex = useRef<number>(
+    storeMapsData.findIndex((mapData) => mapData.id === selectedSongID) !== -1
+      ? storeMapsData.findIndex((mapData) => mapData.id === selectedSongID)
+      : 0
+  );
   const [isPlaying, setIsPlaying] = useState<boolean>(!audioElement?.paused);
   const nextSong = (): void => {
     trackIndex.current + 1 > storeMapsData.length - 1
@@ -32,6 +41,7 @@ export default function Player(): JSX.Element {
     setIsPlaying(true);
     setSongID(storeMapsData[trackIndex.current].id as string);
     setCurrentAudioSource(storeMapsData[trackIndex.current].audio as string);
+    setBackgroundSource(storeMapsData[trackIndex.current].images[0].imagesFile);
   };
   const prevSong = (): void => {
     trackIndex.current - 1 < 0
@@ -40,6 +50,7 @@ export default function Player(): JSX.Element {
     setIsPlaying(true);
     setSongID(storeMapsData[trackIndex.current].id as string);
     setCurrentAudioSource(storeMapsData[trackIndex.current].audio as string);
+    setBackgroundSource(storeMapsData[trackIndex.current].images[0].imagesFile);
   };
   const tooglePlayerState = (): void => {
     if (!playAudio) return;
@@ -48,6 +59,7 @@ export default function Player(): JSX.Element {
       setSongID(storeMapsData[trackIndex.current].id as string);
     }
     isPlaying ? audioElement?.pause() : audioElement?.play();
+    setBackgroundSource(storeMapsData[trackIndex.current].images[0].imagesFile);
     setIsPlaying(!isPlaying);
   };
   const stopAndReload = (): void => {

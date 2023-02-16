@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import SongListItem from '../../components/selectMap/songList/SongListItem';
 import IReducers from '../../types/reducers/reducersType';
@@ -11,13 +11,8 @@ import './SelectMapPageStyles.scss';
 
 function SelectMap() {
   const mapsData = useSelector((state: IReducers) => state.mapsDataReducer);
-  useUnSub();
 
-  // TODO: change to right bg image
-  // TODO: set to play starting audio
-  // useEffect(() => {
-  //   currentPageAudio.play();
-  // }, []);
+  useUnSub();
 
   return (
     <div className="select-map-page-container">
