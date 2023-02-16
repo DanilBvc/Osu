@@ -38,6 +38,7 @@ export function AudioContextWrapperProvider({ children }: {children: React.React
         newAudioAnalyser.connect(audioContext.destination);
         setAudioAnalyser(newAudioAnalyser);
       }
+      audioElementRef.current.loop = true;
       audioElementRef.current.play();
       audioSourceRef.current = audioSource;
     }
