@@ -29,6 +29,7 @@ export default function Player(): JSX.Element {
     trackIndex.current + 1 > storeMapsData.length - 1
       ? trackIndex.current = 0
       : trackIndex.current += 1;
+    setIsPlaying(true);
     setSongID(storeMapsData[trackIndex.current].id as string);
     setCurrentAudioSource(storeMapsData[trackIndex.current].audio as string);
   };
@@ -36,6 +37,7 @@ export default function Player(): JSX.Element {
     trackIndex.current - 1 < 0
       ? trackIndex.current = storeMapsData.length - 1
       : trackIndex.current -= 1;
+    setIsPlaying(true);
     setSongID(storeMapsData[trackIndex.current].id as string);
     setCurrentAudioSource(storeMapsData[trackIndex.current].audio as string);
   };
