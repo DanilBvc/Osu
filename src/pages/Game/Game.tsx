@@ -1,20 +1,27 @@
+/* eslint-disable max-len */
 import { useRef, useEffect } from 'react';
 import { Stage, Layer } from 'react-konva';
 import { useSelector } from 'react-redux';
 import GameCircle from './Circle/Circle';
 import GameSlider from './Slider/Slider';
-import useUpdatedObjects from '../../customHooks/useUpdatedObjects';
 import Spinner from './Spinner/Spinner';
 import IReducers from '../../types/reducers/reducersType';
 import './game.scss';
+import audioPlug from '../../assets/plugs/audio-plug.mp3';
+import useUpdate from '../../customHooks/useUpdate';
 import { UpdatedObject } from '../../types/gameTypes';
+import GameBar from './GameBar/GameBar';
 
-function Game() {
+function Game(): JSX.Element {
   const mapData = useSelector((state: IReducers) => state.activeGameReduccer);
-  const { colors } = mapData.mapData[0];
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const OBJECTS = useUpdatedObjects(mapData.mapData[0]);
 
+  const {
+    ApproachRate, OverallDifficulty, SliderMultiplier, SliderTickRate,
+  } = mapData.mapData[0].difficulty;
+  const { hitObjects, timingPoints, colors } = mapData.mapData[0];
+
+  const gameElements = useUpdate(hitObjects, timingPoints, ApproachRate, OverallDifficulty, SliderMultiplier);
+  const audioRef = useRef<HTMLAudioElement>(null);
   useEffect(() => {
     if (audioRef.current) audioRef.current.play();
   }, []);
@@ -26,7 +33,8 @@ function Game() {
         { backgroundImage: `url(${mapData.images[0].imagesFile})` }
       }
     >
-      <audio ref={audioRef} src={mapData.audio ?? ''}>
+      <GameBar />
+      <audio ref={audioRef} src={mapData.audio || audioPlug}>
         <track kind="captions" />
       </audio>
       <Stage
@@ -34,7 +42,7 @@ function Game() {
         height={window.innerHeight}
       >
         <Layer>
-          {OBJECTS.slice(0, 100).map((object: UpdatedObject) => {
+          {gameElements.map((object: UpdatedObject) => {
             if (object.type === 'slider') {
               return (
                 <GameSlider
@@ -58,7 +66,9 @@ function Game() {
             return (
               <Spinner
                 key={window.crypto.randomUUID()}
-                spinner={object}
+                model={object}
+                colors={colors}
+                audioRef={audioRef}
               />
             );
           })}
