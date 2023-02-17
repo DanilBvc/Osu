@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-shadow */
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -42,6 +40,7 @@ function RegisterCmponents() {
                 performance: 0,
                 accuracy: 0,
                 lvl: 0,
+                maps: [],
               });
             } catch (err) {
               console.log(err);
@@ -52,7 +51,15 @@ function RegisterCmponents() {
       const { user } = userCredential;
       if (user.email !== null && user.photoURL !== null && user.displayName !== null) {
         dispatch(setUserData({
-          name: user.displayName, email: user.email, avatar: user.photoURL, accessToken: 'user.accessToken', performance: 0, accuracy: 0, lvl: 0, uuid: user.uid,
+          name: user.displayName,
+          email: user.email,
+          avatar: user.photoURL,
+          accessToken: 'user.accessToken',
+          performance: 0,
+          accuracy: 0,
+          lvl: 0,
+          uuid: user.uid,
+          maps: [],
         }));
       }
     } catch (err) {

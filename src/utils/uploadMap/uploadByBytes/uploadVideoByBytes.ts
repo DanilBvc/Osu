@@ -7,8 +7,6 @@ const uploadVideoByBytes = async (
   name: string,
   format: string
 ) => {
-  // eslint-disable-next-line no-debugger
-  debugger;
   const storageRef = ref(storage, `/sounds/${id}/video/${name}`);
   const metadata = {
     contentType: `video/${format}`,

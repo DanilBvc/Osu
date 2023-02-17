@@ -7,4 +7,5 @@ export interface userDataState {
   accuracy: number | null;
   lvl: number | null;
   uuid: string | null;
+  maps: number[] | null;
 }
