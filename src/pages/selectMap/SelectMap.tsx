@@ -1,3 +1,6 @@
+/* eslint-disable max-len */
+/* eslint-disable @typescript-eslint/indent */
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable import/order */
 import React, { useEffect, useState } from 'react';
@@ -67,7 +70,8 @@ function SelectMap() {
       const querySnapshot = await getDocs(collection(db, 'maps'));
       querySnapshot.forEach((document) => {
         const mapsData = document.data();
-        if (state.maps?.includes(+mapsData.id)) {
+        if (state.maps?.includes(+mapsData.id)
+          && storeMapsData.findIndex((storeMapData) => storeMapData.id === document.data().id) === -1) {
           const resultData: MapDataFromApi = {
             id: '',
             mapName: '',
