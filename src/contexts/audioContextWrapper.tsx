@@ -5,9 +5,12 @@ import React, {
 const ReactAudioContext = createContext<{
   audioContext: AudioContext | null;
   audioAnalyser: AnalyserNode | null;
+  audioElement: HTMLAudioElement | null;
   playAudio(source: string): void;
 } | null>(null);
 const audioElement = new Audio();
+
+audioElement.volume = 0.5;
 
 export function AudioContextWrapperProvider({ children }: {children: React.ReactNode}) {
   const audioElementRef = useRef<HTMLAudioElement>(audioElement);
@@ -41,7 +44,12 @@ export function AudioContextWrapperProvider({ children }: {children: React.React
 
     return { audioContext: audioContextRef.current, playAudio };
   }, []);
-  const providerValues = useMemo(() => ({ ...value, audioAnalyser }), [value, audioAnalyser]);
+  const providerValues = useMemo(
+    () => (
+      { ...value, audioAnalyser, audioElement }
+    ),
+    [value, audioAnalyser, audioElement]
+  );
 
   return (
     <ReactAudioContext.Provider value={providerValues}>
@@ -62,4 +70,10 @@ export const usePlayAudio = () => {
   const audioContext = useAudioContext();
 
   return audioContext?.playAudio;
+};
+
+export const useAudioElement = () => {
+  const audioContext = useAudioContext();
+
+  return audioContext?.audioElement;
 };

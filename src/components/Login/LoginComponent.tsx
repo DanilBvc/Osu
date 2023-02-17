@@ -6,7 +6,8 @@ import { auth, db } from '../../firebase/firebase';
 import setUserData from '../../store/actionCreators/userData/setUserData';
 import { useDispatch } from 'react-redux';
 import { doc, getDoc } from 'firebase/firestore';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import './loginComponentStyles.scss';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function LoginComponent() {
   const [email, setEmail] = useState('');
@@ -46,17 +47,17 @@ function LoginComponent() {
   return (
     <div className="login">
       <div>
-        <p>ВХОД</p>
+        <h1>Sign in</h1>
         <div>
-          <p>Логин</p>
+          <p className="login__input-title">Login</p>
           <input value={email} onChange={(e) => { setEmail(e.target.value); }} type="email" />
         </div>
         <div>
-          <p>Пароль</p>
+          <p className="login__input-title">Password</p>
           <input value={password} onChange={(e) => { setPassword(e.target.value); }} type="text" />
         </div>
       </div>
-      <button onClick={() => { handleLogin(email, password); }} type="submit">Вход</button>
+      <button className="sing-in__button hover-pink-bgc" onClick={() => { handleLogin(email, password); }} type="submit">Sign in</button>
     </div>
   );
 }

@@ -1,27 +1,26 @@
-/* eslint-disable @typescript-eslint/indent */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable import/order */
 import React, { useEffect, useState } from 'react';
-import './SelectMapPageStyles.scss';
-import SongListItem from '../../components/selectMap/songList/SongListItem';
 import { useDispatch, useSelector } from 'react-redux';
-import IReducers from '../../types/reducers/reducersType';
-import setNewMap from '../../store/actionCreators/mapsData/setNewMap';
 import {
   collection, doc, getDoc, getDocs
 } from 'firebase/firestore';
+import SongListItem from '../../components/selectMap/songList/SongListItem';
+import IReducers from '../../types/reducers/reducersType';
+import setNewMap from '../../store/actionCreators/mapsData/setNewMap';
 import { auth, db } from '../../firebase/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
 import { MapDataFromApi } from '../../types/mapsDataTypes/mapsDataFromApiTypes';
 import PlayersStatisticList from '../../components/selectMap/playersStatisticList/PlayersStatisticList';
 import SelectMapPageFooter from '../../components/selectMap/footer/SelectMapPageFooter';
 import OsuButton from '../../components/selectMap/osuButton/OsuButton';
 import ParallaxBackground from '../../components/selectMap/parallaxBacground/ParallaxBackground';
+import './SelectMapPageStyles.scss';
 import setUserData from '../../store/actionCreators/userData/setUserData';
+import { onAuthStateChanged } from '@firebase/auth';
 
 function SelectMap() {
-  const mapsData = useSelector((state: IReducers) => state.mapsDataReducer);
   const dispatch = useDispatch();
+  const storeMapsData = useSelector((state: IReducers) => state.mapsDataReducer);
   const [isAuth, setIsAuth] = useState(false);
   // TODO: change to right bg image
   // eslint-disable-next-line @typescript-eslint/no-shadow
@@ -30,6 +29,7 @@ function SelectMap() {
   // useEffect(() => {
   //   currentPageAudio.play();
   // }, []);
+
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -56,10 +56,12 @@ function SelectMap() {
         }
       }
     });
+
     return () => {
       unsub();
     };
   }, []);
+
   useEffect(() => {
     const getMapsData = async () => {
       const querySnapshot = await getDocs(collection(db, 'maps'));
@@ -87,6 +89,7 @@ function SelectMap() {
               resultData.id = fileLink;
             } else if (format === 'images') {
               resultData.images = [...resultData.images,
+              // eslint-disable-next-line @typescript-eslint/indent
               { imagesName: name, imagesFile: fileLink }];
             } else if (format === 'mapData') {
               resultData.mapData = [...resultData.mapData, JSON.parse(fileLink)];
@@ -118,7 +121,7 @@ function SelectMap() {
       <ParallaxBackground />
       <PlayersStatisticList />
       <ul className="select-map-page-container__songs-list">
-        {Object.values(mapsData).map((songData) => (
+        {Object.values(storeMapsData).map((songData) => (
           <React.Fragment key={window.crypto.randomUUID()}>
             <SongListItem
               songData={songData}

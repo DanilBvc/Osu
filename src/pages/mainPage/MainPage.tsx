@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 /* eslint-disable import/order */
 import { useDispatch, useSelector } from 'react-redux';
 import Footer from '../../components/footer/Footer';
@@ -7,19 +8,41 @@ import {
   doc, getDoc
 } from 'firebase/firestore';
 import IReducers from '../../types/reducers/reducersType';
-import BigButton from '../../components/bigButton/BigButton';
 import ParallaxBackground from '../../components/selectMap/parallaxBacground/ParallaxBackground';
 import OsuButton from '../../components/selectMap/osuButton/OsuButton';
+import setNewMap from '../../store/actionCreators/mapsData/setNewMap';
+import getMapsData from '../../utils/api/getMapsData';
 import LoginComponent from '../../components/Login/LoginComponent';
 import useAuth from '../../customHooks/useAuth';
 import { onAuthStateChanged } from 'firebase/auth';
-import { useEffect } from 'react';
 import { auth, db } from '../../firebase/firebase';
 import setUserData from '../../store/actionCreators/userData/setUserData';
 
 function MainPage() {
-  const isAuth = useSelector((state: IReducers) => !!state.userDataReducer.email);
   const dispatch = useDispatch();
+  const isAuth = useSelector((state: IReducers) => !!state.userDataReducer.email);
+  const storeMapsData = useSelector((state: IReducers) => state.mapsDataReducer);
+
+  useEffect(() => {
+    getMapsData().then(
+      (mapsData) => {
+        mapsData.forEach((mapData) => {
+          if (storeMapsData.findIndex((storeMapData) => storeMapData.id === mapData.id) === -1) {
+            dispatch(setNewMap({
+              mapName: mapData.mapName,
+              audio: mapData.audio,
+              images: mapData.images,
+              topPlayers: ['andrew', 'grisha', 'billy'],
+              additionalAudio: mapData.additionAudio,
+              id: mapData.id,
+              mapData: mapData.mapData,
+            }));
+          }
+        });
+      }
+    );
+  }, []);
+
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -49,6 +72,7 @@ function MainPage() {
       unsub();
     };
   }, []);
+
   return (
     <main className="main" style={!isAuth ? { pointerEvents: 'none' } : {}}>
       <ParallaxBackground />
@@ -56,10 +80,8 @@ function MainPage() {
       <div className="main__osu-button-wrapper">
         <OsuButton path="/selectMap" />
       </div>
-      <BigButton />
       <Footer />
     </main>
-
   );
 }
 

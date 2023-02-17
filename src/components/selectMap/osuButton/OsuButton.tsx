@@ -16,12 +16,12 @@ function OsuButton(props: IOsuButton) {
   const playAudio = usePlayAudio();
   const audioAnalyser = useAudioAanalyser();
   let frequencyData = null;
-  const currentAudioElement = useSelector((state: IReducers) => state.currentAudioSourceReducer);
+  const currentAudioSource = useSelector((state: IReducers) => state.currentAudioSourceReducer);
 
   useEffect(() => {
-    if (!currentAudioElement || !playAudio) return;
-    playAudio(currentAudioElement);
-  }, [currentAudioElement]);
+    if (!currentAudioSource || !playAudio) return;
+    playAudio(currentAudioSource);
+  }, [currentAudioSource]);
 
   useEffect(() => {
     if (audioAnalyser && !animationID.current) {

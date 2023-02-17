@@ -6,9 +6,12 @@ import userDataReducer from './reducers/userData/userDataReducer';
 import mapsDataReducer from './reducers/mapsData/mapsDataReducer';
 import { backgroundSourceReducer } from './reducers/selectMapPage/backgroundSourceReducer';
 import { songIDReducer } from './reducers/selectMapPage/songIDReducer';
+import activeGameReduccer from './reducers/game/selectGameReducer';
+import gameOptionsReducer from './reducers/game/gameOptionsReducer';
 import { currentAudioSourceReducer } from './reducers/selectMapPage/currentAudioSourceReducer';
 import { songDifficultyReducer } from './reducers/selectMapPage/songDifficultyReducer';
 import saveUserData from './middleware/saveUserData';
+import { gameScoreReducer } from './reducers/game/gameScoreReducer';
 
 const rootReducer = combineReducers(
   {
@@ -18,6 +21,9 @@ const rootReducer = combineReducers(
     songIDReducer,
     currentAudioSourceReducer,
     songDifficultyReducer,
+    activeGameReduccer,
+    gameOptionsReducer,
+    gameScoreReducer,
   }
 );
 const store = createStore(

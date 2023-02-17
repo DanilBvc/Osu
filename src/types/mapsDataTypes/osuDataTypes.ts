@@ -1,9 +1,9 @@
-interface HitObjectCoords {
+export interface HitObjectCoords {
   x: number;
   y: number;
 }
 
-interface HitObjectEdgeSets {
+export interface HitObjectEdgeSets {
   normalSet: number;
   additionSet: number;
 }

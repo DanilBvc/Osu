@@ -1,20 +1,17 @@
 import { useState } from 'react';
+import { PlayerBarsProps } from '../../types/mainPageTypes/mainPageTypes';
 
-export interface PlayerBarsProps {
-  audioPlayer: HTMLAudioElement;
-}
-
-export default function ProgressBar({ audioPlayer }: PlayerBarsProps) {
+export default function ProgressBar({ audioElement }: PlayerBarsProps) {
   const [progress, setProgress] = useState<string>('0');
-  const activeSong = audioPlayer;
+  if (!audioElement) return (<span>No current audio</span>);
+  const activeSong = audioElement;
   const { duration, currentTime } = activeSong;
-
   const changeProgress = (e: { target: HTMLInputElement }): void => {
     const { value } = e.target;
+
     activeSong.currentTime = (duration / 100) * parseInt(value, 10);
     setProgress(value);
   };
-
   const updateProgress = (): void => {
     const progressPercent = (currentTime / duration) * 100;
     setProgress(`${progressPercent}`);
@@ -26,7 +23,7 @@ export default function ProgressBar({ audioPlayer }: PlayerBarsProps) {
     <input
       type="range"
       className="progress-bar"
-      value={progress}
+      value={Number.isNaN(Number(progress)) ? '0' : progress}
       min={0}
       max={100}
       step={1}
