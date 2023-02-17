@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/indent */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable import/order */
 import React, { useEffect, useState } from 'react';
@@ -21,10 +22,10 @@ import setUserData from '../../store/actionCreators/userData/setUserData';
 function SelectMap() {
   const mapsData = useSelector((state: IReducers) => state.mapsDataReducer);
   const dispatch = useDispatch();
-  console.log(mapsData);
+  const [isAuth, setIsAuth] = useState(false);
   // TODO: change to right bg image
   // eslint-disable-next-line @typescript-eslint/no-shadow
-  const state = useSelector((state: IReducers) => state.mapsDataReducer);
+  const state = useSelector((state: IReducers) => state.userDataReducer);
   // TODO: set to play starting audio
   // useEffect(() => {
   //   currentPageAudio.play();
@@ -50,6 +51,7 @@ function SelectMap() {
               uuid: user.uid,
               maps: userData.maps,
             }));
+            setIsAuth(true);
           }
         }
       }
@@ -63,52 +65,54 @@ function SelectMap() {
       const querySnapshot = await getDocs(collection(db, 'maps'));
       querySnapshot.forEach((document) => {
         const mapsData = document.data();
-        const resultData: MapDataFromApi = {
-          id: '',
-          mapName: '',
-          audio: '',
-          additionAudio: [],
-          images: [],
-          mapData: [],
-        };
-        Object.entries(mapsData).forEach((data) => {
-          const format = data[0].split(' ')[0];
-          const name = data[0].split(' ')[1];
-          const fileLink: string = data[1];
-          if (format === 'audio') {
-            resultData.additionAudio = [...resultData.additionAudio, {
-              audioName: name,
-              audioFile: fileLink,
-            }];
-          } else if (format === 'id') {
-            resultData.id = fileLink;
-          } else if (format === 'images') {
-            resultData.images = [...resultData.images, { imagesName: name, imagesFile: fileLink }];
-          } else if (format === 'mapData') {
-            resultData.mapData = [...resultData.mapData, JSON.parse(fileLink)];
-          }
-        });
-        resultData.mapName = resultData.mapData[0].metadata.Title;
-        Object.entries(resultData.additionAudio).forEach((item) => {
-          const format = resultData.mapData[0].general.AudioFilename.split(' ').map((item) => item.replace(/[^A-Za-z0-9]/gi, '')).join('');
-          if (item[1].audioName === format) {
-            resultData.audio = item[1].audioFile;
-          }
-        });
-        dispatch(setNewMap({
-          mapName: resultData.mapName,
-          audio: resultData.audio,
-          images: resultData.images,
-          topPlayers: ['andrew', 'grisha', 'billy'],
-          additionalAudio: resultData.additionAudio,
-          id: resultData.id,
-          mapData: resultData.mapData,
-        }));
+        if (state.maps?.includes(+mapsData.id)) {
+          const resultData: MapDataFromApi = {
+            id: '',
+            mapName: '',
+            audio: '',
+            additionAudio: [],
+            images: [],
+            mapData: [],
+          };
+          Object.entries(mapsData).forEach((data) => {
+            const format = data[0].split(' ')[0];
+            const name = data[0].split(' ')[1];
+            const fileLink: string = data[1];
+            if (format === 'audio') {
+              resultData.additionAudio = [...resultData.additionAudio, {
+                audioName: name,
+                audioFile: fileLink,
+              }];
+            } else if (format === 'id') {
+              resultData.id = fileLink;
+            } else if (format === 'images') {
+              resultData.images = [...resultData.images,
+              { imagesName: name, imagesFile: fileLink }];
+            } else if (format === 'mapData') {
+              resultData.mapData = [...resultData.mapData, JSON.parse(fileLink)];
+            }
+          });
+          resultData.mapName = resultData.mapData[0].metadata.Title;
+          Object.entries(resultData.additionAudio).forEach((item) => {
+            const format = resultData.mapData[0].general.AudioFilename.split(' ').map((item) => item.replace(/[^A-Za-z0-9]/gi, '')).join('');
+            if (item[1].audioName === format) {
+              resultData.audio = item[1].audioFile;
+            }
+          });
+          dispatch(setNewMap({
+            mapName: resultData.mapName,
+            audio: resultData.audio,
+            images: resultData.images,
+            topPlayers: ['andrew', 'grisha', 'billy'],
+            additionalAudio: resultData.additionAudio,
+            id: resultData.id,
+            mapData: resultData.mapData,
+          }));
+        }
       });
     };
-
     getMapsData();
-  }, []);
+  }, [isAuth]);
   return (
     <div className="select-map-page-container">
       <ParallaxBackground />

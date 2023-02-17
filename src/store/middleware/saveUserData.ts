@@ -13,7 +13,12 @@ const saveUserData = (store: userDataState) => (next: Dispatch) => (action: {
     uuid: string;
   };
 }) => {
-  // тут сохранять данные пользователя при перезагрузке
+  if (action.payload && action.type === 'SET_USER_DATA' && action.payload.name) {
+    localStorage.setItem('IsAuth', 'true');
+  }
+  if (action.type === 'REMOVE_USER_DATA') {
+    localStorage.setItem('IsAuth', 'false');
+  }
   const result = next(action);
   return result;
 };

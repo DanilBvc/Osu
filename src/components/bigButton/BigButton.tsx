@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { Link } from 'react-router-dom';
 import './bigButton.scss';
 import { signOut } from 'firebase/auth';
@@ -16,8 +17,8 @@ export default function BigButton() {
   };
 
   const handleSignOut = () => {
-    signOut(auth);
     dispatch(clearUserData());
+    signOut(auth);
   };
 
   return (
@@ -59,7 +60,7 @@ export default function BigButton() {
             tabIndex={-3}
             role="button"
           >
-            <Link className="main__menu-item" onClick={() => handleSignOut()} to="/">Exit</Link>
+            <span className="main__menu-item" onClick={() => handleSignOut()}>Exit</span>
           </div>
         </div>
         <div className="osu">RS osu!</div>
