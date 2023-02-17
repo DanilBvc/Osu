@@ -7,6 +7,7 @@ import { songIDReducer } from './reducers/selectMapPage/songIDReducer';
 import { currentAudioReducer } from './reducers/selectMapPage/currentAudioReducer';
 import activeGameReduccer from './reducers/game/selectGameReducer';
 import gameOptionsReducer from './reducers/game/gameOptionsReducer';
+import { gameScoreReducer } from './reducers/game/gameScoreReducer';
 
 const rootReducer = combineReducers(
   {
@@ -17,6 +18,7 @@ const rootReducer = combineReducers(
     currentAudioReducer,
     activeGameReduccer,
     gameOptionsReducer,
+    gameScoreReducer,
   }
 );
 const store = createStore(rootReducer, composeWithDevTools());
