@@ -1,20 +1,18 @@
 import { useEffect } from 'react';
-/* eslint-disable import/order */
 import { useDispatch, useSelector } from 'react-redux';
-import Footer from '../../components/footer/Footer';
-import InfoPanel from '../../components/infoPanel/InfoPanel';
-import './mainPage.scss';
 import {
   doc, getDoc
 } from 'firebase/firestore';
+import { onAuthStateChanged } from 'firebase/auth';
+import { Link } from 'react-router-dom';
+import Footer from '../../components/footer/Footer';
+import InfoPanel from '../../components/infoPanel/InfoPanel';
+import './mainPage.scss';
 import IReducers from '../../types/reducers/reducersType';
 import ParallaxBackground from '../../components/selectMap/parallaxBacground/ParallaxBackground';
 import OsuButton from '../../components/selectMap/osuButton/OsuButton';
 import setNewMap from '../../store/actionCreators/mapsData/setNewMap';
 import getMapsData from '../../utils/api/getMapsData';
-import LoginComponent from '../../components/Login/LoginComponent';
-import useAuth from '../../customHooks/useAuth';
-import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from '../../firebase/firebase';
 import setUserData from '../../store/actionCreators/userData/setUserData';
 
@@ -23,6 +21,7 @@ function MainPage() {
   const isAuth = useSelector((state: IReducers) => !!state.userDataReducer.email);
   const storeMapsData = useSelector((state: IReducers) => state.mapsDataReducer);
 
+  // TODO: unite maps request with the selectPage one
   useEffect(() => {
     getMapsData().then(
       (mapsData) => {
@@ -77,8 +76,14 @@ function MainPage() {
     <main className="main" style={!isAuth ? { pointerEvents: 'none' } : {}}>
       <ParallaxBackground />
       <InfoPanel />
-      <div className="main__osu-button-wrapper">
-        <OsuButton path="/selectMap" />
+      <div className="osu-button-menu-wrapper">
+        <ul className="osu-button-menu-list">
+          <li className="osu-button-menu-list__item"><Link className="list-item-link" to="/selectMap">Play</Link></li>
+          <li className="osu-button-menu-list__item"><Link className="list-item-link" to="/download">Add map</Link></li>
+        </ul>
+        <div className="osu-button-wrapper">
+          <OsuButton />
+        </div>
       </div>
       <Footer />
     </main>

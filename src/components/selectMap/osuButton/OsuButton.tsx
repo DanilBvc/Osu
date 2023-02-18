@@ -4,12 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useAudioAanalyser, useAudioContext, usePlayAudio } from '../../../contexts/audioContextWrapper';
 import IReducers from '../../../types/reducers/reducersType';
-import { IOsuButton } from '../../../types/selectMapPageTypes/selectMapPageTypes';
 import './osuButtonStyles.scss';
 
-function OsuButton(props: IOsuButton) {
+function OsuButton() {
   const dispatch = useDispatch();
-  const { path } = props;
   const [oseButtonHover, setOsuButtonHover] = useState(false);
   const animationID = useRef(0);
   const osuButton = useRef(null);
@@ -47,10 +45,9 @@ function OsuButton(props: IOsuButton) {
   }
 
   return (
-    <Link
+    <div
       className="osu-button"
       ref={osuButton}
-      to={path}
 
       // TODO: disable animation on button hover
       // onMouseEnter={() => {
@@ -62,7 +59,7 @@ function OsuButton(props: IOsuButton) {
       // }}
     >
       <span className="osu-button__title">osu!</span>
-    </Link>
+    </div>
   );
 }
 

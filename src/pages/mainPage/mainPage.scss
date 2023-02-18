@@ -1,22 +1,79 @@
+@import '../../globalStyles/variables';
+
 .main {
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  .main__osu-button-wrapper {
+  .osu-button-menu-wrapper {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     width: 500px;
     height: 500px;
-    z-index: 5;
-    font-size: 200px;
-    font-weight: bold;
-    text-shadow: 1px 1px 4px rgba($color: #000000, $alpha: 0.5);
-    transition-duration: 0s;
-    .osu-button {
-      border: 1.5rem solid #fff;
+    border-radius: 50%;
+    transition: all ease 0.3s;
+    transition-delay: 0.1s;
+    &:hover {
+      left: 30%;
+      transform: translate(-30%, -50%);
+    }
+    &:hover .osu-button-menu-list {
+      left: 70%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 500px;
+    }
+    .osu-button-menu-list {
+      position:absolute;
+      top: 50%;
+      left: 40%;
+      transform: translate(0%, -50%);
+      width: 900px;
+      display: none;
+      .osu-button-menu-list__item {
+        display: flex;
+        background-color: #8362e5;
+        box-shadow: $black-box-shadow;
+        cursor: pointer;
+        transition: all ease 0.3s;
+        &:hover {
+          background-color: $color-light-pink;
+          transform: translateX(30px);
+        }
+        &:nth-child(1) {
+          border-radius: 0 5% 0 0 / 0 90% 10% 0;
+        }
+        &:nth-child(2) {
+          border-radius: 0 0% 5% 0 / 0 0% 90% 0;
+        }
+        .list-item-link {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          padding: 16px 0 16px 220px;
+          transform: skew(-10deg);
+          color: #fff;
+          font-size: 56px;
+        }
+      }
+    }
+    .osu-button-wrapper {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      z-index: 5;
+      font-size: 200px;
+      font-weight: bold;
+      text-shadow: 1px 1px 4px rgba($color: #000000, $alpha: 0.5);
+      transition-duration: 0s;
+      border-radius: 50%;
+      cursor: pointer;
+      .osu-button {
+        border: 1.5rem solid #fff;
+      }
     }
   }
 }
@@ -25,4 +82,3 @@
   justify-content: center;
   align-items: center;
 }
-

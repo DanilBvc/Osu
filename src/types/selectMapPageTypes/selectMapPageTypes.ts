@@ -17,9 +17,6 @@ export interface IStarAnimation {
   songID: string | null;
   difficulty: string;
 }
-export interface IOsuButton {
-  path: string;
-}
 export interface IDifficultRateStars {
   difficulty: string;
 }

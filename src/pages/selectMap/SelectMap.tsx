@@ -20,6 +20,7 @@ import ParallaxBackground from '../../components/selectMap/parallaxBacground/Par
 import './SelectMapPageStyles.scss';
 import setUserData from '../../store/actionCreators/userData/setUserData';
 import { onAuthStateChanged } from '@firebase/auth';
+import { Link } from 'react-router-dom';
 
 function SelectMap() {
   const dispatch = useDispatch();
@@ -139,9 +140,12 @@ function SelectMap() {
         ))}
       </ul>
       <SelectMapPageFooter />
-      <div className="select-map-page-container__osu-button-wrapper">
-        <OsuButton path="/game" />
-      </div>
+      <Link
+        className="select-map-page-container__osu-button-wrapper"
+        to="/game"
+      >
+        <OsuButton />
+      </Link>
     </div>
   );
 }
