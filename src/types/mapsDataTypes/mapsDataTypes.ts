@@ -1,4 +1,4 @@
-import { Images, AudioFromApi } from './mapsDataFromApiTypes';
+import { Images, AudioFromApi, MapData } from './mapsDataFromApiTypes';
 
 interface IMapData {
   mapName: string | null;
@@ -7,8 +7,7 @@ interface IMapData {
   topPlayers: string[] | [];
   additionalAudio: AudioFromApi[] | [];
   id: string | null;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  mapData: any;
+  mapData: MapData[];
   additionalPictures: string[] | [];
 }
 export default IMapData;

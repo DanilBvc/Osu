@@ -1,14 +1,14 @@
-interface HitObjectCoords {
+export interface HitObjectCoords {
   x: number;
   y: number;
 }
 
-interface HitObjectEdgeSets {
+export interface HitObjectEdgeSets {
   normalSet: number;
   additionSet: number;
 }
 
-interface Timing {
+export interface Timing {
   offset: number;
   millisecondsPerBeat: number;
   meter: number;
@@ -25,8 +25,8 @@ export interface HitObjects {
   time: number;
   type: number | string;
   hitSound: number;
-  combo: number;
-  index: number;
+  combo?: number;
+  index?: number;
   hitSample?: {
     normalSet: number;
     additionSet: number;
@@ -38,7 +38,7 @@ export interface HitObjects {
   keyframes?: [] | HitObjectCoords[];
   repeat?: number;
   pixelLength?: number;
-  edgeHitsounds: number[] | [];
+  edgeHitsounds?: number[] | [];
   edgeSets?: [] | HitObjectEdgeSets[];
   endTime?: number;
 }
@@ -53,9 +53,9 @@ export interface Data {
     [key: string]: string | number;
   };
   colors: string[][];
-  colorsSliderTrackOverride: string[];
-  colorsSliderBorder: string[];
-  events: [] | string[];
+  colorsSliderTrackOverride?: string[];
+  colorsSliderBorder?: string[];
+  events: [] | string[][];
   timingPoints: [] | Timing[];
   hitObjects: [] | HitObjects[];
 }

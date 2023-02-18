@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable default-param-last */
-import { AudioFromApi, Images } from '../../../types/mapsDataTypes/mapsDataFromApiTypes';
+import { AudioFromApi, Images, MapData } from '../../../types/mapsDataTypes/mapsDataFromApiTypes';
 import IMapData from '../../../types/mapsDataTypes/mapsDataTypes';
 import { userDataState } from '../../../types/userDataTypes/userData';
 import mapsDataState from '../../initialState/MapsDataState';
@@ -12,8 +12,7 @@ const mapsDataReducer = (state: IMapData[] = mapsDataState, action: {
     images: Images[];
     topPlayers: string[];
     additionalAudio: AudioFromApi[];
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    mapData: any;
+    mapData: MapData;
     id: string;
   };
 }) => {

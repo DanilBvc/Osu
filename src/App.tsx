@@ -3,19 +3,22 @@ import { Route, Routes } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import MainPage from './pages/mainPage/MainPage';
 import NotFound from './pages/notFound/NotFound';
-import Game from './pages/Game/Game';
 import SelectMap from './pages/selectMap/SelectMap';
 import './globalStyles/global.scss';
 import PrivateRoutes from './utils/RequireAuth/PrivatRoutes';
-import useUnSub from './customHooks/useUnSub';
 
 import AuthPopup from './components/authPopup/AuthPopup';
 import IReducers from './types/reducers/reducersType';
+import useClientResolution from './customHooks/useClientResolution';
+
+import Game from './pages/Game/Game';
+import AddMap from './components/addMap/AddMap';
+import LoginComponent from './components/Login/LoginComponent';
+import RegisterCmponents from './components/Register/RegisterCmponents';
 
 function App() {
-  useUnSub();
   const isAuth = useSelector((state: IReducers) => !!state.userDataReducer.email);
-
+  useClientResolution();
   return (
     <>
       {!isAuth ? <AuthPopup /> : null}
@@ -25,6 +28,7 @@ function App() {
         <Route element={<PrivateRoutes />}>
           <Route path="/game" element={<Game />} />
           <Route path="/selectMap" element={<SelectMap />} />
+          <Route path="/download/*" element={<AddMap />} />
         </Route>
       </Routes>
     </>

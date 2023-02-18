@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/indent */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { setActiveGameAction } from '../../../store/reducers/game/selectGameReducer';
 import { setBackgroundSourceAction } from '../../../store/reducers/selectMapPage/backgroundSourceReducer';
 import { setCurrentAudioSourceAction } from '../../../store/reducers/selectMapPage/currentAudioSourceReducer';
 import { setSongDifficultyAction } from '../../../store/reducers/selectMapPage/songDifficultyReducer';
 import { setSongIDAction } from '../../../store/reducers/selectMapPage/songIDReducer';
+import IMapData from '../../../types/mapsDataTypes/mapsDataTypes';
 import IReducers from '../../../types/reducers/reducersType';
 import { ISongListItem } from '../../../types/selectMapPageTypes/selectMapPageTypes';
 import DifficultRateStars from './DifficultRateStars';
@@ -33,20 +36,17 @@ function SongListItem(props: ISongListItem) {
   };
   const selectedSongID = useSelector((state: IReducers) => state.songIDReducer);
   const selectedSongDifficulty = useSelector((state: IReducers) => state.songDifficultyReducer);
-
   return (
     <div className="song-list-item-wrapper">
       <StarAnimation songID={songData.id} difficulty={difficulty} />
       <li
-        className={`song-list-item ${
-          difficulty === 'Easy'
-            ? 'easy-map'
-            : 'hard-map'
-        } ${
-          String(songData.id) === selectedSongID && difficulty === selectedSongDifficulty
+        className={`song-list-item ${difficulty === 'Easy'
+          ? 'easy-map'
+          : 'hard-map'
+          } ${String(songData.id) === selectedSongID && difficulty === selectedSongDifficulty
             ? 'selected-item'
             : ''
-        }`}
+          }`}
         role="menuitem"
         data-id={songData.id}
         data-difficulty={difficulty}
@@ -60,6 +60,7 @@ function SongListItem(props: ISongListItem) {
           setCurrentAudioSource(songData.audio as string);
           setSongDifficulty(difficulty);
           songListItemClickHandler(event);
+          dispatch(setActiveGameAction(songData));
         }}
       >
         <img className="song-list-item__cover" src={songData.images[0].imagesFile} alt="song cover" />

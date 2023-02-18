@@ -9,5 +9,6 @@ const initialUserData: userDataState = {
   accuracy: null,
   lvl: null,
   uuid: null,
+  maps: null,
 };
 export default initialUserData;

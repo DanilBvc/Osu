@@ -8,6 +8,7 @@ const setUserData = (payload: {
   accuracy: number;
   lvl: number;
   uuid: string;
+  maps: string[];
 }) => ({
   type: actionType,
   payload,

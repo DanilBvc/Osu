@@ -1,5 +1,5 @@
 import { doc, setDoc } from 'firebase/firestore';
-import { db, storage } from '../../firebase/firebase';
+import { db } from '../../firebase/firebase';
 
 const handleUploadData = async (
   id: string,
