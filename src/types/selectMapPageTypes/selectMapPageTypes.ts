@@ -1,4 +1,3 @@
-import React from 'react';
 import IMapData from '../mapsDataTypes/mapsDataTypes';
 
 export interface ISongData {
@@ -12,11 +11,12 @@ export interface ISongData {
 export interface ISongListItem {
   songData: IMapData;
   difficulty: string;
+  songDifficultyIndex: number;
 }
 export interface IStarAnimation {
   songID: string | null;
-  difficulty: string;
+  songDifficultyIndex: number;
 }
 export interface IDifficultRateStars {
-  difficulty: string;
+  overallDifficultyRate: number;
 }

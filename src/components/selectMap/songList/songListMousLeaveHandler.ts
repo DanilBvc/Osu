@@ -1,17 +1,17 @@
 const songListMousLeaveHandler = (
   event: React.MouseEvent,
   clickedSongListItemID: string,
-  selectedSongDifficulty: string
+  selectedDifficultySongIndex: number
 ) => {
   const songListItem = event.currentTarget.closest('.song-list-item');
 
   if (songListItem instanceof HTMLElement) {
     const songListItemID = String(songListItem.getAttribute('data-id'));
-    const songListItemDiffuculty = String(songListItem.getAttribute('data-difficulty'));
+    const songDifficultyIndex = Number(songListItem.getAttribute('data-difficulty-index'));
 
     if (
       songListItemID !== clickedSongListItemID
-      || selectedSongDifficulty !== songListItemDiffuculty
+      || selectedDifficultySongIndex !== songDifficultyIndex
     ) {
       songListItem.classList.remove('active-item');
     }

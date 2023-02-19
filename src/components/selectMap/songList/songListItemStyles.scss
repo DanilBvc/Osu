@@ -27,7 +27,7 @@ ul.select-map-page-container__songs-list {
     height: 100px;
     display: flex;
     color: #fff;
-    opacity: 0.9;
+    opacity: 0.8;
     transition: all 0.8s ease;
     float: right;
     cursor: pointer;
@@ -37,6 +37,7 @@ ul.select-map-page-container__songs-list {
     z-index: 3;
     text-transform: capitalize;
     line-height: 1.2;
+    background: rgb(223, 70, 146);
     .song-list-item__cover {
       width: 130px;
       height: 100%;
@@ -48,11 +49,8 @@ ul.select-map-page-container__songs-list {
         font-size: $font-base-size;
       }
     }
-    &.easy-map {
+    &.selected-difficulty-map-group {
       background: rgb(5, 142, 230);
-    }
-    &.hard-map {
-      background: rgb(223, 70, 146);
     }
     &.selected-item {
       transform: translate(-100px);
