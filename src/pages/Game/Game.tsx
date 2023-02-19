@@ -16,7 +16,10 @@ function Game(): JSX.Element {
   const mapData = useSelector((state: IReducers) => state.activeGameReduccer);
 
   const {
-    ApproachRate, OverallDifficulty, SliderMultiplier, SliderTickRate,
+    ApproachRate,
+    OverallDifficulty,
+    SliderMultiplier,
+    SliderTickRate,
   } = mapData.mapData[0].difficulty;
   const { hitObjects, timingPoints, colors } = mapData.mapData[0];
 
