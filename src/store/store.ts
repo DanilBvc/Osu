@@ -1,5 +1,5 @@
 import {
-  combineReducers, createStore, applyMiddleware, compose, MiddlewareAPI, Dispatch, Middleware
+  combineReducers, createStore, applyMiddleware, Middleware
 } from 'redux';
 import { composeWithDevTools } from '@redux-devtools/extension';
 import userDataReducer from './reducers/userData/userDataReducer';
@@ -9,10 +9,9 @@ import { songIDReducer } from './reducers/selectMapPage/songIDReducer';
 import activeGameReduccer from './reducers/game/selectGameReducer';
 import gameOptionsReducer from './reducers/game/gameOptionsReducer';
 import { currentAudioSourceReducer } from './reducers/selectMapPage/currentAudioSourceReducer';
-import { songDifficultyReducer } from './reducers/selectMapPage/songDifficultyReducer';
 import saveUserData from './middleware/saveUserData';
 import { gameScoreReducer } from './reducers/game/gameScoreReducer';
-import { difficultySongIndexReducer } from './reducers/selectMapPage/difficultySongIndex';
+import { songDifficultyIndexReducer } from './reducers/selectMapPage/songDifficultyIndexReducer';
 
 const rootReducer = combineReducers(
   {
@@ -21,11 +20,10 @@ const rootReducer = combineReducers(
     backgroundSourceReducer,
     songIDReducer,
     currentAudioSourceReducer,
-    songDifficultyReducer,
     activeGameReduccer,
     gameOptionsReducer,
     gameScoreReducer,
-    difficultySongIndexReducer,
+    songDifficultyIndexReducer,
   }
 );
 const store = createStore(

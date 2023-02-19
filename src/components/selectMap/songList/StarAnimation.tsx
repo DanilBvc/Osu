@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSongDifficultyAction } from '../../../store/reducers/selectMapPage/songDifficultyReducer';
 import IReducers from '../../../types/reducers/reducersType';
 import { IStarAnimation } from '../../../types/selectMapPageTypes/selectMapPageTypes';
 import './starAnimationStyles.scss';
@@ -8,15 +7,16 @@ import './starAnimationStyles.scss';
 function StarAnimation(props: IStarAnimation) {
   const {
     songID,
-    difficulty,
+    songDifficultyIndex,
   } = props;
-  const dispatch = useDispatch();
   const selectedSongID = useSelector((state: IReducers) => state.songIDReducer);
-  const selectedSongDifficulty = useSelector((state: IReducers) => state.songDifficultyReducer);
+  const selectedSongDifficultyIndex = useSelector(
+    (state: IReducers) => state.songDifficultyIndexReducer
+  );
 
   return (
     <section className={`star-path ${
-      String(songID) === selectedSongID && difficulty === selectedSongDifficulty
+      String(songID) === selectedSongID && songDifficultyIndex === selectedSongDifficultyIndex
         ? 'star-path-active'
         : ''}`}
     >
