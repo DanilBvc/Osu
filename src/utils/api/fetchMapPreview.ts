@@ -78,6 +78,9 @@ export const fetchMapPreview = async (count = 20, action = 'popular', payload?: 
   if (action === 'popular') {
     url = `https://api.sayobot.cn/beatmaplist?0=${count}&1=0${payload?.search ? `&2=4&3=${payload.search}&5=1` : '&2=1&5=1'}`;
   }
+  if (action === 'random') {
+    url = `https://api.sayobot.cn/beatmaplist?0=${count}&1=${Math.floor(Math.random() * 100000) + 1}&2=1&5=1`;
+  }
   const response = await fetch(url);
   const resultData = await response.json();
   const handlePromise = async () => {

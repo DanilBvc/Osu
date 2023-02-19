@@ -87,3 +87,17 @@ export interface BeatData {
   version: string;
   video: string;
 }
+
+export interface INewsData {
+  acc: string;
+  bid: string;
+  combo: string;
+  grade: string;
+  ip: string;
+  mods: string;
+  score: string;
+  sid: string;
+  time: string;
+  title: string;
+  version: string;
+}
