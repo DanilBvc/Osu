@@ -37,7 +37,7 @@ function AddMapComponent({ input }: IProps) {
       setLoading(r.loading);
       setData(r.result);
     });
-  }, [count]);
+  }, [count, input]);
   const handleAudio = (audio: string) => {
     const audioElement = new Audio(audio);
     if (audioStatusRef.current) {
