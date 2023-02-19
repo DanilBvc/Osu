@@ -178,8 +178,6 @@ const getDataFromOsuMap = (text: string) => {
             volume: +hitSample[3],
             filename: hitSample[4],
           };
-        } else {
-          console.log(`Attempted to decode unknown hit object type ${hit.type}: ${line}`);
         }
         if (hit.hitSample && hit.hitSample.normalSet > 3) { hit.hitSample.normalSet = 0; }
         if (hit.hitSample && hit.hitSample.additionSet > 3) { hit.hitSample.additionSet = 0; }

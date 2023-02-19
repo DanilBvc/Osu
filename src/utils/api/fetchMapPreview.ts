@@ -72,7 +72,7 @@ export const fetchMapPreview = async (count = 20, action = 'popular', payload?: 
   if (action === 'classification') {
     url = `https://api.sayobot.cn/beatmaplist?0=${count}&1=0&2=4&7=${payload?.classification ? payload.classification : 1}&8=${payload?.language ? payload.language : 1}${payload?.search ? `&3=${payload.search}&5=1` : '&5=1'}`;
   }
-  if (action === 'recently') {
+  if (action === 'recently' || action === 'download') {
     url = `https://api.sayobot.cn/beatmaplist?0=${count}&1=0${payload?.search ? `&2=4&3=${payload.search}&5=1` : '&2=2&5=1'}`;
   }
   if (action === 'popular') {
@@ -80,11 +80,15 @@ export const fetchMapPreview = async (count = 20, action = 'popular', payload?: 
   }
   const response = await fetch(url);
   const resultData = await response.json();
-
   const handlePromise = async () => {
     const res = await resultData.data.map((item: ResponseItem) => new Promise((resolve, reject) => {
       const beatMapInfoUrl = `https://api.sayobot.cn/v2/beatmapinfo?0=${item.sid}`;
-      const req = fetch(beatMapInfoUrl).then((data) => data.json());
+      const headers = {};
+      const req = fetch(beatMapInfoUrl, {
+        method: 'GET',
+        mode: 'cors',
+        headers,
+      }).then((data) => data.json());
       resolve(req);
     }));
     const fetchedData = await Promise.all(res).then((data: any) => {

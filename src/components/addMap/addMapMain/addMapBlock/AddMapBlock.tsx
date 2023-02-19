@@ -32,8 +32,8 @@ function AddMapBlock({
   const handleAddMap = async (id: number, mapName: string, isInclude?: boolean) => {
     if (!isInclude) {
       handleLoadingMap(true);
-      await getMapDataFromApi(id, mapName);
-      handleLoadingMap(false);
+      const loadingState = await getMapDataFromApi(id, mapName);
+      handleLoadingMap(loadingState);
     }
     dispatch(handleUserMaps({
       name: '',
@@ -121,6 +121,7 @@ function AddMapBlock({
           <i className="far fa-heart favorite__icon favorite--not"></i>
         </button>
       </div>
+      {loadingMap ? <div className="clock"></div> : null}
       <div className="addMapBlock-difficulties">
         {beat.bid_data.length > 12
           ? (

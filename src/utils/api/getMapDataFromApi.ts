@@ -30,7 +30,11 @@ const getMapDataFromApi = async (mapId: number, mapName: string) => {
     .then(JSZip.loadAsync)
     .then((zip) => {
       const mapsDataRef = doc(db, 'maps', id);
+      const topPlayers = doc(db, 'top', id);
       setDoc(mapsDataRef, {
+        id,
+      });
+      setDoc(topPlayers, {
         id,
       });
       zip.forEach((entry) => {
@@ -40,6 +44,9 @@ const getMapDataFromApi = async (mapId: number, mapName: string) => {
           if (file !== null && fileExtension === 'osu') {
             file.async('string').then(async (content) => {
               const mapData = getDataFromOsuMap(content);
+              await updateDoc(doc(db, 'top', id), {
+                [mapData.metadata.Version]: [],
+              });
               await updateDoc(doc(db, 'maps', id), {
                 [`mapData ${file.name.replace(regex, '').trim()}`]: JSON.stringify(mapData),
               });
@@ -70,7 +77,7 @@ const getMapDataFromApi = async (mapId: number, mapName: string) => {
       });
     });
   await request;
-  return true;
+  return false;
 };
 
 export default getMapDataFromApi;
