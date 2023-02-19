@@ -78,7 +78,9 @@ function SongListItem(props: ISongListItem) {
           </li>
           <li className="difficult-title">
             <DifficultRateStars
-              difficulty={songData.mapData[songDifficultyIndex].metadata.Version}
+              overallDifficultyRate={
+                songData.mapData[songDifficultyIndex].difficulty.OverallDifficulty
+              }
             />
           </li>
         </ul>

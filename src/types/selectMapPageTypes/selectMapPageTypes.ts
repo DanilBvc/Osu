@@ -18,5 +18,5 @@ export interface IStarAnimation {
   songDifficultyIndex: number;
 }
 export interface IDifficultRateStars {
-  difficulty: string;
+  overallDifficultyRate: number;
 }
