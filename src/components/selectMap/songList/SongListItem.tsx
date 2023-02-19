@@ -6,7 +6,6 @@ import { setBackgroundSourceAction } from '../../../store/reducers/selectMapPage
 import { setCurrentAudioSourceAction } from '../../../store/reducers/selectMapPage/currentAudioSourceReducer';
 import { setSongDifficultyAction } from '../../../store/reducers/selectMapPage/songDifficultyReducer';
 import { setSongIDAction } from '../../../store/reducers/selectMapPage/songIDReducer';
-import IMapData from '../../../types/mapsDataTypes/mapsDataTypes';
 import IReducers from '../../../types/reducers/reducersType';
 import { ISongListItem } from '../../../types/selectMapPageTypes/selectMapPageTypes';
 import DifficultRateStars from './DifficultRateStars';

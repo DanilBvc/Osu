@@ -25,14 +25,9 @@ import { Link } from 'react-router-dom';
 function SelectMap() {
   const dispatch = useDispatch();
   const storeMapsData = useSelector((state: IReducers) => state.mapsDataReducer);
+  const selectedSongID = useSelector((state: IReducers) => state.songIDReducer);
   const [isAuth, setIsAuth] = useState(false);
-  // TODO: change to right bg image
-  // eslint-disable-next-line @typescript-eslint/no-shadow
   const state = useSelector((state: IReducers) => state.userDataReducer);
-  // TODO: set to play starting audio
-  // useEffect(() => {
-  //   currentPageAudio.play();
-  // }, []);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
@@ -121,6 +116,7 @@ function SelectMap() {
     };
     getMapsData();
   }, [isAuth]);
+
   return (
     <div className="select-map-page-container">
       <ParallaxBackground />
@@ -142,6 +138,7 @@ function SelectMap() {
       <SelectMapPageFooter />
       <Link
         className="select-map-page-container__osu-button-wrapper"
+        style={{ pointerEvents: selectedSongID ? 'auto' : 'none' }}
         to="/game"
       >
         <OsuButton />
