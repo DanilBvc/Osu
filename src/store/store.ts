@@ -12,6 +12,7 @@ import { currentAudioSourceReducer } from './reducers/selectMapPage/currentAudio
 import { songDifficultyReducer } from './reducers/selectMapPage/songDifficultyReducer';
 import saveUserData from './middleware/saveUserData';
 import { gameScoreReducer } from './reducers/game/gameScoreReducer';
+import { difficultySongIndexReducer } from './reducers/selectMapPage/difficultySongIndex';
 
 const rootReducer = combineReducers(
   {
@@ -24,6 +25,7 @@ const rootReducer = combineReducers(
     activeGameReduccer,
     gameOptionsReducer,
     gameScoreReducer,
+    difficultySongIndexReducer,
   }
 );
 const store = createStore(

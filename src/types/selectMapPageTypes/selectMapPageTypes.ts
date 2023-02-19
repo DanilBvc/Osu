@@ -12,6 +12,7 @@ export interface ISongData {
 export interface ISongListItem {
   songData: IMapData;
   difficulty: string;
+  difficultySongIndex: number;
 }
 export interface IStarAnimation {
   songID: string | null;

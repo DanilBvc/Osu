@@ -25,6 +25,7 @@ import { Link } from 'react-router-dom';
 function SelectMap() {
   const dispatch = useDispatch();
   const storeMapsData = useSelector((state: IReducers) => state.mapsDataReducer);
+  console.log(storeMapsData);
   const selectedSongID = useSelector((state: IReducers) => state.songIDReducer);
   const [isAuth, setIsAuth] = useState(false);
   const state = useSelector((state: IReducers) => state.userDataReducer);
@@ -122,17 +123,28 @@ function SelectMap() {
       <ParallaxBackground />
       <PlayersStatisticList />
       <ul className="select-map-page-container__songs-list">
-        {Object.values(storeMapsData).map((songData) => (
-          <React.Fragment key={window.crypto.randomUUID()}>
+        {Object.values(storeMapsData).map((commonSongData) => (
+          selectedSongID === commonSongData.id
+          ? (
+            <React.Fragment key={window.crypto.randomUUID()}>
+              {commonSongData.mapData.map((difficultySongData, difficultySongIndex) => (
+                <SongListItem
+                  key={window.crypto.randomUUID()}
+                  songData={commonSongData}
+                  difficulty={difficultySongData.metadata.Version}
+                  difficultySongIndex={difficultySongIndex}
+                />
+              ))}
+            </React.Fragment>
+          )
+          : (
             <SongListItem
-              songData={songData}
-              difficulty="Easy"
+              key={window.crypto.randomUUID()}
+              songData={commonSongData}
+              difficulty={commonSongData.mapData[0].metadata.Version}
+              difficultySongIndex={0}
             />
-            <SongListItem
-              songData={songData}
-              difficulty="Hard"
-            />
-          </React.Fragment>
+          )
         ))}
       </ul>
       <SelectMapPageFooter />

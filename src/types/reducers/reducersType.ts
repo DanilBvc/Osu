@@ -13,5 +13,6 @@ interface IReducers {
   gameOptionsReducer: IGameOptions;
   gameScoreReducer: IGameScore;
   songDifficultyReducer: string;
+  difficultySongIndexReducer: number;
 }
 export default IReducers;

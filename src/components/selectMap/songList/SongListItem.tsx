@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/indent */
-import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveGameAction } from '../../../store/reducers/game/selectGameReducer';
 import { setBackgroundSourceAction } from '../../../store/reducers/selectMapPage/backgroundSourceReducer';
@@ -14,11 +13,13 @@ import songListItemHoverHandler from './songListItemHoverHandler';
 import songListMousLeaveHandler from './songListMousLeaveHandler';
 import StarAnimation from './StarAnimation';
 import './songListItemStyles.scss';
+import { setDifficultySongIndexAction } from '../../../store/reducers/selectMapPage/difficultySongIndex';
 
 function SongListItem(props: ISongListItem) {
   const {
     songData,
     difficulty,
+    difficultySongIndex,
   } = props;
   const dispatch = useDispatch();
   const setBackgroundSource = (source: string) => {
@@ -30,19 +31,24 @@ function SongListItem(props: ISongListItem) {
   const setSongDifficulty = (songDifficulty: string) => {
     dispatch(setSongDifficultyAction(songDifficulty));
   };
+  const setDifficultySongIndex = (mapDataElementIndex: number) => {
+    dispatch(setDifficultySongIndexAction(mapDataElementIndex));
+  };
   const setCurrentAudioSource = (audioSource: string) => {
     dispatch(setCurrentAudioSourceAction(audioSource));
   };
   const selectedSongID = useSelector((state: IReducers) => state.songIDReducer);
   const selectedSongDifficulty = useSelector((state: IReducers) => state.songDifficultyReducer);
+  const selectedSongIndex = useSelector((state: IReducers) => state.songDifficultyReducer);
+
   return (
     <div className="song-list-item-wrapper">
       <StarAnimation songID={songData.id} difficulty={difficulty} />
       <li
-        className={`song-list-item ${difficulty === 'Easy'
-          ? 'easy-map'
-          : 'hard-map'
-          } ${String(songData.id) === selectedSongID && difficulty === selectedSongDifficulty
+        className={`song-list-item ${selectedSongID === String(songData.id)
+          ? 'selected-difficulty-map-group'
+          : ''
+          } ${selectedSongID === String(songData.id) && difficulty === selectedSongDifficulty
             ? 'selected-item'
             : ''
           }`}
@@ -58,6 +64,7 @@ function SongListItem(props: ISongListItem) {
           setSongID(songData.id as string);
           setCurrentAudioSource(songData.audio as string);
           setSongDifficulty(difficulty);
+          setDifficultySongIndex(difficultySongIndex);
           songListItemClickHandler(event);
           dispatch(setActiveGameAction(songData));
         }}
