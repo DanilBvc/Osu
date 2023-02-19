@@ -24,8 +24,19 @@ function AddMapHeader({ handleInput, input }: IProps) {
         <Link to="classification" className={`choose-category ${currentFilter === 'classification' ? 'active-nav-link' : ''}`}>Сlassification</Link>
       </div>
       <div className="nav-search">
-        <input onKeyDown={(e) => { handleInput(e, input); }} onChange={(e) => { handleInput(null, e.target.value); }} value={input} placeholder="key word or sid" className="nav-search-input" type="text" />
-        <div className="clear-input" onClick={() => { handleClear(); }}></div>
+        {location.pathname !== '/download' ? (
+          <>
+            <input
+              onKeyDown={(e) => { handleInput(e, input); }}
+              onChange={(e) => { handleInput(null, e.target.value); }}
+              value={input}
+              placeholder="key word or sid"
+              className="nav-search-input"
+              type="text"
+            />
+            <div className="clear-input" onClick={() => { handleClear(); }}></div>
+          </>
+        ) : null}
       </div>
       <div className="nav-tools">
         <button className="btn-switch" type="submit" onClick={() => { navigate('/'); }}>Home</button>
