@@ -1,20 +1,29 @@
 /* eslint-disable no-use-before-define */
-import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { useAudioAanalyser, useAudioContext, usePlayAudio } from '../../../contexts/audioContextWrapper';
+import { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import {
+  useAudioAanalyser, useAudioElement, usePlayAudio
+} from '../../../contexts/audioContextWrapper';
 import IReducers from '../../../types/reducers/reducersType';
 import './osuButtonStyles.scss';
 
 function OsuButton() {
-  const dispatch = useDispatch();
-  const [oseButtonHover, setOsuButtonHover] = useState(false);
   const animationID = useRef(0);
   const osuButton = useRef(null);
   const playAudio = usePlayAudio();
   const audioAnalyser = useAudioAanalyser();
+  const audioElement = useAudioElement();
   let frequencyData = null;
   const currentAudioSource = useSelector((state: IReducers) => state.currentAudioSourceReducer);
+
+  useEffect(() => {
+    if (!audioElement) return;
+    audioElement.addEventListener('pause', () => {
+      if (osuButton.current !== null) {
+        (osuButton.current as HTMLElement).classList.add('pulse-animation');
+      }
+    });
+  }, []);
 
   useEffect(() => {
     if (!currentAudioSource || !playAudio) return;
@@ -35,28 +44,18 @@ function OsuButton() {
       const frequencyValueReduce = 750;
       const buttonScaleCoefficient = frequencyData[frequencyIndex] / frequencyValueReduce;
 
-      if (!oseButtonHover) {
-        (osuButton.current as HTMLElement).style.transform = `scale(${1 + buttonScaleCoefficient})`;
+      if (!audioElement?.paused) {
+        (osuButton.current as HTMLElement).classList.remove('pulse-animation');
       }
+      (osuButton.current as HTMLElement).style.transform = `scale(${1 + buttonScaleCoefficient})`;
     }
-    if (!oseButtonHover) {
-      animationID.current = window.requestAnimationFrame(buttonAnimation.bind(undefined, analyser));
-    }
+    animationID.current = window.requestAnimationFrame(buttonAnimation.bind(undefined, analyser));
   }
 
   return (
     <div
-      className="osu-button"
+      className="osu-button pulse-animation"
       ref={osuButton}
-
-      // TODO: disable animation on button hover
-      // onMouseEnter={() => {
-      //   setOsuButtonHover(true);
-      //   cancelAnimationFrame(animationID.current);
-      // }}
-      // onMouseLeave={() => {
-      //   setOsuButtonHover(false);
-      // }}
     >
       <span className="osu-button__title">osu!</span>
     </div>
