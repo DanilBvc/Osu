@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import './selectMapPageFooterStyles.scss';
 import { backButtonIcon } from '../../../assets/images/icons';
@@ -8,7 +7,11 @@ function SelectMapPageFooter() {
   return (
     <footer className="select-map-page-footer">
       <div className="previous-page-button-wrapper">
-        <Link className="previous-page-button" to="/">
+        <Link
+          className="previous-page-button"
+          to="/"
+          onClick={() => new Audio('/sounds/selectMapPage/back-button-sound.m4a').play()}
+        >
           <img className="previous-page-button__icon" src={backButtonIcon} alt="back page" />
           <span>Back</span>
         </Link>

@@ -15,6 +15,8 @@ import setNewMap from '../../store/actionCreators/mapsData/setNewMap';
 import getMapsData from '../../utils/api/getMapsData';
 import { auth, db } from '../../firebase/firebase';
 import setUserData from '../../store/actionCreators/userData/setUserData';
+import playMenuItemClickSound from '../../utils/soundsPlayHandlers/playMenuItemClickSound';
+import playMenuItemHoverSound from '../../utils/soundsPlayHandlers/playMenuItemHoverSound';
 
 function MainPage() {
   const dispatch = useDispatch();
@@ -78,8 +80,26 @@ function MainPage() {
       <InfoPanel />
       <div className="osu-button-menu-wrapper">
         <ul className="osu-button-menu-list">
-          <li className="osu-button-menu-list__item"><Link className="list-item-link" to="/selectMap">Play</Link></li>
-          <li className="osu-button-menu-list__item"><Link className="list-item-link" to="/download">Add map</Link></li>
+          <li className="osu-button-menu-list__item">
+            <Link
+              className="list-item-link"
+              to="/selectMap"
+              onClick={playMenuItemClickSound}
+              onMouseEnter={playMenuItemHoverSound}
+            >
+              Play
+            </Link>
+          </li>
+          <li className="osu-button-menu-list__item">
+            <Link
+              className="list-item-link"
+              to="/download"
+              onClick={playMenuItemClickSound}
+              onMouseEnter={playMenuItemHoverSound}
+            >
+              Add map
+            </Link>
+          </li>
         </ul>
         <div className="osu-button-wrapper">
           <OsuButton />
