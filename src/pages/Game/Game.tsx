@@ -11,10 +11,11 @@ import audioPlug from '../../assets/plugs/audio-plug.mp3';
 import useUpdate from '../../customHooks/useUpdate';
 import { UpdatedObject } from '../../types/gameTypes';
 import GameBar from './GameBar/GameBar';
+import { useAudioElement } from '../../contexts/audioContextWrapper';
 
 function Game(): JSX.Element {
   const mapData = useSelector((state: IReducers) => state.activeGameReduccer);
-
+  const mainPlayerAudioElement = useAudioElement();
   const {
     ApproachRate,
     OverallDifficulty,
@@ -22,10 +23,11 @@ function Game(): JSX.Element {
     SliderTickRate,
   } = mapData.mapData[0].difficulty;
   const { hitObjects, timingPoints, colors } = mapData.mapData[0];
-
   const gameElements = useUpdate(hitObjects, timingPoints, ApproachRate, OverallDifficulty, 0.3);
   const audioRef = useRef<HTMLAudioElement>(null);
+
   useEffect(() => {
+    if (mainPlayerAudioElement) mainPlayerAudioElement.pause();
     if (audioRef.current) audioRef.current.play();
   }, []);
 
