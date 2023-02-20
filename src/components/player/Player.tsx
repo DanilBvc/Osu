@@ -63,7 +63,10 @@ export default function Player(): JSX.Element {
     setIsPlaying(!isPlaying);
   };
   const stopAndReload = (): void => {
-    audioElement?.load();
+    if (audioElement) {
+      audioElement.currentTime = 0;
+      audioElement.pause();
+    }
     setIsPlaying(false);
   };
 
