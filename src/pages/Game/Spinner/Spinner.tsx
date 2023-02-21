@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Circle
 } from 'react-konva';
@@ -8,14 +8,11 @@ import spinnerMesh from '../../../assets/mesh/spinner.png';
 
 function Spinner({
   model,
-  audioRef,
 }: IGameElement): JSX.Element {
   const image = new window.Image();
   image.src = spinnerMesh;
   const [rotation, setRotation] = useState<number>(0);
   const [holding, setHolding] = useState<boolean>(false);
-  const [visible, setVisible] = useState<boolean>(false);
-  const lifeTime = 5000;
 
   const handleMouseMove = (event: KonvaEventObject<MouseEvent>) => {
     if (holding) {
@@ -35,23 +32,8 @@ function Spinner({
     }
   };
 
-  const timeUpdate = () => {
-    if (audioRef.current) {
-      const currentTime = +(audioRef.current.currentTime * 1000).toFixed(0);
-
-      if (currentTime > model.time && currentTime < model.time + lifeTime) {
-        setVisible(true);
-      } else setVisible(false);
-    }
-  };
-
-  useEffect(() => {
-    audioRef.current?.addEventListener('timeupdate', timeUpdate);
-  }, []);
-
   return (
     <Circle
-      visible={visible}
       x={window.innerWidth / 2}
       y={window.innerHeight / 2}
       radius={300}
@@ -67,4 +49,4 @@ function Spinner({
   );
 }
 
-export default Spinner;
+export default React.memo(Spinner);
