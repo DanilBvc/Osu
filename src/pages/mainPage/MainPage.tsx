@@ -21,27 +21,30 @@ import playMenuItemHoverSound from '../../utils/soundsPlayHandlers/playMenuItemH
 function MainPage() {
   const dispatch = useDispatch();
   const isAuth = useSelector((state: IReducers) => !!state.userDataReducer.email);
+  const userStae = useSelector((state: IReducers) => state.userDataReducer);
   const storeMapsData = useSelector((state: IReducers) => state.mapsDataReducer);
 
   // TODO: unite maps request with the selectPage one
   useEffect(() => {
-    getMapsData().then(
-      (mapsData) => {
-        mapsData.forEach((mapData) => {
-          if (storeMapsData.findIndex((storeMapData) => storeMapData.id === mapData.id) === -1) {
-            dispatch(setNewMap({
-              mapName: mapData.mapName,
-              audio: mapData.audio,
-              images: mapData.images,
-              topPlayers: ['andrew', 'grisha', 'billy'],
-              additionalAudio: mapData.additionAudio,
-              id: mapData.id,
-              mapData: mapData.mapData,
-            }));
-          }
-        });
-      }
-    );
+    if (userStae.uuid !== null) {
+      getMapsData(userStae.uuid).then(
+        (mapsData) => {
+          mapsData.forEach((mapData) => {
+            if (storeMapsData.findIndex((storeMapData) => storeMapData.id === mapData.id) === -1) {
+              dispatch(setNewMap({
+                mapName: mapData.mapName,
+                audio: mapData.audio,
+                images: mapData.images,
+                topPlayers: ['andrew', 'grisha', 'billy'],
+                additionalAudio: mapData.additionAudio,
+                id: mapData.id,
+                mapData: mapData.mapData,
+              }));
+            }
+          });
+        }
+      );
+    }
   }, []);
 
   useEffect(() => {

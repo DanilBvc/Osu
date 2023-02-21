@@ -123,26 +123,26 @@ function SelectMap() {
       <ul className="select-map-page-container__songs-list">
         {Object.values(storeMapsData).map((commonSongData) => (
           selectedSongID === commonSongData.id
-          ? (
-            <React.Fragment key={window.crypto.randomUUID()}>
-              {commonSongData.mapData.map((difficultySongData, songDifficultyIndex) => (
-                <SongListItem
-                  key={window.crypto.randomUUID()}
-                  songData={commonSongData}
-                  difficulty={difficultySongData.metadata.Version}
-                  songDifficultyIndex={songDifficultyIndex}
-                />
-              ))}
-            </React.Fragment>
-          )
-          : (
-            <SongListItem
-              key={window.crypto.randomUUID()}
-              songData={commonSongData}
-              difficulty={commonSongData.mapData[0].metadata.Version}
-              songDifficultyIndex={0}
-            />
-          )
+            ? (
+              <React.Fragment key={window.crypto.randomUUID()}>
+                {commonSongData.mapData.map((difficultySongData, songDifficultyIndex) => (
+                  <SongListItem
+                    key={window.crypto.randomUUID()}
+                    songData={commonSongData}
+                    difficulty={difficultySongData.metadata.Version}
+                    songDifficultyIndex={songDifficultyIndex}
+                  />
+                ))}
+              </React.Fragment>
+            )
+            : (
+              <SongListItem
+                key={window.crypto.randomUUID()}
+                songData={commonSongData}
+                difficulty={commonSongData.mapData[0].metadata.Version}
+                songDifficultyIndex={0}
+              />
+            )
         ))}
       </ul>
       <SelectMapPageFooter />
