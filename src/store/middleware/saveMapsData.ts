@@ -10,6 +10,7 @@ const saveMapsData = (store: IMapData[]) => (next: Dispatch) => (action: {
     topPlayers: string[];
     additionalAudio: string[];
     additionalPictures: string[];
+
   };
 }) => {
   // тут сохранять данные пользователя при перезагрузке

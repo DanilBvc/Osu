@@ -14,9 +14,10 @@ import Preloader from './Preloader/Preloader';
 
 export default function Game(): JSX.Element {
   const mapData = useSelector((state: IReducers) => state.activeGameReduccer);
+  const gameId = useSelector((state: IReducers) => state.songDifficultyIndexReducer);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const { ApproachRate, OverallDifficulty } = mapData.mapData[0].difficulty;
-  const { hitObjects, timingPoints, colors } = mapData.mapData[0];
+  const { ApproachRate, OverallDifficulty } = mapData.mapData[gameId].difficulty;
+  const { hitObjects, timingPoints, colors } = mapData.mapData[gameId];
   const dispath = useDispatch();
   dispath(resetGameAction());
   const layerRef = useRef<Konva.Layer>(null);
@@ -27,7 +28,7 @@ export default function Game(): JSX.Element {
       audioRef.current.play();
     }
   }, []);
-
+  console.log(mapData);
   return (
     <div
       className="gameStage"
