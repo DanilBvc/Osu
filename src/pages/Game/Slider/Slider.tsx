@@ -57,7 +57,7 @@ function GameSlider({
     }
   };
 
-  const scoreHandler = (): void => {
+  const scoreHandler = () => {
     if (isHolding && circleRef.current && model.pixelLength) {
       setTextVisible(true);
       const point = +((model.animationTime / model.pixelLength) / 10).toFixed(0);
@@ -72,19 +72,11 @@ function GameSlider({
     if (layerRef.current && elementRef.current) {
       layerRef.current.getLayer().add(elementRef.current);
     }
-    // return () => {
-    //   if (elementRef.current) {
-    //     elementRef.current.destroy();
-    //   }
-    // };
   }, []);
 
   useEffect(() => {
     startAnimationBall();
-
-    return () => {
-      dispatch(setTotalObjectsAction());
-    };
+    dispatch(setTotalObjectsAction());
   }, []);
 
   return (
