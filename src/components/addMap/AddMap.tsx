@@ -14,9 +14,7 @@ function AddMap() {
     inputValue: string,
     mustBeRemoved?: boolean
   ) => {
-    if (value && value.code === 'Enter') {
-      setInput(inputValue);
-    }
+    setInput(inputValue);
     if (mustBeRemoved) {
       setInput('');
     }
