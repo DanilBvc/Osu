@@ -58,7 +58,7 @@ const getMapDataFromApi = async (mapId: number, mapName: string) => {
                 [`images ${file.name.replace(regex, '').trim()}`]: images,
               });
             });
-          } else if (file !== null && (fileExtension === 'mp3' || fileExtension === 'wav' || fileExtension === 'ogg')) {
+          } else if (file !== null && (fileExtension.toLowerCase() === 'mp3' || fileExtension === 'wav' || fileExtension === 'ogg')) {
             file.async('uint8array').then(async (data) => {
               const audio = await uploadAudioByBytes(data, id, file.name, fileExtension);
               await updateDoc(doc(db, 'maps', id), {
