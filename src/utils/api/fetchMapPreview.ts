@@ -70,16 +70,32 @@ export const fetchMapPreview = async (count = 20, action = 'popular', payload?: 
 }) => {
   let url = `https://api.sayobot.cn/beatmaplist?0=${count}&1=20&2=2&5=1`;
   if (action === 'classification') {
-    url = `https://api.sayobot.cn/beatmaplist?0=${count}&1=0&2=4&7=${payload?.classification ? payload.classification : 1}&8=${payload?.language ? payload.language : 1}${payload?.search ? `&3=${payload.search}&5=1` : '&5=1'}`;
+    if (payload?.search && !!Number(payload.search)) {
+      url = `https://api.sayobot.cn/beatmapinfo?1=${payload.search}`;
+    } else {
+      url = `https://api.sayobot.cn/beatmaplist?0=${count}&1=0&2=4&7=${payload?.classification ? payload.classification : 1}&8=${payload?.language ? payload.language : 1}${payload?.search ? `&3=${payload.search}&5=1` : '&5=1'}`;
+    }
   }
   if (action === 'recently' || action === 'download') {
-    url = `https://api.sayobot.cn/beatmaplist?0=${count}&1=0${payload?.search ? `&2=4&3=${payload.search}&5=1` : '&2=2&5=1'}`;
+    if (payload?.search && !!Number(payload.search)) {
+      url = `https://api.sayobot.cn/beatmapinfo?1=${payload.search}`;
+    } else {
+      url = `https://api.sayobot.cn/beatmaplist?0=${count}&1=0${payload?.search ? `&2=4&3=${payload.search}&5=1` : '&2=2&5=1'}`;
+    }
   }
   if (action === 'popular') {
-    url = `https://api.sayobot.cn/beatmaplist?0=${count}&1=0${payload?.search ? `&2=4&3=${payload.search}&5=1` : '&2=1&5=1'}`;
+    if (payload?.search && !!Number(payload.search)) {
+      url = `https://api.sayobot.cn/beatmapinfo?1=${payload.search}`;
+    } else {
+      url = `https://api.sayobot.cn/beatmaplist?0=${count}&1=0${payload?.search ? `&2=4&3=${payload.search}&5=1` : '&2=1&5=1'}`;
+    }
   }
   if (action === 'random') {
-    url = `https://api.sayobot.cn/beatmaplist?0=${count}&1=${Math.floor(Math.random() * 100000) + 1}&2=1&5=1`;
+    if (payload?.search && !!Number(payload.search)) {
+      url = `https://api.sayobot.cn/beatmapinfo?1=${payload.search}`;
+    } else {
+      url = `https://api.sayobot.cn/beatmaplist?0=${count}&1=${Math.floor(Math.random() * 100000) + 1}&2=1&5=1`;
+    }
   }
   const response = await fetch(url);
   const resultData = await response.json();
