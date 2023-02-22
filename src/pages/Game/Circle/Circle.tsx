@@ -18,6 +18,7 @@ function GameCircle({
   model,
   colors,
   messageHandler,
+  handleHitSound,
 }: IGameElement): JSX.Element {
   const circleRef = useRef<Konva.Group | null>(null);
   const dispatch = useDispatch();
@@ -56,6 +57,7 @@ function GameCircle({
         onClick={(e) => {
           scoreHandler(e);
           circleRef.current?.destroy();
+          handleHitSound(model.hitSound);
         }}
         onMouseEnter={(e) => handleCursor(e)}
         onPointerClick={(e) => handleCursor(e)}

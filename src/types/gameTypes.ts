@@ -25,4 +25,5 @@ export interface IGameElement {
   colors?: number[][];
   layerRef: React.RefObject<Layer>;
   messageHandler?: (result: IResultMessage) => void;
+  handleHitSound: (soundIndex: number) => void;
 }

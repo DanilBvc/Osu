@@ -9,6 +9,7 @@ import Spinner from './Spinner/Spinner';
 
 import ring from '../../assets/mesh/ring.png';
 import ring2 from '../../assets/mesh/ring2.png';
+import { defaultSounds } from '../../constants/constants';
 
 interface IHitObjectsProps {
   objects: UpdatedObject[];
@@ -34,7 +35,9 @@ export default function HitObjects({
       ));
     }
   };
-
+  const handleHitSound = (soundIndex: number) => {
+    new Audio(defaultSounds[soundIndex]).play();
+  };
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.addEventListener('timeupdate', timeUpdate);
@@ -70,6 +73,7 @@ export default function HitObjects({
         if (object.type === 'slider') {
           return (
             <GameSlider
+              handleHitSound={handleHitSound}
               key={object.unKey}
               model={object}
               colors={colors}
@@ -80,6 +84,7 @@ export default function HitObjects({
         if (object.type === 'circle') {
           return (
             <GameCircle
+              handleHitSound={handleHitSound}
               key={object.unKey}
               colors={colors}
               model={object}
@@ -90,6 +95,7 @@ export default function HitObjects({
         }
         return (
           <Spinner
+            handleHitSound={handleHitSound}
             key={object.unKey}
             model={object}
             colors={colors}
