@@ -8,7 +8,9 @@ import {
   Circle, Group
 } from 'react-konva';
 import { useDispatch } from 'react-redux';
-import { setTotalHitsAction, setTotalObjectsAction, updatePointsAction } from '../../../store/reducers/game/gameScoreReducer';
+import {
+  setHitCountAction, setTotalHitsAction, setTotalObjectsAction, updatePointsAction
+} from '../../../store/reducers/game/gameScoreReducer';
 import { IGameElement } from '../../../types/gameTypes';
 import { defaultColors } from '../../../utils/game/defaultValues';
 import { handleCursor } from '../../../utils/game/gameCursorHandler';
@@ -28,9 +30,10 @@ function GameCircle({
 
   const scoreHandler = useCallback((e: KonvaEventObject<MouseEvent>): void => {
     const clickResult = Math.abs(e.evt.clientX - x) + Math.abs(e.evt.clientY - y);
-    const points = clickResult < 10 ? 300 : clickResult < 25 ? 200 : 100;
+    const points = clickResult < 10 ? 300 : clickResult < 25 ? 100 : 50;
     setResult(() => ({ text: points, color: 'green' }));
     dispatch(updatePointsAction(points));
+    dispatch(setHitCountAction(points));
     dispatch(setTotalHitsAction());
   }, []);
 
