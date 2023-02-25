@@ -69,3 +69,31 @@
 .select-map-page-footer .player-card-wrapper {
   padding: 0;
 }
+
+.victory-points-300,
+.victory-points-100,
+.victory-points-50 {
+  display: flex;
+  justify-content: space-around;
+  color: #fff;
+  text-shadow: 2px 2px 2px #000;
+}
+
+.victory-icon-300 {
+  text-shadow: 2px 2px 2px #4293ff;
+  color: #fff;
+}
+
+.victory-icon-100 {
+  text-shadow: 2px 2px 2px #597a00;
+  color: #fff;
+}
+
+.victory-icon-50 {
+  text-shadow: 2px 2px 2px #e68412;
+  color: #fff;
+}
+
+.victory-points-up {
+  font-size: 34px;
+}

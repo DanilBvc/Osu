@@ -27,7 +27,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/404" element={<NotFound />} />
         <Route element={<PrivateRoutes />}>
-          <Route path="/game" element={<Game />} />
+          <Route path="/game" element={<VictoryPage />} />
           <Route path="/selectMap" element={<SelectMap />} />
           <Route path="/download/*" element={<AddMap />} />
           <Route path="/victory" element={<VictoryPage />} />
