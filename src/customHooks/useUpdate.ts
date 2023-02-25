@@ -9,7 +9,8 @@ export default function useUpdate(
   timingPoints: Timing[],
   AR: number,
   OD: number,
-  speedMultiplier: number
+  speedMultiplier: number,
+  preloaderDelay: number
 ): UpdatedObject[] {
   const ARMultiplier = 1.0 + 0.1 * (10 - AR) + 0.05 * Math.max(0, 5 - AR);
   const ODMultiplier = 1.0 + 0.1 * (10 - OD);
@@ -24,20 +25,21 @@ export default function useUpdate(
       ? timingPoint.millisecondsPerBeat / (ODMultiplier * ARMultiplier)
       : timingPoint.millisecondsPerBeat * (obj.pixelLength! / (100 * ODMultiplier * ARMultiplier));
 
-    const correctedTime = (obj.time / 0.5) - timeToNextObj;
+    const correctedTime = (obj.time / speedMultiplier) - timeToNextObj;
     const nextObj = objects[index + 1];
     const nextObjTime = nextObj ? nextObj.time : obj.time + 3000;
     const animationTime = nextObjTime - obj.time;
 
     return {
       ...obj,
-      time: obj.type === 'spinner' ? obj.time : correctedTime,
+      time: correctedTime + preloaderDelay,
+      fadeInTime: correctedTime + preloaderDelay - 500,
+      fadeOutTime: correctedTime + 500 + animationTime + preloaderDelay,
       animationTime: animationTime / speedMultiplier,
       unKey: window.crypto.randomUUID(),
       x: obj.x * CX,
       y: obj.y * CY,
       keyframes: obj.keyframes?.map((k: HitObjectCoords) => ({ x: k.x * CX, y: k.y * CY })),
-
     };
   });
 

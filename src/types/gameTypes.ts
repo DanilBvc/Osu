@@ -5,7 +5,8 @@ export interface UpdatedObject extends HitObjects {
   unKey: string;
   animationTime: number;
   keyframes: { x: number; y: number }[] | undefined;
-
+  fadeInTime: number;
+  fadeOutTime: number;
 }
 
 export interface IRadiusRingProps {

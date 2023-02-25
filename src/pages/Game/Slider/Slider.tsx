@@ -1,20 +1,14 @@
-import React, {
-  useEffect, useRef, useState
-} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Konva from 'konva';
 import {
-  Group, Line, Circle, Text, Image
+  Group, Line, Circle, Text
 } from 'react-konva';
 import { useDispatch } from 'react-redux';
-
 import { IGameElement } from '../../../types/gameTypes';
 import { handleCursor } from '../../../utils/game/gameCursorHandler';
 import { defaultColors, defaultKeyframes } from '../../../utils/game/defaultValues';
 import RadiusRing from '../RadiusRing/RadiusRing';
 import { setTotalHitsAction, setTotalObjectsAction, updatePointsAction } from '../../../store/reducers/game/gameScoreReducer';
-
-import ring from '../../../assets/mesh/ring.png';
-import ring2 from '../../../assets/mesh/ring2.png';
 
 function GameSlider({
   colors,
@@ -23,6 +17,7 @@ function GameSlider({
 }: IGameElement): JSX.Element {
   const circleRef = useRef<Konva.Group | null>(null);
   const elementRef = useRef<Konva.Group | null>(null);
+  const trackRef = useRef<Konva.Group | null>(null);
   const dispatch = useDispatch();
   const startPoint = { x: model.x, y: model.y };
   const bezierPoints = [startPoint, ...model.keyframes || defaultKeyframes];
@@ -30,19 +25,28 @@ function GameSlider({
   const [isHolding, setIsHolding] = useState<boolean>(false);
   const [textVisible, setTextVisible] = useState<boolean>(false);
   const [result, setResult] = useState({ text: 0, color: 'red' });
-
-  const strokeImage = new window.Image();
-  strokeImage.src = ring;
-
-  const strokeImage2 = new window.Image();
-  strokeImage2.src = ring2;
+  const [inFade, setInFade] = useState(true);
+  const [hit, setHit] = useState(false);
 
   const startAnimationBall = (points = bezierPoints, index = 0): void => {
-    if (points.length === index && elementRef.current) {
-      elementRef.current.destroy();
+    if (points.length === index && elementRef.current && circleRef.current) {
+      circleRef.current.to({
+        y: bezierPoints[bezierPoints.length - 1].y + 100,
+        opacity: 0,
+        duration: 0.5,
+        onFinish: () => {
+          elementRef.current?.destroy();
+        },
+      });
+
+      trackRef.current?.to({
+        x: -100 - 0.5 + Math.random() * (200 - 0 + 1),
+        y: -100 - 0.5 + Math.random() * (200 - 0 + 1),
+        opacity: 0,
+        duration: 0.5,
+      });
       return;
     }
-
     if (circleRef.current) {
       const circle = circleRef.current;
       circle.to({
@@ -75,18 +79,38 @@ function GameSlider({
   }, []);
 
   useEffect(() => {
-    startAnimationBall();
+    const antime = setTimeout(() => {
+      startAnimationBall();
+    }, 500);
     dispatch(setTotalObjectsAction());
+    return () => clearTimeout(antime);
   }, []);
 
+  useEffect(() => {
+    const fadeTime = setTimeout(() => {
+      setInFade(false);
+    }, 500);
+    return () => clearTimeout(fadeTime);
+  }, []);
+
+  const hitHandler = () => {
+    if (hit) return;
+    dispatch(setTotalHitsAction());
+    setHit(true);
+  };
+
   return (
-    <Group ref={elementRef}>
-      <Group>
+    <Group
+      ref={elementRef}
+    >
+      <Group
+        ref={trackRef}
+      >
         <Line // border
           points={bezierPoints.flatMap(({ x, y }) => [x, y])}
           lineCap="round"
           stroke={`rgb(${borderColor?.join(',')})`}
-          strokeWidth={100}
+          strokeWidth={120}
           opacity={0.3}
           shadowColor={`rgb(${borderColor?.join(',')})`}
           shadowBlur={10}
@@ -95,7 +119,7 @@ function GameSlider({
           points={bezierPoints.flatMap(({ x, y }) => [x, y])}
           lineCap="round"
           stroke={`rgb(${trackColor?.join(',')})`}
-          strokeWidth={90}
+          strokeWidth={110}
           shadowColor={`rgb(${trackColor?.join(',')})`}
           shadowBlur={30}
           opacity={0.3}
@@ -108,7 +132,7 @@ function GameSlider({
         ref={circleRef}
         onMouseDown={() => {
           setIsHolding(true);
-          dispatch(setTotalHitsAction());
+          hitHandler();
         }}
         onMouseUp={() => {
           setIsHolding(false);
@@ -119,44 +143,15 @@ function GameSlider({
         onPointerClick={(e) => handleCursor(e)}
         onMouseLeave={(e) => {
           handleCursor(e);
-          setIsHolding(false);
         }}
         onMouseMove={scoreHandler}
       >
         <RadiusRing />
-        {/* <Circle
-          radius={55}
-          // stroke="orange"
-          strokeWidth={10}
-          points={[0, 0, 100, 100]}
-
-          strokePatternImage={strokeImage}
-          strokeScaleEnabled={false}
-        /> */}
-        {/* <Image
-          image={strokeImage}
-          visible={isHolding}
-          x={-73}
-          y={-70}
-          // width={150}
-          // height={150}
-          scale={{ x: 0.12, y: 0.12 }}
-        /> */}
-
-        <Image
-          image={strokeImage2}
-          visible={isHolding}
-          width={130}
-          height={130}
-          x={-65}
-          y={-65}
-        // scale={{ x: 0.1, y: 0.1 }}
-        />
         <Circle // ball
-          radius={40}
+          radius={55}
           fill={`rgb(${ballColor1?.join(',')})`}
           strokeWidth={1}
-          opacity={1}
+          opacity={inFade ? 0.2 : 1}
           shadowColor="black"
           shadowOffset={{ x: 5, y: 5 }}
           shadowBlur={10}
@@ -174,7 +169,6 @@ function GameSlider({
       </Group>
 
     </Group>
-
   );
 }
 

@@ -1,14 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Layer } from 'konva/lib/Layer';
-import React, { useCallback, useEffect, useState } from 'react';
-import { Image, Line } from 'react-konva';
+import React, {
+  useCallback, useEffect, useState
+} from 'react';
+
 import { IResultMessage, UpdatedObject } from '../../types/gameTypes';
 import GameCircle from './Circle/Circle';
 import ScoreText from './ScoreText/ScoreText';
 import GameSlider from './Slider/Slider';
 import Spinner from './Spinner/Spinner';
 
-import ring from '../../assets/mesh/ring.png';
-import ring2 from '../../assets/mesh/ring2.png';
 import { defaultSounds } from '../../constants/constants';
 
 interface IHitObjectsProps {
@@ -30,19 +31,17 @@ export default function HitObjects({
   const timeUpdate = () => {
     if (audioRef.current) {
       const currentTime = +(audioRef.current.currentTime * 1000).toFixed(0);
-      setObjectToRender(objects.filter(
-        (i: UpdatedObject) => currentTime > i.time && currentTime < (i.animationTime + i.time)
-      ));
+      setObjectToRender(objects.filter((i: UpdatedObject) => currentTime > i.fadeInTime));
     }
   };
   const handleHitSound = (soundIndex: number) => {
     new Audio(defaultSounds[soundIndex]).play();
   };
+
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.addEventListener('timeupdate', timeUpdate);
     }
-
     return () => {
       if (audioRef.current) {
         audioRef.current.removeEventListener('timeupdate', timeUpdate);
@@ -60,7 +59,6 @@ export default function HitObjects({
 
   return (
     <>
-      {/* <Image image={ring2} /> */}
       {resultsMessages.map((message: IResultMessage) => (
         <ScoreText
           message={message}
