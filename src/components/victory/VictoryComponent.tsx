@@ -33,6 +33,29 @@ function VictoryComponent() {
           {gameScore.points}
         </div>
         <div className="victory-points-info">
+          <div className="victory-points-up">
+            <div className="victory-points-300">
+              <div className="victory-icon-300">
+                300
+              </div>
+              {gameScore.hits_300}
+              X
+            </div>
+            <div className="victory-points-100">
+              <div className="victory-icon-100">
+                100
+              </div>
+              {gameScore.hits_100}
+              X
+            </div>
+            <div className="victory-points-50">
+              <div className="victory-icon-50">
+                50
+              </div>
+              {gameScore.hits_50}
+              X
+            </div>
+          </div>
           <div className="victory-points-bottom">
             <div className="victory-combo">
               <div className="victory-combo-title">
