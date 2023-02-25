@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from 'react';
 import Konva from 'konva';
 import { Group, Line, Text } from 'react-konva';
@@ -11,7 +10,7 @@ export default function Preloader({ animationTime }: PreloaderProps): JSX.Elemen
   const [lineWidth, setLineWidth] = useState<number>(700);
   const lineRef = useRef<Konva.Line | null>(null);
   const elementsRef = useRef<Konva.Group | null>(null);
-  const timerRef = useRef<any | null>(null);
+  const timerRef: { current: NodeJS.Timeout | null } = useRef(null);
   const textRef = useRef<Konva.Text | null>(null);
   const [time, setTime] = useState(animationTime / 1000 + 1);
 
@@ -22,7 +21,7 @@ export default function Preloader({ animationTime }: PreloaderProps): JSX.Elemen
         duration: animationTime / 1000 + 1,
         onFinish: () => {
           elementsRef.current?.destroy();
-          clearInterval(timerRef.current);
+          clearInterval(timerRef.current as NodeJS.Timeout);
         },
       });
     }
