@@ -3,8 +3,6 @@ import { useSelector } from 'react-redux';
 import IReducers from '../../types/reducers/reducersType';
 import './victory.scss';
 // eslint-disable-next-line import/order
-import { Link } from 'react-router-dom';
-import { backButtonIcon } from '../../assets/images/icons';
 import SelectMapPageFooter from '../selectMap/footer/SelectMapPageFooter';
 
 function VictoryComponent() {
@@ -14,7 +12,7 @@ function VictoryComponent() {
   const background = useSelector((state: IReducers) => state.backgroundSourceReducer);
   const currentGame = mapsData.mapData[songDiffucult];
   return (
-    <>
+    <div className="victory__popup">
       <img src={background} alt="" className="victory-background" />
       <div className="victory-header">
         <div className="victory-map-name">
@@ -74,7 +72,7 @@ function VictoryComponent() {
         </div>
         <SelectMapPageFooter />
       </div>
-    </>
+    </div>
   );
 }
 

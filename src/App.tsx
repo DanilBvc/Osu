@@ -13,8 +13,6 @@ import useClientResolution from './customHooks/useClientResolution';
 
 import Game from './pages/Game/Game';
 import AddMap from './components/addMap/AddMap';
-import LoginComponent from './components/Login/LoginComponent';
-import RegisterCmponents from './components/Register/RegisterCmponents';
 import VictoryPage from './pages/Victory/VictoryPage';
 
 function App() {
@@ -27,7 +25,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/404" element={<NotFound />} />
         <Route element={<PrivateRoutes />}>
-          <Route path="/game" element={<VictoryPage />} />
+          <Route path="/game" element={<Game />} />
           <Route path="/selectMap" element={<SelectMap />} />
           <Route path="/download/*" element={<AddMap />} />
           <Route path="/victory" element={<VictoryPage />} />

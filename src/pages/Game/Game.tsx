@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Stage, Layer } from 'react-konva';
 import { useDispatch, useSelector } from 'react-redux';
 import Konva from 'konva';
@@ -12,6 +12,7 @@ import { resetGameAction } from '../../store/reducers/game/gameScoreReducer';
 import HitObjects from './hitObjects';
 import Preloader from './Preloader/Preloader';
 import { useAudioElement } from '../../contexts/audioContextWrapper';
+import VictoryComponent from '../../components/victory/VictoryComponent';
 
 export default function Game(): JSX.Element {
   const mapData = useSelector((state: IReducers) => state.activeGameReduccer);
@@ -23,7 +24,7 @@ export default function Game(): JSX.Element {
   const { ApproachRate, OverallDifficulty } = mapData.mapData[gameId].difficulty;
   const { hitObjects, timingPoints, colors } = mapData.mapData[gameId];
   const dispatch = useDispatch();
-  dispatch(resetGameAction());
+  // dispatch(resetGameAction());
   const layerRef = useRef<Konva.Layer>(null);
   const gameElements = useUpdate(
     hitObjects,
@@ -43,6 +44,13 @@ export default function Game(): JSX.Element {
     }
   }, []);
 
+  const [inGame, setInGame] = useState<boolean>(true);
+
+  const onFinishGame = () => {
+    setInGame(() => false);
+    console.log('finish');
+  };
+
   return (
     <div
       className="gameStage"
@@ -51,6 +59,7 @@ export default function Game(): JSX.Element {
       }
     >
       <GameBar />
+      {!inGame ? <VictoryComponent /> : null}
 
       <audio ref={audioRef} src={mapData.audio || audioPlug}>
         <track kind="captions" />
@@ -64,6 +73,7 @@ export default function Game(): JSX.Element {
             colors={colors}
             audioRef={audioRef}
             layerRef={layerRef}
+            onFinishGame={onFinishGame}
           />
         </Layer>
       </Stage>

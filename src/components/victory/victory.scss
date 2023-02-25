@@ -1,5 +1,21 @@
 @import '../../globalStyles/variables';
 
+.victory__popup {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+}
+
+
+
+.victory-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
 .victory-header {
   color: #fff;
   background-color: rgba(0, 0, 0, 0.571);

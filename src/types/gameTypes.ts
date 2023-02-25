@@ -7,6 +7,7 @@ export interface UpdatedObject extends HitObjects {
   keyframes: { x: number; y: number }[] | undefined;
   fadeInTime: number;
   fadeOutTime: number;
+
 }
 
 export interface IRadiusRingProps {
