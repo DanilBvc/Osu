@@ -10,6 +10,7 @@ import './registerCmponentsStyles.scss';
 
 function RegisterCmponents() {
   const [userIsRegistered, setUserIsRegistered] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -45,7 +46,7 @@ function RegisterCmponents() {
               });
               setUserIsRegistered(false);
             } catch (err) {
-              console.log(err);
+              setError(err as string);
             }
           });
         });
@@ -65,7 +66,7 @@ function RegisterCmponents() {
         }));
       }
     } catch (err) {
-      console.log(err);
+      setError(err as string);
     }
   };
   useEffect(() => {
@@ -102,6 +103,12 @@ function RegisterCmponents() {
   }, [userIsRegistered]);
   return (
     <div>
+      {!error ? null : (
+        <div className="error-msg">
+          <i className="fa fa-times-circle"></i>
+          {error.toString()}
+        </div>
+      )}
       <div className="sing-up">
         <h1>Sign up</h1>
         <div>
