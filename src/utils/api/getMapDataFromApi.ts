@@ -1,6 +1,7 @@
 /* eslint-disable no-return-await */
 /* eslint-disable max-len */
 import {
+  arrayUnion,
   doc, getDoc, setDoc, updateDoc
 } from 'firebase/firestore';
 import JSZip from 'jszip';
@@ -33,14 +34,12 @@ const getMapDataFromApi = async (mapId: number, mapName: string) => {
     .then((zip) => {
       const mapsDataRef = doc(db, 'maps', id);
       const topMapRef = doc(db, 'top', id);
-      getDoc(mapsDataRef).then((docSnap) => {
-        if (!docSnap.exists()) {
-          setDoc(mapsDataRef, {
-            id,
-          });
-        }
+      setDoc(mapsDataRef, {
+        id,
       });
-
+      setDoc(topMapRef, {
+        id,
+      });
       zip.forEach((entry) => {
         if (entry !== null) {
           const file = zip.file(entry);
@@ -49,14 +48,8 @@ const getMapDataFromApi = async (mapId: number, mapName: string) => {
             file.async('string').then(async (content) => {
               const mapData = getDataFromOsuMap(content);
               getDoc(topMapRef).then(async (docSnap) => {
-                if (docSnap.data() === undefined) {
-                  setDoc(topMapRef, {
-                    id,
-                  });
-                }
-
                 if (docSnap.get(mapData.metadata.Version) === undefined) {
-                  await updateDoc(doc(db, 'top', id), {
+                  await updateDoc(topMapRef, {
                     [mapData.metadata.Version]: [],
                   });
                 }

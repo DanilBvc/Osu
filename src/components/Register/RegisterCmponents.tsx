@@ -38,7 +38,7 @@ function RegisterCmponents() {
                 email,
                 photoURL: downloadURL,
                 performance: 0,
-                accuracy: 0.0,
+                accuracy: 0,
                 lvl: 0,
                 maps: [],
               });

@@ -44,21 +44,15 @@ export default function HitObjects({
   };
 
   useEffect(() => {
-    const t = setTimeout(() => {
-      onFinishGame();
-    }, 1000);
-
     if (audioRef.current) {
       audioRef.current.addEventListener('timeupdate', timeUpdate);
-      // audioRef.current.addEventListener('ended', onFinishGame);
+      audioRef.current.addEventListener('ended', onFinishGame);
     }
     return () => {
       if (audioRef.current) {
         audioRef.current.removeEventListener('timeupdate', timeUpdate);
-        // audioRef.current.removeEventListener('ended', onFinishGame);
+        audioRef.current.removeEventListener('ended', onFinishGame);
       }
-
-      clearTimeout(t);
     };
   }, []);
 

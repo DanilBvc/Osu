@@ -138,7 +138,7 @@ export default function Game(): JSX.Element {
         });
       }
       await updateDoc(userDocRef, {
-        lvl: userLvl + gameScore.points + 11,
+        lvl: userLvl + gameScore.points,
       });
     }
   };
