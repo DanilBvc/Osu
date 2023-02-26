@@ -7,8 +7,10 @@ import IReducers from '../../types/reducers/reducersType';
 import userAvatarPlaceHolder from '../../assets/images/userAvatarPlaceholderImage.png';
 import { auth, db } from '../../firebase/firebase';
 import setUserData from '../../store/actionCreators/userData/setUserData';
+import { setAuthPopupActiveAction } from '../../store/reducers/authPopupActiveReducer';
 
 export default function PlayerCard(): JSX.Element {
+  const dispatch = useDispatch();
   const {
     name,
     performance,
@@ -16,7 +18,9 @@ export default function PlayerCard(): JSX.Element {
     avatar,
     lvl,
   } = useSelector((state: IReducers) => state.userDataReducer);
-  const dispatch = useDispatch();
+  const setAuthPopupActive = (status: boolean) => dispatch(setAuthPopupActiveAction(status));
+  const authPopupActive = useSelector((state: IReducers) => state.authPopupActiveReducer);
+
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -46,8 +50,9 @@ export default function PlayerCard(): JSX.Element {
       unsub();
     };
   }, []);
+
   return (
-    <div className="playerCard">
+    <div className="playerCard" onClick={() => setAuthPopupActive(!authPopupActive)} role="button" tabIndex={0}>
       <img className="playerCard-avatar" src={avatar || userAvatarPlaceHolder} alt="avatar" />
       <div className="playerCard-info">
         <p className="playerCard-name">{name}</p>
@@ -56,7 +61,6 @@ export default function PlayerCard(): JSX.Element {
           {' '}
           {performance}
           {' '}
-
         </p>
         <p className="playerCard-accuracy">
           Accuracy:

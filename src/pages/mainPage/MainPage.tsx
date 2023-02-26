@@ -76,6 +76,7 @@ function MainPage() {
       unsub();
     };
   }, []);
+
   return (
     <main className="main" style={!isAuth ? { pointerEvents: 'none' } : {}}>
       <ParallaxBackground />

@@ -12,6 +12,7 @@ import { currentAudioSourceReducer } from './reducers/selectMapPage/currentAudio
 import saveUserData from './middleware/saveUserData';
 import { gameScoreReducer } from './reducers/game/gameScoreReducer';
 import { songDifficultyIndexReducer } from './reducers/selectMapPage/songDifficultyIndexReducer';
+import { authPopupActiveReducer } from './reducers/authPopupActiveReducer';
 
 const rootReducer = combineReducers(
   {
@@ -24,6 +25,7 @@ const rootReducer = combineReducers(
     gameOptionsReducer,
     gameScoreReducer,
     songDifficultyIndexReducer,
+    authPopupActiveReducer,
   }
 );
 const store = createStore(

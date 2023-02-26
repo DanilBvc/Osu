@@ -16,11 +16,11 @@ import AddMap from './components/addMap/AddMap';
 import VictoryPage from './pages/Victory/VictoryPage';
 
 function App() {
-  const isAuth = useSelector((state: IReducers) => !!state.userDataReducer.email);
   useClientResolution();
+
   return (
     <>
-      {!isAuth ? <AuthPopup /> : null}
+      <AuthPopup />
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/404" element={<NotFound />} />
