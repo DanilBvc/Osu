@@ -10,12 +10,15 @@ interface IProps {
 }
 
 function AddMapHeader({ handleInput, input }: IProps) {
+  const [inputHeader, setInputHeader] = useState('');
   const location = useLocation();
   const currentFilter = location.pathname.split('/')[location.pathname.split('/').length - 1];
   const navigate = useNavigate();
   const handleClear = () => {
     handleInput(null, '', true);
+    setInputHeader('');
   };
+
   return (
     <div className="nav-wrapper">
       <div className="nav-link">
@@ -27,9 +30,9 @@ function AddMapHeader({ handleInput, input }: IProps) {
         {location.pathname !== '/download' ? (
           <>
             <input
-              onKeyDown={(e) => { handleInput(e, input); }}
-              onChange={(e) => { handleInput(null, e.target.value); }}
-              value={input}
+              onKeyDown={(e) => { handleInput(e, inputHeader); }}
+              onChange={(e) => { setInputHeader(e.target.value); }}
+              value={inputHeader}
               placeholder="key word or sid"
               className="nav-search-input"
               type="text"

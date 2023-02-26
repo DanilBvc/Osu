@@ -29,13 +29,22 @@ function AddMapComponent({ input }: IProps) {
     setLoading(true);
     fetchMapPreview(count, `${currentRoute}`, { classification, language, search: input }).then((r) => {
       setLoading(r.loading);
-      setData(r.result);
+      if (r.result === null) {
+        setData([]);
+      } else {
+        setData(r.result);
+      }
     });
   }, [location, language, classification, input]);
   useEffect(() => {
+    setLoading(true);
     fetchMapPreview(count, `${currentRoute}`, { classification, language, search: input }).then((r) => {
       setLoading(r.loading);
-      setData(r.result);
+      if (r.result === null) {
+        setData([]);
+      } else {
+        setData(r.result);
+      }
     });
   }, [count, input]);
   const handleAudio = (audio: string) => {
