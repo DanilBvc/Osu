@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from 'firebase/auth';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import setUserData from '../../store/actionCreators/userData/setUserData';
 import { auth, db, storage } from '../../firebase/firebase';
 import './registerCmponentsStyles.scss';
 
 function RegisterCmponents() {
+  const [userIsRegistered, setUserIsRegistered] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -42,6 +43,7 @@ function RegisterCmponents() {
                 lvl: 0,
                 maps: [],
               });
+              setUserIsRegistered(false);
             } catch (err) {
               console.log(err);
             }
@@ -66,6 +68,38 @@ function RegisterCmponents() {
       console.log(err);
     }
   };
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const docRef = doc(db, 'users', user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const userData = docSnap.data();
+          if (user.email !== null
+            && user.displayName !== null
+            && user.photoURL !== null) {
+            dispatch(setUserData({
+              name: user.displayName,
+              email: user.email,
+              avatar: user.photoURL,
+              accessToken: 'user.accessToken',
+              performance: userData.performance,
+              accuracy: userData.accuracy,
+              lvl: userData.lvl,
+              uuid: user.uid,
+              maps: userData.maps,
+            }));
+            if (!userIsRegistered) {
+              setUserIsRegistered(true);
+            }
+          }
+        }
+      }
+    });
+    return () => {
+      unsub();
+    };
+  }, [userIsRegistered]);
   return (
     <div>
       <div className="sing-up">
