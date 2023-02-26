@@ -38,7 +38,7 @@ function RegisterCmponents() {
                 email,
                 photoURL: downloadURL,
                 performance: 0,
-                accuracy: 0,
+                accuracy: 0.0,
                 lvl: 0,
                 maps: [],
               });
@@ -56,7 +56,7 @@ function RegisterCmponents() {
           avatar: user.photoURL,
           accessToken: 'user.accessToken',
           performance: 0,
-          accuracy: 0,
+          accuracy: 0.0,
           lvl: 0,
           uuid: user.uid,
           maps: [],
