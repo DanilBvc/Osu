@@ -36,8 +36,8 @@ function useUnsub() {
             setIsAuth(true);
           }
         }
-        setAuthLoading(false);
       }
+      setAuthLoading(false);
     });
 
     return () => {
