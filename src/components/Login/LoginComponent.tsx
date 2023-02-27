@@ -13,39 +13,51 @@ function LoginComponent() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
   const fromPage = location.state?.from?.pathname || '/';
 
   const handleLogin = async (email: string, password: string) => {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const { user } = userCredential;
-    const docRef = doc(db, 'users', user.uid);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      const userData = docSnap.data();
-      if (user.email !== null && user.displayName !== null && user.photoURL !== null) {
-        dispatch(setUserData({
-          name: user.displayName,
-          email: user.email,
-          avatar: user.photoURL,
-          accessToken: 'user.accessToken',
-          performance: userData.performance,
-          accuracy: userData.accuracy,
-          lvl: userData.lvl,
-          uuid: user.uid,
-          maps: userData.maps,
-        }));
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const { user } = userCredential;
+      const docRef = doc(db, 'users', user.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const userData = docSnap.data();
+        if (user.email !== null && user.displayName !== null && user.photoURL !== null) {
+          dispatch(setUserData({
+            name: user.displayName,
+            email: user.email,
+            avatar: user.photoURL,
+            accessToken: 'user.accessToken',
+            performance: userData.performance,
+            accuracy: userData.accuracy,
+            lvl: userData.lvl,
+            uuid: user.uid,
+            maps: userData.maps,
+          }));
+        }
+      } else {
+        setError('No such user!');
       }
-    } else {
-      console.log('No such document!');
+    } catch (err) {
+      if (err) {
+        setError(err as string);
+      }
     }
     navigate(fromPage, { replace: true });
   };
 
   return (
     <div className="login">
+      {!error ? null : (
+        <div className="error-msg">
+          <i className="fa fa-times-circle"></i>
+          {error.toString()}
+        </div>
+      )}
       <div>
         <h1>Sign in</h1>
         <div>
