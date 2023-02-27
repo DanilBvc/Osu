@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable max-len */
-import { getDocs, collection } from 'firebase/firestore';
+import {
+  getDocs, collection, getDoc, doc
+} from 'firebase/firestore';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { db } from '../firebase/firebase';
 import setNewMap from '../store/actionCreators/mapsData/setNewMap';
-import { MapDataFromApi } from '../types/mapsDataTypes/mapsDataFromApiTypes';
+import { MapDataFromApi, topPlayerItem } from '../types/mapsDataTypes/mapsDataFromApiTypes';
 import IReducers from '../types/reducers/reducersType';
 import useUnsub from './useUnsub';
 
@@ -18,7 +20,7 @@ function useParseMaps() {
   useEffect(() => {
     const getMapsData = async () => {
       const querySnapshot = await getDocs(collection(db, 'maps'));
-      querySnapshot.forEach((document) => {
+      querySnapshot.forEach(async (document) => {
         const mapsData = document.data();
         if (state.maps?.includes(+mapsData.id)
           && storeMapsData.findIndex((storeMapData) => storeMapData.id === document.data().id) === -1) {
@@ -29,7 +31,13 @@ function useParseMaps() {
             additionAudio: [],
             images: [],
             mapData: [],
+            topPlayers: [],
           };
+          await getDoc(doc(db, 'top', document.data().id)).then((data) => {
+            resultData.topPlayers = [data.data() as {
+              [key: string]: [] | topPlayerItem[];
+            }];
+          });
           Object.entries(mapsData).forEach((data) => {
             const format = data[0].split(' ')[0];
             const name = data[0].split(' ')[1];
@@ -60,7 +68,7 @@ function useParseMaps() {
             mapName: resultData.mapName,
             audio: resultData.audio,
             images: resultData.images,
-            topPlayers: ['andrew', 'grisha', 'billy'],
+            topPlayers: resultData.topPlayers,
             additionalAudio: resultData.additionAudio,
             id: resultData.id,
             mapData: resultData.mapData,

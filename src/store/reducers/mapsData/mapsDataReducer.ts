@@ -1,5 +1,7 @@
 /* eslint-disable default-param-last */
-import { AudioFromApi, Images, MapData } from '../../../types/mapsDataTypes/mapsDataFromApiTypes';
+import {
+  AudioFromApi, Images, MapData, topPlayerItem
+} from '../../../types/mapsDataTypes/mapsDataFromApiTypes';
 import IMapData from '../../../types/mapsDataTypes/mapsDataTypes';
 import mapsDataState from '../../initialState/MapsDataState';
 
@@ -8,7 +10,7 @@ const mapsDataReducer = (state: IMapData[] = mapsDataState, action: {
     mapName: string;
     audio: string;
     images: Images[];
-    topPlayers: string[];
+    topPlayers: { [key: string]: [] | topPlayerItem[] }[] | [];
     additionalAudio: AudioFromApi[];
     mapData: MapData;
     id: string;

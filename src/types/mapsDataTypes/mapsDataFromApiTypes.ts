@@ -48,6 +48,11 @@ export interface MapData {
   timingPoints: Timing[];
 }
 
+export interface topPlayerItem {
+  userName: string;
+  userImg: string;
+  userScore: number;
+}
 export interface MapDataFromApi {
   id: string;
   mapName: string;
@@ -55,6 +60,7 @@ export interface MapDataFromApi {
   additionAudio: AudioFromApi[];
   images: Images[];
   mapData: MapData[];
+  topPlayers: { [key: string]: [] | topPlayerItem[] }[] | [];
 }
 export interface BeatData {
   AR: number;
