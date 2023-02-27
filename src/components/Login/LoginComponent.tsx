@@ -47,13 +47,13 @@ function LoginComponent() {
   return (
     <div className="login">
       <div>
-        <h1>Sign in</h1>
+        <h1 className="auth-form-headline">Sign in</h1>
         <div>
-          <p className="login__input-title">Login</p>
+          <p className="login__title">Login</p>
           <input value={email} onChange={(e) => { setEmail(e.target.value); }} type="email" />
         </div>
         <div>
-          <p className="login__input-title">Password</p>
+          <p className="login__title">Password</p>
           <input value={password} onChange={(e) => { setPassword(e.target.value); }} type="text" />
         </div>
       </div>

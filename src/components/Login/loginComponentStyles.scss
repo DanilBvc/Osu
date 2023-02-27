@@ -1,10 +1,11 @@
 @import '../../globalStyles/variables';
 
 .login {
-  .login__input-title {
+  .login__title {
     margin-top: 8px;
   }
   .sing-in__button {
+    min-width: 80px;
     margin: 16px 0;
     padding: 8px 16px;
   }

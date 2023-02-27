@@ -1,3 +1,5 @@
+@import '../../globalStyles/variables';
+
 .auth-popup {
   position: fixed;
   top: 0;
@@ -32,8 +34,41 @@
     &.active {
       transform: translateX(0px);
     }
+    .authorized-title {
+      margin-bottom: 16px;
+      .user-name {
+        text-transform: capitalize;
+      }
+    }
+    .sing-out-button,
     .authorization-components-switch-button {
+      min-width: 80px;
       padding: 8px 16px;
     }
+  }
+}
+.shake-animation {
+  animation: shake 0.6s;
+}
+@keyframes shake{
+  0%{
+    color: $color-pink;
+    transform: translateX(0)
+  }
+  25%{
+    transform: translateX(10px);
+  }
+    
+  50%{
+    transform: translateX(-10px);
+  }
+  75%{
+    transform: translateX(5px);
+  }
+  85%{
+    transform: translateX(-5px);
+  }
+  100%{
+    transform: translateX(0px);
   }
 }

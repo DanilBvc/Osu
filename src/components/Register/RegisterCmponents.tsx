@@ -69,7 +69,7 @@ function RegisterCmponents() {
   return (
     <div>
       <div className="sing-up">
-        <h1>Sign up</h1>
+        <h1 className="auth-form-headline">Sign up</h1>
         <div>
           <p className="sing-up__input-title">Name</p>
           <input value={name} onChange={(e) => { setName(e.target.value); }} type="text" required />
