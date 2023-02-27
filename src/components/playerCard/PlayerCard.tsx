@@ -13,13 +13,18 @@ export default function PlayerCard(): JSX.Element {
   const dispatch = useDispatch();
   const {
     name,
-    performance,
     accuracy,
     avatar,
     lvl,
   } = useSelector((state: IReducers) => state.userDataReducer);
   const setAuthPopupActive = (status: boolean) => dispatch(setAuthPopupActiveAction(status));
   const authPopupActive = useSelector((state: IReducers) => state.authPopupActiveReducer);
+  const levelTotalExperiencePoints = 5000;
+  const [playedGamesCount, accuracyValue] = String(accuracy).split('.');
+  const levelCount = lvl ? Math.floor(lvl / levelTotalExperiencePoints) : 0;
+  const levelProgressPercent = lvl
+    ? ((lvl % levelTotalExperiencePoints) / levelTotalExperiencePoints) * 100
+    : 0;
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
@@ -57,25 +62,25 @@ export default function PlayerCard(): JSX.Element {
       <div className="playerCard-info">
         <p className="playerCard-name">{name}</p>
         <p className="playerCard-performance">
-          Performance:
+          Played games:
           {' '}
-          {performance}
+          {playedGamesCount}
           {' '}
         </p>
         <p className="playerCard-accuracy">
           Accuracy:
           {' '}
-          {accuracy}
+          {accuracyValue}
           %
         </p>
         <div className="playerCard-lvl lvl">
           <p className="lvl-count">
-            lvl:
+            Level:
             {' '}
-            {lvl}
+            {levelCount}
           </p>
           <div className="lvl-bar">
-            <div className="lvl-progress" />
+            <div className="lvl-progress" style={{ width: `${levelProgressPercent}%` }} />
           </div>
         </div>
       </div>
