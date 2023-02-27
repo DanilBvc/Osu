@@ -15,6 +15,7 @@
     border-radius: 50%;
     transition: all ease 0.3s;
     transition-delay: 0.1s;
+    z-index: 1;
     &:hover {
       left: 30%;
       transform: translate(-30%, -50%);
