@@ -32,16 +32,18 @@ const userDataReducer = (state: userDataState = initialUserData, action: {
       };
     }
     case 'REMOVE_USER_DATA': {
-      state.name = null;
-      state.email = null;
-      state.avatar = null;
-      state.accessToken = null;
-      state.accuracy = null;
-      state.lvl = null;
-      state.performance = null;
-      state.uuid = null;
-      state.maps = null;
-      return state;
+      return {
+        ...state,
+        name: null,
+        email: null,
+        avatar: null,
+        accessToken: null,
+        performance: null,
+        accuracy: null,
+        lvl: null,
+        maps: null,
+        uuid: null,
+      };
     }
     case 'HANDLE_USER_MAPS': {
       if (!Array.isArray(action.payload.maps)) {
