@@ -4,9 +4,22 @@
   .login__title {
     margin-top: 8px;
   }
+
   .sing-in__button {
     min-width: 80px;
     margin: 16px 0;
     padding: 8px 16px;
   }
+}
+
+//error
+.error-msg {
+  color: #D8000C;
+  background-color: #FFBABA;
+}
+
+.error-msg {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 3px 3px 3px 3px;
 }

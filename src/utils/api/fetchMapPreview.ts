@@ -127,5 +127,8 @@ export const fetchMapPreview = async (count = 20, action = 'popular', payload?: 
     return fetchedData;
   };
 
+  if (resultData.data === undefined) {
+    return { result: null, loading: false };
+  }
   return { result: await handlePromise(), loading: false };
 };

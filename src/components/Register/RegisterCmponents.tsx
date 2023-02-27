@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from 'firebase/auth';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import setUserData from '../../store/actionCreators/userData/setUserData';
 import { auth, db, storage } from '../../firebase/firebase';
 import './registerCmponentsStyles.scss';
 
 function RegisterCmponents() {
+  const [userIsRegistered, setUserIsRegistered] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -42,8 +44,9 @@ function RegisterCmponents() {
                 lvl: 0,
                 maps: [],
               });
+              setUserIsRegistered(false);
             } catch (err) {
-              console.log(err);
+              setError(err as string);
             }
           });
         });
@@ -56,18 +59,56 @@ function RegisterCmponents() {
           avatar: user.photoURL,
           accessToken: 'user.accessToken',
           performance: 0,
-          accuracy: 0,
+          accuracy: 0.0,
           lvl: 0,
           uuid: user.uid,
           maps: [],
         }));
       }
     } catch (err) {
-      console.log(err);
+      setError(err as string);
     }
   };
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const docRef = doc(db, 'users', user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const userData = docSnap.data();
+          if (user.email !== null
+            && user.displayName !== null
+            && user.photoURL !== null) {
+            dispatch(setUserData({
+              name: user.displayName,
+              email: user.email,
+              avatar: user.photoURL,
+              accessToken: 'user.accessToken',
+              performance: userData.performance,
+              accuracy: userData.accuracy,
+              lvl: userData.lvl,
+              uuid: user.uid,
+              maps: userData.maps,
+            }));
+            if (!userIsRegistered) {
+              setUserIsRegistered(true);
+            }
+          }
+        }
+      }
+    });
+    return () => {
+      unsub();
+    };
+  }, [userIsRegistered]);
   return (
     <div>
+      {!error ? null : (
+        <div className="error-msg">
+          <i className="fa fa-times-circle"></i>
+          {error.toString()}
+        </div>
+      )}
       <div className="sing-up">
         <h1 className="auth-form-headline">Sign up</h1>
         <div>

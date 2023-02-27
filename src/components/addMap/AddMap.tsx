@@ -8,13 +8,14 @@ import AddMapNews from './addMapNews/AddMapNews';
 function AddMap() {
   const [input, setInput] = useState<string>('');
   const { state } = useLocation();
-  const location = useLocation();
   const handleInput = (
     value: React.KeyboardEvent<HTMLElement> | null,
     inputValue: string,
     mustBeRemoved?: boolean
   ) => {
-    setInput(inputValue);
+    if (value?.key === 'Enter') {
+      setInput(inputValue);
+    }
     if (mustBeRemoved) {
       setInput('');
     }
@@ -24,11 +25,6 @@ function AddMap() {
       setInput(state.input);
     }
   }, [state]);
-  useEffect(() => {
-    if (location.pathname === '/download') {
-      setInput('');
-    }
-  }, [location]);
   return (
     <>
       <AddMapHeader handleInput={handleInput} input={input} />
