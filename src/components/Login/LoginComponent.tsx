@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from '../../firebase/firebase';
 import setUserData from '../../store/actionCreators/userData/setUserData';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { doc, getDoc } from 'firebase/firestore';
 import './loginComponentStyles.scss';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -24,6 +24,7 @@ function LoginComponent() {
       const { user } = userCredential;
       const docRef = doc(db, 'users', user.uid);
       const docSnap = await getDoc(docRef);
+
       if (docSnap.exists()) {
         const userData = docSnap.data();
         if (user.email !== null && user.displayName !== null && user.photoURL !== null) {

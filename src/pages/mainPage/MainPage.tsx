@@ -17,12 +17,14 @@ import { auth, db } from '../../firebase/firebase';
 import setUserData from '../../store/actionCreators/userData/setUserData';
 import playMenuItemClickSound from '../../utils/soundsPlayHandlers/playMenuItemClickSound';
 import playMenuItemHoverSound from '../../utils/soundsPlayHandlers/playMenuItemHoverSound';
+import { setAuthLoadingAction } from '../../store/reducers/authLoadingReducer';
 
 function MainPage() {
   const dispatch = useDispatch();
   const isAuth = useSelector((state: IReducers) => !!state.userDataReducer.email);
   const userStae = useSelector((state: IReducers) => state.userDataReducer);
   const storeMapsData = useSelector((state: IReducers) => state.mapsDataReducer);
+  const setAuthLoading = (status: boolean) => dispatch(setAuthLoadingAction(status));
 
   // TODO: unite maps request with the selectPage one
   useEffect(() => {
@@ -50,6 +52,7 @@ function MainPage() {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
+        setAuthLoading(true);
         const docRef = doc(db, 'users', user.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
@@ -70,6 +73,7 @@ function MainPage() {
             }));
           }
         }
+        setAuthLoading(false);
       }
     });
     return () => {

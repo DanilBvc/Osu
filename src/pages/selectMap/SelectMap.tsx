@@ -20,6 +20,7 @@ import OsuButton from '../../components/selectMap/osuButton/OsuButton';
 import ParallaxBackground from '../../components/selectMap/parallaxBacground/ParallaxBackground';
 import './SelectMapPageStyles.scss';
 import setUserData from '../../store/actionCreators/userData/setUserData';
+import { setAuthLoadingAction } from '../../store/reducers/authLoadingReducer';
 
 function SelectMap() {
   const dispatch = useDispatch();
@@ -27,9 +28,11 @@ function SelectMap() {
   const selectedSongID = useSelector((state: IReducers) => state.songIDReducer);
   const [isAuth, setIsAuth] = useState(false);
   const state = useSelector((state: IReducers) => state.userDataReducer);
+  const setAuthLoading = (status: boolean) => dispatch(setAuthLoadingAction(status));
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
+      setAuthLoading(true);
       if (user) {
         const docRef = doc(db, 'users', user.uid);
         const docSnap = await getDoc(docRef);
@@ -52,6 +55,7 @@ function SelectMap() {
             setIsAuth(true);
           }
         }
+        setAuthLoading(false);
       }
     });
 

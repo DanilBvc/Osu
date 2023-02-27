@@ -14,5 +14,6 @@ interface IReducers {
   gameScoreReducer: IGameScore;
   songDifficultyIndexReducer: number;
   authPopupActiveReducer: boolean;
+  authLoadingReducer: boolean;
 }
 export default IReducers;

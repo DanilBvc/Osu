@@ -1,0 +1,21 @@
+@import '../../globalStyles/variables';
+
+.loading-spinner {
+  height: 50px;
+  width: 50px;
+  margin: 8px;
+  border-left: 4px solid $color-pink;
+  border-bottom: 4px solid $color-pink;
+  border-right: 4px solid $color-pink;
+  border-top: 4px solid transparent;
+  border-radius: 50%;
+  animation: spinner 1s linear infinite;
+}
+@keyframes spinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
