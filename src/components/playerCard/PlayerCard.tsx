@@ -1,13 +1,9 @@
 import './playerCard.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { onAuthStateChanged } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
-import { useEffect } from 'react';
 import IReducers from '../../types/reducers/reducersType';
 import userAvatarPlaceHolder from '../../assets/images/userAvatarPlaceholderImage.png';
-import { auth, db } from '../../firebase/firebase';
-import setUserData from '../../store/actionCreators/userData/setUserData';
 import { setAuthPopupActiveAction } from '../../store/reducers/authPopupActiveReducer';
+import useUnsub from '../../customHooks/useUnsub';
 
 export default function PlayerCard(): JSX.Element {
   const dispatch = useDispatch();
@@ -26,35 +22,7 @@ export default function PlayerCard(): JSX.Element {
     ? ((lvl % levelTotalExperiencePoints) / levelTotalExperiencePoints) * 100
     : 0;
 
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const docRef = doc(db, 'users', user.uid);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          const userData = docSnap.data();
-          if (user.email !== null
-            && user.displayName !== null
-            && user.photoURL !== null) {
-            dispatch(setUserData({
-              name: user.displayName,
-              email: user.email,
-              avatar: user.photoURL,
-              accessToken: 'user.accessToken',
-              performance: userData.performance,
-              accuracy: userData.accuracy,
-              lvl: userData.lvl,
-              uuid: user.uid,
-              maps: userData.maps,
-            }));
-          }
-        }
-      }
-    });
-    return () => {
-      unsub();
-    };
-  }, []);
+  useUnsub();
 
   return (
     <div className="playerCard" onClick={() => setAuthPopupActive(!authPopupActive)} role="button" tabIndex={0}>

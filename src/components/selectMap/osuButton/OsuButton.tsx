@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import {
@@ -30,12 +29,6 @@ function OsuButton() {
     playAudio(currentAudioSource);
   }, [currentAudioSource]);
 
-  useEffect(() => {
-    if (audioAnalyser && !animationID.current) {
-      buttonAnimation(audioAnalyser);
-    }
-  }, [audioAnalyser]);
-
   function buttonAnimation(analyser: AnalyserNode) {
     frequencyData = new Uint8Array(analyser.frequencyBinCount);
     analyser.getByteFrequencyData(frequencyData);
@@ -52,6 +45,11 @@ function OsuButton() {
     animationID.current = window.requestAnimationFrame(buttonAnimation.bind(undefined, analyser));
   }
 
+  useEffect(() => {
+    if (audioAnalyser && !animationID.current) {
+      buttonAnimation(audioAnalyser);
+    }
+  }, [audioAnalyser]);
   return (
     <div
       className="osu-button pulse-animation"

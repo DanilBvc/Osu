@@ -1,9 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useEffect, useRef, useState } from 'react';
-import uuid from 'react-uuid';
-import { Link, Navigate } from 'react-router-dom';
-import { INewsData } from '../../../types/mapsDataTypes/mapsDataFromApiTypes';
-import { Result, fetchMapPreview } from '../../../utils/api/fetchMapPreview';
+import { Result } from '../../../types/mapsDataTypes/mapsDataFromApiTypes';
+import fetchMapPreview from '../../../utils/api/fetchMapPreview';
 import AddMapBlock from '../addMapMain/addMapBlock/AddMapBlock';
 
 function AddMapNews() {

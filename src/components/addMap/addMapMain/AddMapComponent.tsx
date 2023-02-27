@@ -3,7 +3,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import useInfiniteScroll from '../../../customHooks/useInfiniteScroll';
-import { Result, fetchMapPreview } from '../../../utils/api/fetchMapPreview';
+import { Result } from '../../../types/mapsDataTypes/mapsDataFromApiTypes';
+import fetchMapPreview from '../../../utils/api/fetchMapPreview';
 import AddMapBlock from './addMapBlock/AddMapBlock';
 
 interface IProps {
@@ -47,6 +48,7 @@ function AddMapComponent({ input }: IProps) {
       }
     });
   }, [count, input]);
+
   const handleAudio = (audio: string) => {
     const audioElement = new Audio(audio);
     if (audioStatusRef.current) {

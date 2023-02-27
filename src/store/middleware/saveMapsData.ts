@@ -1,5 +1,4 @@
 import { Dispatch } from 'redux';
-import { userDataState } from '../../types/userDataTypes/userData';
 import IMapData from '../../types/mapsDataTypes/mapsDataTypes';
 
 const saveMapsData = (store: IMapData[]) => (next: Dispatch) => (action: {

@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
@@ -37,7 +36,13 @@ function AddMapHeader({ handleInput, input }: IProps) {
               className="nav-search-input"
               type="text"
             />
-            <div className="clear-input" onClick={() => { handleClear(); }}></div>
+            <div
+              role="button"
+              tabIndex={0}
+              className="clear-input"
+              onClick={() => { handleClear(); }}
+            >
+            </div>
           </>
         ) : null}
       </div>

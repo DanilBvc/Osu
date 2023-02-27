@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 /* eslint-disable no-unused-expressions */
 import { useRef, useState } from 'react';
 import './player.scss';

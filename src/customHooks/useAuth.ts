@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux';
-import { userDataState } from '../types/userDataTypes/userData';
 import IReducers from '../types/reducers/reducersType';
 
 const useAuth = () => {

@@ -69,6 +69,7 @@ function RegisterCmponents() {
       setError(err as string);
     }
   };
+
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {

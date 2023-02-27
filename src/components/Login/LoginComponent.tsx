@@ -1,13 +1,12 @@
-/* eslint-disable import/order */
 /* eslint-disable @typescript-eslint/no-shadow */
+import { useLocation, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth, db } from '../../firebase/firebase';
-import setUserData from '../../store/actionCreators/userData/setUserData';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { doc, getDoc } from 'firebase/firestore';
+import setUserData from '../../store/actionCreators/userData/setUserData';
+import { auth, db } from '../../firebase/firebase';
 import './loginComponentStyles.scss';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 function LoginComponent() {
   const [email, setEmail] = useState('');

@@ -1,6 +1,5 @@
 /* eslint-disable default-param-last */
 import { userDataState } from '../../../types/userDataTypes/userData';
-/* eslint-disable no-param-reassign */
 import initialUserData from '../../initialState/UserDataState';
 
 const userDataReducer = (state: userDataState = initialUserData, action: {

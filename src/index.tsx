@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import App from './App';
 import store from './store/store';
 import { AudioContextWrapperProvider } from './contexts/audioContextWrapper';
-// eslint-disable-next-line import/no-unresolved
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

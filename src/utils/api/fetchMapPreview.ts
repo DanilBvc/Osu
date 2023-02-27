@@ -1,69 +1,10 @@
-/* eslint-disable default-param-last */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-import { BeatData } from '../../types/mapsDataTypes/mapsDataFromApiTypes';
-
+/* eslint-disable default-param-last */
 /* eslint-disable no-await-in-loop */
-export interface BigData {
-  AR: number;
-  CS: number;
-  HP: number;
-  OD: number;
-  aim: number;
-  audio: string;
-  bg: string;
-  bid: number;
-  circles: number;
-  hit300window: number;
-  img: string;
-  length: number;
-  maxcombo: number;
-  mode: number;
-  passcount: number;
-  playcount: number;
-  pp: number;
-  pp_acc: number;
-  pp_aim: number;
-  pp_speed: number;
-  sliders: number;
-  speed: number;
-  spinners: number;
-  star: number;
-  strain_aim: string;
-  strain_speed: string;
-  version: string;
-}
-export interface ResponseItem {
-  approved: number;
-  approved_date: number;
-  artist: string;
-  artistU: string;
-  bid_data: BigData[];
-  bids_amount: number;
-  bpm: number;
-  creator: string;
-  creator_id: number;
-  favourite_count: number;
-  genre: number;
-  language: number;
-  last_update: number;
-  local_update: number;
-  preview: number;
-  sid: number;
-  source: string;
-  storyboard: number;
-  tags: string;
-  title: string;
-  titleU: string;
-  video: number;
-}
-export interface Result {
-  images: string;
-  audio: string;
-  beatMapInfo: ResponseItem;
-  id: string;
-}
-export const fetchMapPreview = async (count = 20, action = 'popular', payload?: {
+
+import { ResponseItem, Result, BigData } from '../../types/mapsDataTypes/mapsDataFromApiTypes';
+
+const fetchMapPreview = async (count = 20, action = 'popular', payload?: {
   classification?: number;
   language?: number;
   search?: string;
@@ -132,3 +73,5 @@ export const fetchMapPreview = async (count = 20, action = 'popular', payload?: 
   }
   return { result: await handlePromise(), loading: false };
 };
+
+export default fetchMapPreview;
