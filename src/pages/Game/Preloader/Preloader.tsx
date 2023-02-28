@@ -53,7 +53,6 @@ export default function Preloader({ animationTime }: PreloaderProps): JSX.Elemen
         strokeWidth={20}
         lineCap="round"
       />
-
     </Group>
   );
 }

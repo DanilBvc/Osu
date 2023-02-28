@@ -1,9 +1,7 @@
-/* eslint-disable no-debugger */
 import { useRef, useEffect, useState } from 'react';
 import { Stage, Layer } from 'react-konva';
 import { useDispatch, useSelector } from 'react-redux';
 import Konva from 'konva';
-
 import {
   arrayUnion, doc, getDoc, updateDoc
 } from 'firebase/firestore';
@@ -33,7 +31,6 @@ export default function Game(): JSX.Element {
   const speedMultiplier = 0.4;
   const { ApproachRate, OverallDifficulty } = mapData.mapData[gameId].difficulty;
   const { hitObjects, timingPoints, colors } = mapData.mapData[gameId];
-  // dispatch(resetGameAction());
   const layerRef = useRef<Konva.Layer>(null);
   const gameElements = useUpdate(
     hitObjects,
@@ -51,6 +48,10 @@ export default function Game(): JSX.Element {
     if (audioRef.current) {
       audioRef.current.play();
     }
+
+    return () => {
+      dispatch(resetGameAction());
+    };
   }, []);
 
   const [inGame, setInGame] = useState<boolean>(true);
@@ -113,7 +114,6 @@ export default function Game(): JSX.Element {
           }
         }
       } else {
-        // doc.data() will be undefined in this case
         console.log('No such document!');
       }
     }

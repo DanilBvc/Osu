@@ -1,19 +1,15 @@
-/* eslint-disable react/jsx-no-useless-fragment */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable array-callback-return */
+/* eslint-disable consistent-return */
 import { Layer } from 'konva/lib/Layer';
 import React, {
   useCallback, useEffect, useState
 } from 'react';
 
-import { useSelector } from 'react-redux';
 import { IResultMessage, UpdatedObject } from '../../types/gameTypes';
 import GameCircle from './Circle/Circle';
 import ScoreText from './ScoreText/ScoreText';
 import GameSlider from './Slider/Slider';
-import Spinner from './Spinner/Spinner';
-
 import { defaultSounds } from '../../constants/constants';
-import VictoryComponent from '../../components/victory/VictoryComponent';
 
 interface IHitObjectsProps {
   objects: UpdatedObject[];
@@ -63,7 +59,7 @@ export default function HitObjects({
   const removeMessage = useCallback((id: string | undefined) => {
     setResultsMessages(resultsMessages.filter((message) => message.id !== id));
   }, []);
-  // VictoryComponent
+
   return (
     <>
 
@@ -102,54 +98,9 @@ export default function HitObjects({
               />
             );
           }
-
-          return (
-            <Spinner
-              handleHitSound={handleHitSound}
-              key={object.unKey}
-              model={object}
-              colors={colors}
-              layerRef={layerRef}
-            />
-          );
         })
       }
 
     </>
   );
 }
-
-// {objectToRender.map((object: UpdatedObject) => {
-//   if (object.type === 'slider') {
-//     return (
-//       <GameSlider
-//         handleHitSound={handleHitSound}
-//         key={object.unKey}
-//         model={object}
-//         colors={colors}
-//         layerRef={layerRef}
-//       />
-//     );
-//   }
-//   if (object.type === 'circle') {
-//     return (
-//       <GameCircle
-//         handleHitSound={handleHitSound}
-//         key={object.unKey}
-//         colors={colors}
-//         model={object}
-//         layerRef={layerRef}
-//         messageHandler={messageHandler}
-//       />
-//     );
-//   }
-//   return (
-//     <Spinner
-//       handleHitSound={handleHitSound}
-//       key={object.unKey}
-//       model={object}
-//       colors={colors}
-//       layerRef={layerRef}
-//     />
-//   );
-// })}

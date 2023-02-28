@@ -1,7 +1,6 @@
 import Konva from 'konva';
 import React, { useEffect, useRef } from 'react';
 import { Circle } from 'react-konva';
-import { IRadiusRingProps } from '../../../types/gameTypes';
 
 function RadiusRing(): JSX.Element {
   const radiusRef = useRef<Konva.Circle | null>(null);

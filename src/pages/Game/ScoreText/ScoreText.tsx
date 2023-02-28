@@ -1,14 +1,12 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import React, { useEffect, useRef } from 'react';
 import Konva from 'konva';
-import {
-  Group, Line, Circle, Text
-} from 'react-konva';
+import { Text } from 'react-konva';
 import { IResultMessage } from '../../../types/gameTypes';
 
 interface ScoreTextProps {
   message: IResultMessage;
   removeMessage: (id: string | undefined) => void;
+
 }
 
 function ScoreText({ message, removeMessage }: ScoreTextProps) {
@@ -39,7 +37,6 @@ function ScoreText({ message, removeMessage }: ScoreTextProps) {
       onClick={() => textRef.current?.destroy()}
       ref={textRef}
       text={text.toString()}
-      // visible={visible}
       fontSize={50}
       x={x}
       y={y}
