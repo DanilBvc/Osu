@@ -1,10 +1,12 @@
-import { Images, AudioFromApi, MapData } from './mapsDataFromApiTypes';
+import {
+  Images, AudioFromApi, MapData, topPlayerItem
+} from './mapsDataFromApiTypes';
 
 interface IMapData {
   mapName: string | null;
   audio: string | null;
   images: Images[];
-  topPlayers: string[] | [];
+  topPlayers: { [key: string]: [] | topPlayerItem[] }[] | [];
   additionalAudio: AudioFromApi[] | [];
   id: string | null;
   mapData: MapData[];
