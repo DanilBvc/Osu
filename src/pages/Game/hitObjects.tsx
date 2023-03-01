@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable array-callback-return */
 /* eslint-disable consistent-return */
 import { Layer } from 'konva/lib/Layer';
 import React, {
   useCallback, useEffect, useState
 } from 'react';
-
 import { IResultMessage, UpdatedObject } from '../../types/gameTypes';
 import GameCircle from './Circle/Circle';
 import ScoreText from './ScoreText/ScoreText';
@@ -28,7 +28,6 @@ export default function HitObjects({
 }: IHitObjectsProps) {
   const [objectToRender, setObjectToRender] = useState<UpdatedObject[]>([]);
   const [resultsMessages, setResultsMessages] = useState<IResultMessage[]>([]);
-
   const timeUpdate = () => {
     if (audioRef.current) {
       const currentTime = +(audioRef.current.currentTime * 1000).toFixed(0);
