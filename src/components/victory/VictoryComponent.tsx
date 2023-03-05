@@ -24,6 +24,7 @@ function VictoryComponent() {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         const userName = userData.name;
+        const userImg = userData.avatar;
         const userScore = gameScore.points;
         const currentMapDiff = mapsData.mapData[gameId].metadata.Version;
         const difficultyDataFromBd = JSON.parse(JSON.stringify(docSnap.get(currentMapDiff)));
@@ -35,7 +36,7 @@ function VictoryComponent() {
               userImg: string;
               userScore: number;
             }) => {
-              if (user.userName === userName) {
+              if (user.userName === userName && user.userImg === userImg) {
                 newUser = false;
                 if (userScore > user.userScore) {
                   return {

@@ -11,6 +11,18 @@ import uploadImageByBytes from '../uploadMap/uploadByBytes/uploadImageByBytes';
 import uploadAudioByBytes from '../uploadMap/uploadByBytes/uploadAudioByBytes';
 import uploadVideoByBytes from '../uploadMap/uploadByBytes/uploadVideoByBytes';
 
+const documentExist = async (collection: string, document: string) => {
+  const docRef = doc(db, collection, document);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.data() === undefined) {
+    const mapsDataRef = doc(db, collection, document);
+    setDoc(mapsDataRef, {
+      id: document,
+    });
+    return mapsDataRef;
+  }
+  return docRef;
+};
 const getMapDataFromApi = async (mapId: number, mapName: string) => {
   const regex = /[^a-zа-я0-9]+/gi;
   const splittedId = mapId.toString().split('');
@@ -31,15 +43,9 @@ const getMapDataFromApi = async (mapId: number, mapName: string) => {
   const request = fetch(url)
     .then((response) => response.blob())
     .then(JSZip.loadAsync)
-    .then((zip) => {
-      const mapsDataRef = doc(db, 'maps', id);
-      const topMapRef = doc(db, 'top', id);
-      setDoc(mapsDataRef, {
-        id,
-      });
-      setDoc(topMapRef, {
-        id,
-      });
+    .then(async (zip) => {
+      const mapsDataRef = await documentExist('maps', id);
+      const topMapRef = await documentExist('top', id);
       zip.forEach((entry) => {
         if (entry !== null) {
           const file = zip.file(entry);
@@ -54,28 +60,28 @@ const getMapDataFromApi = async (mapId: number, mapName: string) => {
                   });
                 }
               });
-              await updateDoc(doc(db, 'maps', id), {
+              await updateDoc(mapsDataRef, {
                 [`mapData ${file.name.replace(regex, '').trim()}`]: JSON.stringify(mapData),
               });
             });
           } else if (file !== null && (fileExtension === 'jpg' || fileExtension === 'png')) {
             file.async('uint8array').then(async (data) => {
               const images = await uploadImageByBytes(data, id, file.name);
-              await updateDoc(doc(db, 'maps', id), {
+              await updateDoc(mapsDataRef, {
                 [`images ${file.name.replace(regex, '').trim()}`]: images,
               });
             });
           } else if (file !== null && (fileExtension.toLowerCase() === 'mp3' || fileExtension === 'wav' || fileExtension === 'ogg')) {
             file.async('uint8array').then(async (data) => {
               const audio = await uploadAudioByBytes(data, id, file.name, fileExtension);
-              await updateDoc(doc(db, 'maps', id), {
+              await updateDoc(mapsDataRef, {
                 [`audio ${file.name.replace(regex, '').trim()}`]: audio,
               });
             });
           } else if (file !== null && (fileExtension === 'mp4' || fileExtension === 'avi')) {
             file.async('uint8array').then(async (data) => {
               const video = await uploadVideoByBytes(data, id, file.name, fileExtension);
-              await updateDoc(doc(db, 'maps', id), {
+              await updateDoc(mapsDataRef, {
                 [`video ${file.name.replace(regex, '').trim()}`]: video,
               });
             });
