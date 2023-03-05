@@ -54,8 +54,12 @@ const fetchMapPreview = async (count = 20, action = 'popular', payload?: {
     const fetchedData = await Promise.all(res).then((data: any) => {
       let result: Result[] | [] = [];
       data.forEach((item: any) => {
-        const imgUrl = `https://cdn.sayobot.cn:25225/beatmaps/${item.data.sid}/covers/cover.webp`;
-        const audioPreviewUrl = `https://cdn.sayobot.cn:25225/preview/${item.data.sid}.mp3`;
+        //  const imgUrl = `https://cdn.sayobot.cn:25225/beatmaps/${item.data.sid}/covers/cover.webp`;
+        // const audioPreviewUrl = `https://cdn.sayobot.cn:25225/preview/${item.data.sid}.mp3`;
+
+        const imgUrl = `https://de1.sayobot.cn/beatmaps/${item.data.sid}/covers/cover.webp`;
+        const audioPreviewUrl = `https://de1.sayobot.cn/preview/${item.data.sid}.mp3`;
+
         result = [...result, {
           images: imgUrl,
           audio: audioPreviewUrl,
