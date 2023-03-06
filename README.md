@@ -17,12 +17,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 In the project directory, you need to place a ".env.local" file and configure the following variables:
 
 ```javascript
-REACT_APP_FIREBASE_API_KEY = AIzaSyB2O39i7HL1YRq1nBAY9H1alB8iqomQ2LA
-REACT_APP_FIREBASE_AUTH_DOMAIN = osu-game-87995.firebaseapp.com
-REACT_APP_FIREBASE_PROJECT_ID = osu-game-87995
-REACT_APP_FIREBASE_STORAGE_BUCKET = osu-game-87995.appspot.com
-REACT_APP_FIREBASE_MESSAGING_SENDER_ID = 41336759227
-REACT_APP_FIREBASE_APP_ID = 1:413367592277:web:d2e22d02af3e691141fbdc
+REACT_APP_FIREBASE_API_KEY = 
+REACT_APP_FIREBASE_AUTH_DOMAIN = 
+REACT_APP_FIREBASE_PROJECT_ID = 
+REACT_APP_FIREBASE_STORAGE_BUCKET = 
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID = 
+REACT_APP_FIREBASE_APP_ID = 
 ```
 
 ## Available Scripts
